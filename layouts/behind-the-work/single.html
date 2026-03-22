@@ -1,4 +1,7 @@
 {{ define "main" }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <div class="blog-container" style="max-width: 40%; margin: 0 auto; padding: 2rem 0;">
   <article>
     <header style="text-align: center; margin-bottom: 3rem;">
@@ -6,9 +9,33 @@
       <time style="color: #888;">{{ .Date.Format "Jan 02, 2006" }}</time>
     </header>
 
+    <div class="swiper mySwiper" style="margin-bottom: 3rem;">
+        <div class="swiper-wrapper">
+            {{ range .Resources.ByType "image" }}
+                {{ if not .Params.hidden }} 
+                <div class="swiper-slide">
+                    <img src="{{ .RelPermalink }}" style="width: 100%; height: auto; display: block; border-radius: 8px;">
+                </div>
+                {{ end }}
+            {{ end }}
+        </div>
+        <div class="swiper-button-next" style="color: #000;"></div>
+        <div class="swiper-button-prev" style="color: #000;"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+
     <div class="post-content" style="line-height: 2.2; font-size: 1.1rem; color: #333;">
       {{ .Content }}
     </div>
   </article>
 </div>
+
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    loop: true,
+    autoHeight: true, // 关键：让容器高度自动适应当前图片
+    pagination: { el: ".swiper-pagination", clickable: true },
+    navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+  });
+</script>
 {{ end }}

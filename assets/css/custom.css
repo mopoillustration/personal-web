@@ -61,3 +61,48 @@
     margin: 1rem auto;
     border-radius: 4px;
 }
+
+/* --- 5. Behind the Work: 精准自适应滑动容器 --- */
+.mySwiper {
+    width: 100%;
+    height: auto !important; /* 强制高度跟随内容 */
+    background: transparent;
+    margin: 0 auto 1.5rem; /* 缩小滑动容器与文字的整体距离 */
+    overflow: visible;      /* 允许分页圆点溢出到容器外 */
+}
+
+.swiper-wrapper {
+    height: auto !important; /* 确保包裹层不带多余高度 */
+}
+
+.swiper-slide {
+    height: auto !important;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
+
+/* 重新定位分页圆点，让它紧贴图片底部，不占用下方额外空间 */
+.swiper-pagination {
+    position: relative !important; /* 改为相对定位，不撑开容器高度 */
+    bottom: 0 !important;
+    margin-top: 15px; /* 图片与圆点之间的微小间距 */
+}
+
+/* --- 6. 正文文本段落间距 --- */
+.post-content p {
+    margin-bottom: 2.2rem; /* 这里的值建议与你的 line-height 一致，实现“空一行”的效果 */
+}
+
+.post-content p:last-child {
+    margin-bottom: 0; /* 最后一个段落不需要下边距 */
+}
+
+/* 调整小圆点颜色 */
+.swiper-pagination-bullet-active {
+    background: #000 !important;
+}
