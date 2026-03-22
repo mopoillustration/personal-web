@@ -2,10 +2,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<div class="blog-container" style="max-width: 40%; margin: 0 auto; padding: 2rem 0;">
+<div class="blog-container responsive-blog-container" style="max-width: 40%; margin: 0 auto; padding: 2rem 0;">
   <article>
     <header style="text-align: center; margin-bottom: 3rem;">
-      <h1 style="font-weight: 800; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ .Title }}</h1>
+      <h1 class="responsive-title" style="font-weight: 800; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ .Title }}</h1>
       <time style="color: #888;">{{ .Date.Format "Jan 02, 2006" }}</time>
     </header>
 
@@ -33,7 +33,7 @@
 <script>
   var swiper = new Swiper(".mySwiper", {
     loop: true,
-    autoHeight: true, // 关键：让容器高度自动适应当前图片
+    autoHeight: true,
     pagination: { el: ".swiper-pagination", clickable: true },
     navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
   });
