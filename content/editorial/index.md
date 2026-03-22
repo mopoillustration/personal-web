@@ -1,7 +1,7 @@
 ---
 title: Editorial Illustration
-description: Illustrations for articles, essays, and news.
-weight: 2
+description: Editorial illustrations made for articles on topics including lifestyle, psychology, relationships, work, and technology.
+weight: 3
 private: True
 
 menus: main

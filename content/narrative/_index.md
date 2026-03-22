@@ -1,8 +1,8 @@
 ---
 title: "Narrative Illustration"
-description: "Visual storytelling and series."
+description: "A collection of narrative illustration projects centered on emotion, atmosphere, and everyday storytelling."
 menus: "main"
-weight: 1
+weight: 2
 
 resources:
   # 这里的 src 路径必须相对于当前的 _index.md 文件

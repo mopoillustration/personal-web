@@ -1,12 +1,20 @@
 ---
 title: "Cozy Time"
-date: 2026-01-31
-description: A series exploring the quiet moments of daily life. # 相册的简短描述
+description: "Cozy Time is a collage-style illustration project capturing the warmth and comfort of everyday life."
+date: 2026-03-22
 resources:
   - src: graphics/Baking.jpg
-    title: Baking icons
+    title: "Baking Time"
   - src: graphics/Beach.jpg
-    title: Beach icons
-    params:
-      cover: true
+    title: "Beach Time"
+  - src: graphics/Brunch.jpg
+    title: "Brunch Time"
+  - src: graphics/Camping.jpg
+    title: "Camping Time"
+  - src: graphics/Night.jpg
+    title: "Night Time"
+  - src: graphics/Room_time.jpg
+    title: "Room Time"
+  - src: graphics/Winter.jpg
+    title: "Winter Time"
 ---

@@ -15,27 +15,29 @@ defaultContentLanguage = "en" # 默认显示英文
   defaultTheme = "hell"
   description = "Example site for hugo-theme-gallery"
   title = "My Gallery"
+  copyright = "© 2026 Mopo Illustration. All Rights Reserved."
   [params.author]
     email = "user@example.com"
     name = "Mopo"
   [params.socialIcons]
-    instagram = "https://www.instagram.com/mopo_mopo_?igsh=cGU2Zm51bW5yYmls&utm_source=qr"
+    instagram = "https://www.instagram.com/mopo_illustration?igsh=cGU2Zm51bW5yYmls&utm_source=qr"
     email = "mailto:mopoillustration@gmail.com"
-    behance = "https://www.behance.net/你的账号" # 临时添加的
-		
+    # behance = "https://www.behance.net/你的账号" # 临时添加的
+
+
   [params.gallery]
     #boxSpacing = 10
-    #targetRowHeight = 288
+    targetRowHeight = 288
     #targetRowHeightTolerance = 0.25
-	
+
 [outputs]
   home = ["HTML", "RSS"]
   page = ["HTML"]
   section = ["HTML"]
 
 [imaging]
-  quality = 75
-  resampleFilter = "CatmullRom"
+  quality = 90
+  resampleFilter = "Lanczos"
   [imaging.exif]
     disableDate = false
     disableLatLong = true
@@ -43,10 +45,6 @@ defaultContentLanguage = "en" # 默认显示英文
 
 
 [menu]
-  [[menu.footer]]
-    name = "GitHub"
-    url = "https://github.com/nicokaiser/hugo-theme-gallery/"
-    weight = 3
 
 [services]
   [services.rss]

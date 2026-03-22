@@ -1,55 +1,63 @@
-/* 标题容器居中 */
+/* --- 1. 首页标题区域：压缩间距 --- */
 .home-custom-header {
     text-align: center;
-    margin: 3rem auto;
+    margin: 1.5rem auto 1rem; /* 缩小了上下边距，原为 3rem */
     max-width: 900px;
+    overflow: visible;
 }
 
-/* 第一行：加粗黑体 */
 .title-line-1 {
     font-size: 2rem;
     font-weight: 800;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem; /* 缩小行间距 */
     color: #000;
 }
 
-/* 第二行：不加粗、斜体、字号稍小 */
 .title-line-2 {
     font-size: 1.1rem;
     font-weight: 400;
     font-style: italic;
     margin-top: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem; /* 缩小行间距 */
     color: #333;
 }
 
-/* 第三行：副标题（描述文字） */
 .title-line-3 {
     font-size: 0.75rem;
     color: #333;
-    margin-bottom: 4rem;
+    margin-bottom: 1.5rem; /* 大幅缩小标题与大图的间距，原为 4rem */
 }
 
-/* 静态大图样式：修正居中问题 */
+/* --- 2. 首页大图样式：限制高度以防止滚动 --- */
 .home-hero-image img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 55vh; /* 限制图片高度为屏幕高度的 55%，确保底栏可见 */
+    width: auto;      /* 配合 max-height 实现等比例缩放 */
     height: auto;
     border-radius: 8px;
     display: block;
+    margin: 0 auto;   /* 居中显示 */
 }
 
-/* 防止大图导致横向滚动条 */
-.home-custom-header {
+/* --- 3. 底部区域 (Footer)：版权与图标 --- */
+.footer {
     text-align: center;
-    margin: 3rem auto;
-    max-width: 900px;
-    overflow: visible;    /* 允许图片溢出容器宽度 */
+    padding: 1rem 0 2rem; /* 压缩底部留白 */
+    margin-top: 1rem;      /* 缩小与大图的间距 */
 }
 
+.copyright-text {
+    margin-top: 10px;      /* 社交图标与版权文字的间距 */
+    font-size: 0.75rem;
+    color: #888;
+    letter-spacing: 0.5px;
+}
+
+/* --- 4. 内页图片样式 --- */
 .post-content img {
-    max-width: 60%;  /* 图片最大宽度为容器的 60% */
+    max-width: 60%;
     height: auto;
     display: block;
-    margin: 1rem auto; /* 居中显示 */
-    border-radius: 4px; /* 可选：圆角 */
+    margin: 1rem auto;
+    border-radius: 4px;
 }

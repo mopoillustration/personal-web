@@ -1,0 +1,21 @@
+<footer class="footer">
+  <div class="footer-content">
+    {{ partial "social-icons.html" . }}
+    
+    <p class="copyright-text">{{ .Site.Params.copyright }}</p>
+  </div>
+</footer>
+
+<style>
+.footer {
+  text-align: center;
+  padding: 1rem 0 2rem; /* 缩小底部留白 */
+  margin-top: 1rem;      /* 缩小与上方内容的间距 */
+}
+.copyright-text {
+  margin-top: 15px;      /* 图标和文字之间的距离 */
+  font-size: 0.75rem;
+  color: #888;
+  letter-spacing: 0.5px;
+}
+</style>
