@@ -1,5 +1,5 @@
 ---
-title: Hi! I am Mopo.
+title: Hi! I'm Mopo.
 subtitle: "Narrative & Editorial Illustrator"
 description: "I use illustration as a narrative tool, traslating text and lived experience into visual stories."
 
