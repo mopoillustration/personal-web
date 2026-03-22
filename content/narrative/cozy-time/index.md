@@ -1,5 +1,6 @@
 ---
 title: "Cozy Time"
+weight: 30
 description: "Cozy Time is a collage-style illustration project capturing the warmth and comfort of everyday life."
 date: 2026-03-22
 resources:
