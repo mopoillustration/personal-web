@@ -5,11 +5,4 @@ weight: 4
 private: True
 
 menus: main
-resources:
-  - src: graphics/1-1.jpg
-
-  - src: graphics/1-2.jpg
-
-  - src: graphics/1-9.jpg
-
 ---
