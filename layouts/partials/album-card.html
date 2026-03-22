@@ -1,0 +1,22 @@
+{{ $gallery := partial "get-gallery.html" . }}
+{{ with $gallery }}
+  <a class="card" href="{{ .page.RelPermalink }}" title="{{ .page.Title }}">
+    <figure style="background-color: {{ .color }}">
+      <img class="lazyload" width="{{ .thumbnail.Width }}" height="{{ .thumbnail.Height }}" data-src="{{ .thumbnail.RelPermalink }}" alt="{{ .page.Title }}" />
+    </figure>
+    <div>
+      <h2 style="font-weight: 700;">{{ .page.Title }}</h2>
+      <p>
+        {{ if eq .page.Section "behind-the-work" }}
+          {{ .page.Date.Format "Jan 02, 2006" }}
+        {{ else }}
+          {{ if gt .albumCount 0 }}
+            {{ T "albumCount" (dict "count" (.albumCount | lang.FormatNumber 0) "photoCount" (.imageCount | lang.FormatNumber 0 | lang.Translate "photoCount")) }}
+          {{ else }}
+            {{ T "photoCount" (.imageCount | lang.FormatNumber 0) }}
+          {{ end }}
+        {{ end }}
+      </p>
+    </div>
+  </a>
+{{ end }}

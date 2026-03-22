@@ -1,0 +1,23 @@
+{{ define "main" }}
+  <header class="home-custom-header">
+    <h1 class="title-line-1">{{ .Title }}</h1>
+    
+    {{ with .Params.subtitle }}
+    <h2 class="title-line-2">{{ . }}</h2>
+    {{ end }}
+    
+    <p class="title-line-3">{{ .Description }}</p>
+    
+    <div class="home-hero-image">
+			<img src="{{ "images/homepage-hero.jpg" | absURL }}" alt="Mopo Illustration Hero">
+		</div>
+  </header>
+
+  {{ partial "categories.html" }}
+  
+  <section class="galleries">
+    {{ range where .Pages "Params.private" "ne" true }}
+      {{ partial "album-card.html" . }}
+    {{ end }}
+  </section>
+{{ end }}

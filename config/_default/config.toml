@@ -1,0 +1,56 @@
+baseURL = "https://mopoillustration.github.io/personal-web/"
+theme = "gallery"
+defaultContentLanguage = "en" # 默认显示英文
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    contentDir = "content/"
+    weight = 1
+    title = "Mopo Illustration"
+    [languages.en.params]
+      description = "Illustration portfolio of Mopo"
+	  
+[params]
+  defaultTheme = "hell"
+  description = "Example site for hugo-theme-gallery"
+  title = "My Gallery"
+  [params.author]
+    email = "user@example.com"
+    name = "Mopo"
+  [params.socialIcons]
+    instagram = "https://www.instagram.com/mopo_mopo_?igsh=cGU2Zm51bW5yYmls&utm_source=qr"
+    email = "mailto:mopoillustration@gmail.com"
+    behance = "https://www.behance.net/你的账号" # 临时添加的
+		
+  [params.gallery]
+    #boxSpacing = 10
+    #targetRowHeight = 288
+    #targetRowHeightTolerance = 0.25
+	
+[outputs]
+  home = ["HTML", "RSS"]
+  page = ["HTML"]
+  section = ["HTML"]
+
+[imaging]
+  quality = 75
+  resampleFilter = "CatmullRom"
+  [imaging.exif]
+    disableDate = false
+    disableLatLong = true
+    includeFields = "ImageDescription|Orientation"
+
+
+[menu]
+  [[menu.footer]]
+    name = "GitHub"
+    url = "https://github.com/nicokaiser/hugo-theme-gallery/"
+    weight = 3
+
+[services]
+  [services.rss]
+    limit = 100
+		
+[markup.goldmark.renderer]
+unsafe = true

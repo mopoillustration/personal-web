@@ -1,6 +1,7 @@
 # 忽略 Hugo 自动生成的文件夹
 public/
 resources/
+content_temp/
 .hugo_build.temp/
 
 # 忽略操作系统临时文件

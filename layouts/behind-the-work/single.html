@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="blog-container" style="max-width: 40%; margin: 0 auto; padding: 2rem 0;">
+  <article>
+    <header style="text-align: center; margin-bottom: 3rem;">
+      <h1 style="font-weight: 800; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ .Title }}</h1>
+      <time style="color: #888;">{{ .Date.Format "Jan 02, 2006" }}</time>
+    </header>
+
+    <div class="post-content" style="line-height: 2.2; font-size: 1.1rem; color: #333;">
+      {{ .Content }}
+    </div>
+  </article>
+</div>
+{{ end }}

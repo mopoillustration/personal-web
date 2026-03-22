@@ -1,0 +1,55 @@
+/* 标题容器居中 */
+.home-custom-header {
+    text-align: center;
+    margin: 3rem auto;
+    max-width: 900px;
+}
+
+/* 第一行：加粗黑体 */
+.title-line-1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 0.2rem;
+    color: #000;
+}
+
+/* 第二行：不加粗、斜体、字号稍小 */
+.title-line-2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-style: italic;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+/* 第三行：副标题（描述文字） */
+.title-line-3 {
+    font-size: 0.75rem;
+    color: #333;
+    margin-bottom: 4rem;
+}
+
+/* 静态大图样式：修正居中问题 */
+.home-hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+}
+
+/* 防止大图导致横向滚动条 */
+.home-custom-header {
+    text-align: center;
+    margin: 3rem auto;
+    max-width: 900px;
+    overflow: visible;    /* 允许图片溢出容器宽度 */
+}
+
+.post-content img {
+    max-width: 60%;  /* 图片最大宽度为容器的 60% */
+    height: auto;
+    display: block;
+    margin: 1rem auto; /* 居中显示 */
+    border-radius: 4px; /* 可选：圆角 */
+}
