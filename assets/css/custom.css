@@ -107,33 +107,32 @@
     background: #000 !important;
 }
 
-/* --- 7. 移动端专属适配 (仅在屏幕小于 768px 时生效) --- */
-@media (max-width: 767px) {
-    /* 1. 强制容器宽度从 40% 变回 90% */
+/* --- 7. 全移动端适配补丁 (包含手机与 iPad) --- */
+@media (max-width: 1024px) {
+    /* 1. 针对 iPad 和手机，将宽度从 40% 扩大，避免内容太窄 */
     .responsive-blog-container {
-        max-width: 92% !important; 
-        padding: 1rem 0 !important;
+        max-width: 90% !important; 
+        padding: 1.5rem 0 !important;
     }
 
-    /* 2. 缩小手机端标题字号，防止换行太散 */
+    /* 2. 稍微缩小标题，适配移动端屏幕 */
     .responsive-title {
-        font-size: 1.8rem !important;
-        line-height: 1.3 !important;
+        font-size: 2rem !important; /* iPad 上 2rem 比较合适 */
     }
 
-    /* 3. 稍微调低手机端行间距，更适合阅读 */
-    .post-content {
-        line-height: 1.8 !important;
-        font-size: 1rem !important;
+    /* 3. 在更小的屏幕（手机）上进一步优化 */
+    @media (max-width: 600px) {
+        .responsive-title {
+            font-size: 1.6rem !important; /* 手机上进一步缩小 */
+        }
+        .post-content {
+            line-height: 1.8 !important; /* 手机行间距紧凑点 */
+            font-size: 1rem !important;
+        }
     }
 
-    /* 4. 确保手机端普通图片也是全宽 */
+    /* 4. 移动端普通图片全宽显示 */
     .post-content img {
         max-width: 100% !important;
-    }
-    
-    /* 5. 隐藏手机端滑动翻页箭头（手机一般直接用手划，箭头占地方） */
-    .swiper-button-next, .swiper-button-prev {
-        display: none !important;
     }
 }
