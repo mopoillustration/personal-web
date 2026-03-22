@@ -1,0 +1,15 @@
+# 忽略 Hugo 自动生成的文件夹
+public/
+resources/
+.hugo_build.temp/
+
+# 忽略操作系统临时文件
+.DS_Store
+Thumbs.db
+
+# 忽略你的原画大文件（根据你的文件格式补充）
+*.psd
+*.tiff
+*.procreate
+*.clip
+*.zip
