@@ -1,7 +1,7 @@
 ---
 title: Hi! I'm Mopo.
 subtitle: "Narrative & Editorial Illustrator"
-description: "I use illustration as a narrative tool, traslating text and lived experience into visual stories."
+description: "I use illustration as a narrative tool, translating text and lived experience into visual stories."
 
 # 用于社交媒体分享时的预览图
 resources:
