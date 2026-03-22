@@ -1,4 +1,4 @@
-baseURL = "https://mopoillustration.github.io/personal-web/"
+baseURL = "https://mopo-illustration.com"
 theme = "gallery"
 defaultContentLanguage = "en" # 默认显示英文
 
