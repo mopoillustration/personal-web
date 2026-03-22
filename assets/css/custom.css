@@ -1,7 +1,7 @@
 /* --- 1. 首页标题区域：压缩间距 --- */
 .home-custom-header {
     text-align: center;
-    margin: 1.5rem auto 1rem; /* 缩小了上下边距，原为 3rem */
+    margin: 1.5rem auto 1rem;
     max-width: 900px;
     overflow: visible;
 }
@@ -9,8 +9,8 @@
 .title-line-1 {
     font-size: 2rem;
     font-weight: 800;
-    margin-bottom: 0.1rem; /* 缩小行间距 */
-    color: #000;
+    margin-bottom: 0.1rem;
+    color: #000; /* 白天默认黑色 */
 }
 
 .title-line-2 {
@@ -18,36 +18,36 @@
     font-weight: 400;
     font-style: italic;
     margin-top: 0;
-    margin-bottom: 0.2rem; /* 缩小行间距 */
+    margin-bottom: 0.2rem;
     color: #333;
 }
 
 .title-line-3 {
     font-size: 0.75rem;
     color: #333;
-    margin-bottom: 1.5rem; /* 大幅缩小标题与大图的间距，原为 4rem */
+    margin-bottom: 1.5rem;
 }
 
-/* --- 2. 首页大图样式：限制高度以防止滚动 --- */
+/* --- 2. 首页大图样式 --- */
 .home-hero-image img {
     max-width: 100%;
-    max-height: 55vh; /* 限制图片高度为屏幕高度的 55%，确保底栏可见 */
-    width: auto;      /* 配合 max-height 实现等比例缩放 */
+    max-height: 55vh;
+    width: auto;
     height: auto;
     border-radius: 8px;
     display: block;
-    margin: 0 auto;   /* 居中显示 */
+    margin: 0 auto;
 }
 
-/* --- 3. 底部区域 (Footer)：版权与图标 --- */
+/* --- 3. 底部区域 (Footer) --- */
 .footer {
     text-align: center;
-    padding: 1rem 0 2rem; /* 压缩底部留白 */
-    margin-top: 1rem;      /* 缩小与大图的间距 */
+    padding: 1rem 0 2rem;
+    margin-top: 1rem;
 }
 
 .copyright-text {
-    margin-top: 10px;      /* 社交图标与版权文字的间距 */
+    margin-top: 10px;
     font-size: 0.75rem;
     color: #888;
     letter-spacing: 0.5px;
@@ -65,17 +65,13 @@
 /* --- 5. Behind the Work: 精准自适应滑动容器 --- */
 .mySwiper {
     width: 100%;
-    height: auto !important; /* 强制高度跟随内容 */
+    height: auto !important;
     background: transparent;
-    margin: 0 auto 1.5rem; /* 缩小滑动容器与文字的整体距离 */
-    overflow: visible;      /* 允许分页圆点溢出到容器外 */
+    margin: 0 auto 1.5rem;
+    overflow: visible;
 }
 
-.swiper-wrapper {
-    height: auto !important; /* 确保包裹层不带多余高度 */
-}
-
-.swiper-slide {
+.swiper-wrapper, .swiper-slide {
     height: auto !important;
 }
 
@@ -86,53 +82,74 @@
     border-radius: 8px;
 }
 
-/* 重新定位分页圆点，让它紧贴图片底部，不占用下方额外空间 */
 .swiper-pagination {
-    position: relative !important; /* 改为相对定位，不撑开容器高度 */
+    position: relative !important;
     bottom: 0 !important;
-    margin-top: 15px; /* 图片与圆点之间的微小间距 */
+    margin-top: 15px;
 }
 
 /* --- 6. 正文文本段落间距 --- */
 .post-content p {
-    margin-bottom: 2.2rem; /* 这里的值建议与你的 line-height 一致，实现“空一行”的效果 */
+    margin-bottom: 2.2rem;
+    color: #333; /* 白天默认深灰色 */
 }
 
 .post-content p:last-child {
-    margin-bottom: 0; /* 最后一个段落不需要下边距 */
+    margin-bottom: 0;
 }
 
-/* 调整小圆点颜色 */
 .swiper-pagination-bullet-active {
     background: #000 !important;
 }
 
 /* --- 7. 全移动端适配补丁 (包含手机与 iPad) --- */
 @media (max-width: 1024px) {
-    /* 1. 针对 iPad 和手机，将宽度从 40% 扩大，避免内容太窄 */
     .responsive-blog-container {
         max-width: 90% !important; 
         padding: 1.5rem 0 !important;
     }
 
-    /* 2. 稍微缩小标题，适配移动端屏幕 */
     .responsive-title {
-        font-size: 2rem !important; /* iPad 上 2rem 比较合适 */
+        font-size: 2rem !important;
     }
 
-    /* 3. 在更小的屏幕（手机）上进一步优化 */
     @media (max-width: 600px) {
         .responsive-title {
-            font-size: 1.6rem !important; /* 手机上进一步缩小 */
+            font-size: 1.6rem !important;
         }
         .post-content {
-            line-height: 1.8 !important; /* 手机行间距紧凑点 */
+            line-height: 1.8 !important;
             font-size: 1rem !important;
         }
     }
 
-    /* 4. 移动端普通图片全宽显示 */
     .post-content img {
         max-width: 100% !important;
+    }
+}
+
+/* --- 8. 核心修复：黑夜模式适配补丁 --- */
+@media (prefers-color-scheme: dark) {
+    /* 首页标题在黑夜模式下变白 */
+    .title-line-1, .title-line-2, .title-line-3 {
+        color: #ffffff !important;
+    }
+
+    /* Behind the Work 标题和正文在黑夜模式下变白 */
+    .responsive-title, .post-content, .post-content p {
+        color: #eeeeee !important;
+    }
+
+    /* 滑动容器的分页点在黑色背景下改为白色，否则看不见 */
+    .swiper-pagination-bullet {
+        background: #666 !important;
+    }
+    .swiper-pagination-bullet-active {
+        background: #fff !important;
+    }
+
+    /* 顶部导航文字同步变白 */
+    .navbar-brand, .nav-link, .navbar-menu-btn {
+        color: #ffffff !important;
     }
 }
