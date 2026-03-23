@@ -8,9 +8,9 @@
     
     <p class="title-line-3">{{ .Description }}</p>
     
-    <div class="home-hero-image">
-			<img src="{{ "images/homepage-hero.jpg" | absURL }}" alt="Mopo Illustration Hero">
-		</div>
+    <div class="home-hero-image" id="hero-image-trigger">
+        <img src="{{ "images/homepage-hero.jpg" | absURL }}" alt="Mopo Illustration Hero">
+    </div>
   </header>
 
   {{ partial "categories.html" }}
@@ -20,4 +20,54 @@
       {{ partial "album-card.html" . }}
     {{ end }}
   </section>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const trigger = document.getElementById('hero-image-trigger');
+      const menuBtn = document.querySelector('.icon-menu')?.closest('a, button, .menu-toggle') || document.querySelector('.icon-menu');
+      let openTimer; 
+      let hasTriggered = false; // 状态开关：记录本页面访问中是否已经触发过
+
+      if (trigger && menuBtn) {
+          // --- 电脑端：带延迟的开启逻辑 ---
+          trigger.addEventListener('mouseenter', () => {
+              // 如果已经触发过，或者菜单当前是开启状态，则不再执行任何逻辑
+              if (hasTriggered) return;
+
+              openTimer = setTimeout(() => {
+                  const isMenuOpen = document.body.classList.contains('menu-open') || 
+                                     document.documentElement.classList.contains('menu-open') ||
+                                     document.body.classList.contains('is-menu-active');
+                
+                  // 核心逻辑：只有在菜单关闭时才点开，且标记为已触发
+                  if (!isMenuOpen) {
+                      menuBtn.click();
+                      hasTriggered = true; // 锁定状态，使其不再通过滑过触发
+                  }
+              }, 500); // 建议稍微加长到 500ms，让体验更稳重
+          });
+
+          trigger.addEventListener('mouseleave', () => {
+              clearTimeout(openTimer);
+          });
+
+          // --- 统一交互：点击图片仅作为单次开启 ---
+          trigger.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              clearTimeout(openTimer);
+
+              const isMenuOpen = document.body.classList.contains('menu-open') || 
+                                 document.documentElement.classList.contains('menu-open') ||
+                                 document.body.classList.contains('is-menu-active');
+
+              // 只有在菜单关闭时点图片才会打开，且一旦点击过也标记为已触发
+              if (!isMenuOpen) {
+                  menuBtn.click();
+                  hasTriggered = true;
+              }
+          });
+      }
+  });
+  </script>
 {{ end }}

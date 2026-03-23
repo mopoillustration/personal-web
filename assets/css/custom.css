@@ -179,3 +179,16 @@
         color: #ffffff !important;
     }
 }
+
+/* --- 9. 首页大图交互手势 --- */
+#hero-image-trigger {
+    cursor: pointer; /* 强制显示小手 */
+}
+
+#hero-image-trigger img {
+    transition: opacity 0.3s ease;
+}
+
+#hero-image-trigger:hover img {
+    opacity: 0.9; /* 悬停时稍微变暗或变亮，给用户反馈 */
+}
