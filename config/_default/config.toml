@@ -15,7 +15,7 @@ defaultContentLanguage = "en" # 默认显示英文
   defaultTheme = "hell"
   description = "Example site for hugo-theme-gallery"
   title = "My Gallery"
-  copyright = "© 2026 Mopo Illustration. All Rights Reserved."
+  copyright = "© 2026 Mopo. All Rights Reserved."
   [params.author]
     email = "user@example.com"
     name = "Mopo"

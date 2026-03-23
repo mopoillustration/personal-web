@@ -56,18 +56,27 @@
     }
 }
 
-/* --- 3. 底部区域 (Footer) --- */
+/* --- 3. 底部区域 (Footer) 极致压缩版 --- */
 .footer {
     text-align: center;
-    padding: 0.5rem 0 !important;
-    margin-top: 0.25rem;
+    padding: 0.2rem 0 0.8rem !important; /* 再次缩小上下内边距 */
+    margin-top: 0.2rem; /* 紧随图片 */
 }
 
 .copyright-text {
-    margin-top: 0.2rem;
-    font-size: 0.9rem;
-    color: #888;
-    letter-spacing: 0.75px;
+    margin-top: 5px; /* 图标与版权文字的间距 */
+    margin-bottom: 0; /* 确保下方链接紧随其后 */
+}
+
+/* 黑夜模式适配 */
+@media (prefers-color-scheme: dark) {
+    .footer-legal-links, .footer-link {
+        color: #666 !important;
+    }
+    .footer-link:hover {
+        color: #fff !important;
+        border-bottom-color: #fff !important;
+    }
 }
 
 /* --- 4. 内页图片样式 --- */
