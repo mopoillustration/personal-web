@@ -19,8 +19,8 @@ My work focuses on **editorial illustration** and **picture book storytelling**,
 
 ---
 
-### Selected Projects
-* **Ongoing** | *A Better Day*, *Oh! My Teeth*
+### My Projects
+* **Ongoing** | *A Better Day*, *Oh! My Teeth*, *Jumping Dopamine 2026*
 * **Completed** | *Self-Talk as Night Falls*, *Jumping Dopamine*, *Dopamine Doses*, *Cozy Time*
 
 ---
