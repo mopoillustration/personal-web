@@ -267,3 +267,55 @@
     .blog-title { color: #fff; }
     .page-link { color: #fff; border-color: #fff; }
 }
+
+/* --- 12. About Me 页面排版优化 --- */
+.about-content-wrapper {
+    max-width: 650px; /* 限制宽度，提升长文本阅读体验 */
+    margin: 0 auto;
+    line-height: 1.8;
+    color: #333;
+}
+
+.about-content-wrapper h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+.about-content-wrapper blockquote {
+    border-left: 3px solid #000;
+    margin: 0 0 2rem 0;
+    padding-left: 1.5rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.about-content-wrapper h3 {
+    margin-top: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.about-content-wrapper hr {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 2rem 0;
+}
+
+.about-content-wrapper ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.about-content-wrapper li {
+    margin-bottom: 0.5rem;
+}
+
+/* 黑夜模式适配 */
+@media (prefers-color-scheme: dark) {
+    .about-content-wrapper, .about-content-wrapper h1 { color: #eee !important; }
+    .about-content-wrapper blockquote { border-color: #eee; color: #aaa; }
+    .about-content-wrapper hr { border-color: #333; }
+}
