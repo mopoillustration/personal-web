@@ -1,40 +1,42 @@
 /**
- * 修复画廊灯箱返回键退出页面的 Bug
- * 逻辑：打开图片时 pushState，按返回键时执行关闭动作
+ * 增强版：修复手机端滑动返回退出页面的 Bug
  */
-document.addEventListener('DOMContentLoaded', function() {
-    // 自动检测主题中常见的灯箱关闭按钮和容器
-    // 根据截图，通常会有 .pswp__button--close 或 .close-btn
-    const getCloseButton = () => document.querySelector('.pswp__button--close, .lg-close, .modal-close, .close-button');
+(function() {
+    let isInternalClose = false;
 
-    // 1. 监听全局点击，捕获开启灯箱的瞬间
+    // 1. 监听灯箱开启
     document.addEventListener('click', function(e) {
-        // 如果点击的是图片或带有特定类的容器（触发了灯箱）
-        if (e.target.closest('.album-grid img, .gallery-item, [data-gallery]')) {
-            // 给浏览器历史记录塞入一个“虚假”的页码
-            if (!history.state || history.state.lightbox !== 'open') {
-                history.pushState({ lightbox: 'open' }, '');
-            }
+        // 匹配你的图片或画廊点击目标
+        const isGalleryClick = e.target.closest('.album-grid img, .gallery-item, [data-gallery], .swiper-slide img');
+        
+        if (isGalleryClick) {
+            // 立即改变 URL Hash，这在手机端是非常强的“历史记录点”
+            window.location.hash = "view-image";
         }
     }, true);
 
-    // 2. 监听浏览器“后退”指令（包括手机滑动手势）
-    window.addEventListener('popstate', function(event) {
-        const closeBtn = getCloseButton();
-        // 如果检测到当前灯箱是开启的（通过判断关闭按钮是否存在且可见）
-        if (closeBtn && (closeBtn.offsetWidth > 0 || closeBtn.offsetHeight > 0)) {
-            closeBtn.click(); // 执行主题自带的关闭逻辑
-            // 已经在 popstate 中了，不需要再次 pushState
-        }
-    });
-
-    // 3. 防冗余处理：如果用户手动点“X”关闭，我们要同步清理历史记录
-    document.addEventListener('click', function(e) {
-        const closeBtn = getCloseButton();
-        if (closeBtn && closeBtn.contains(e.target)) {
-            if (history.state && history.state.lightbox === 'open') {
-                history.back(); 
+    // 2. 核心拦截：监听 Hash 变化（涵盖了滑动返回和后退键）
+    window.addEventListener('hashchange', function() {
+        const closeBtn = document.querySelector('.pswp__button--close, .lg-close, .modal-close, .close-button');
+        
+        // 如果 Hash 消失了（说明用户按了返回），且灯箱还开着
+        if (window.location.hash !== "#view-image") {
+            if (closeBtn && (closeBtn.offsetWidth > 0 || closeBtn.offsetHeight > 0)) {
+                isInternalClose = true;
+                closeBtn.click(); // 模拟点击关闭按钮
             }
         }
     });
-});
+
+    // 3. 处理用户手动点击“X”关闭的情况
+    document.addEventListener('click', function(e) {
+        const closeBtn = document.querySelector('.pswp__button--close, .lg-close, .modal-close, .close-button');
+        if (closeBtn && closeBtn.contains(e.target)) {
+            // 如果用户手动关了，我们需要把 Hash 清掉，否则下次返回会出问题
+            if (window.location.hash === "#view-image") {
+                isInternalClose = true;
+                history.back();
+            }
+        }
+    });
+})();
