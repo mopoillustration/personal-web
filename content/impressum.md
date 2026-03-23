@@ -7,4 +7,24 @@ layout: "single"
 #   priority: 0.1
 ---
 
-这里输入你的法律声明文字、联系方式或地址信息。
+Information according to § 5 DDG
+
+Name:
+Bowen Fan
+
+Artist name:
+Mopo
+
+Address:
+Leipziger Str. 33 
+34125 Kassel
+Germany
+
+Email: mopoillustration@gmail.com
+
+VAT ID: DE4598 98890
+
+Responsible for content according to § 18 Abs. 2 MStV:
+Bowen Fan
+Leipziger Str. 33, 34125, Kassel
+Germany
