@@ -31,10 +31,10 @@ My work focuses on **editorial illustration** and **picture book storytelling**,
 
 ---
 
-### Artistic Practice
+### Media
 In my practice, I work across both traditional and digital media. 
 
-* **Traditional Materials:** For picture book illustration, I usually choose traditional media, which allow me to create images with a more delicate, intimate, and tactile quality. 
+* **Colored Pencil:** For picture book illustration, I usually work in colored pencil, which allows me to create images with a more delicate, intimate, and tactile quality. 
 * **Digital (Procreate):** For editorial illustration, I often work digitally, which offers the flexibility and efficiency needed for commercial projects and revisions.
 
 ---
