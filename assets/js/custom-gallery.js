@@ -41,31 +41,47 @@
     });
 })();
 
-/* 公告栏逻辑：重新打开网页即出现 */
+/* 公告栏逻辑：兼容 PC 与 移动端触摸 */
 (function() {
-    document.addEventListener('DOMContentLoaded', function() {
+    // 使用一个统一的隐藏函数
+    function setupAnnouncement() {
         const bar = document.getElementById('announcement-bar');
         const closeBtn = document.getElementById('close-announcement');
-        const header = document.querySelector('header'); // 确保选择器正确
-        const menuBtn = document.querySelector('.icon-menu'); // 确保选择器正确
+        const header = document.querySelector('header, .header, .navbar'); 
+        const menuBtn = document.querySelector('.icon-menu, .menu-toggle');
+
+        if (!bar || !closeBtn) return;
 
         function hideBar() {
-            if (bar) bar.style.display = 'none';
+            bar.style.display = 'none';
             document.body.style.paddingTop = '0';
-            // 恢复 Header 和菜单的位置
             if (header) header.style.top = '0';
-            if (menuBtn) menuBtn.style.top = ''; // 恢复 CSS 原本的设置
+            if (menuBtn) menuBtn.style.top = ''; 
+            sessionStorage.setItem('hideAnnouncement', 'true');
         }
 
-        if (bar && closeBtn) {
-            if (sessionStorage.getItem('hideAnnouncement') === 'true') {
-                hideBar();
-            }
-
-            closeBtn.addEventListener('click', function() {
-                hideBar();
-                sessionStorage.setItem('hideAnnouncement', 'true');
-            });
+        // 检查初始状态
+        if (sessionStorage.getItem('hideAnnouncement') === 'true') {
+            hideBar();
         }
-    });
+
+        // 核心修复：同时监听点击和触摸事件
+        const closeActions = ['click', 'touchstart'];
+        
+        closeActions.forEach(eventType => {
+            closeBtn.addEventListener(eventType, function(e) {
+                // 防止某些浏览器同时触发两个事件
+                e.preventDefault(); 
+                e.stopPropagation();
+                hideBar();
+            }, { passive: false });
+        });
+    }
+
+    // 确保在页面加载完成后运行
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupAnnouncement);
+    } else {
+        setupAnnouncement();
+    }
 })();
