@@ -13,14 +13,20 @@
                 <h3 class="blog-title">{{ .Title }}</h3>
                 <span class="blog-date">{{ .Date.Format "Jan 02, 2006" }}</span>
             </div>
+
+            {{ $hasCover := .Params.cover }}
+            {{ $hasResource := .Resources.ByType "image" }}
+            
+            {{ if or $hasCover $hasResource }}
             <div class="blog-thumbnail">
-                {{ if .Params.cover }}
+                {{ if $hasCover }}
                     <img src="{{ .Params.cover | relURL }}" alt="{{ .Title }}">
-                {{ else if .Resources.ByType "image" }}
-                    {{ $firstImage := index (.Resources.ByType "image") 0 }}
+                {{ else }}
+                    {{ $firstImage := index ($hasResource) 0 }}
                     <img src="{{ $firstImage.RelPermalink }}" alt="{{ .Title }}">
                 {{ end }}
             </div>
+            {{ end }}
         </a>
         {{ end }}
     </div>
