@@ -17,7 +17,7 @@ defaultContentLanguage = "en" # 默认显示英文
   title = "My Gallery"
   copyright = "© 2026 Mopo. All Rights Reserved."
   disableGoogleFonts = true
-  favicon = "favicon.png"
+  favicon = "images/favicon.png"
 
   [params.author]
     email = "user@example.com"
