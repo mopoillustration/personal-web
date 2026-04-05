@@ -26,22 +26,26 @@ header, .header, .nav-container, .navbar {
     top: 0;
     left: 0;
     width: 100%;
-    height: 40px;
+    height: 40px !important; /* 强制固定高度，防止被文字撑开 */
     background: #000;
     color: #fff;
-    z-index: 10001; /* 确保高于导航栏 */
+    z-index: 10001;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 40px 0 20px;
     box-sizing: border-box;
+    overflow: hidden; /* 核心：防止垂直堆叠时撑开背景 */
 }
 
+/* 强制让内部容器不换行 */
 .announcement-content {
     display: flex;
     align-items: center;
+    flex-wrap: nowrap; /* 禁止换行 */
     overflow: hidden;
-    white-space: nowrap; /* 强制单行显示 */
+/* 确保文字滚动区域不会盖住按钮 */
+    margin-right: 20px; /* 为右侧按钮留出固定空间 */
 }
 
 .announcement-tag {
@@ -58,27 +62,26 @@ header, .header, .nav-container, .navbar {
 .announcement-slider {
     height: 40px;
     overflow: hidden;
+    flex-grow: 1; /* 让滚动区域占满剩余空间 */
 }
 
 .announcement-item {
+    white-space: nowrap; /* 核心：强制文字单行显示，防止截图中的换行问题 */
     display: block;
-    color: #fff;
-    text-decoration: none;
-    font-size: 0.85rem;
     line-height: 40px;
     height: 40px;
-    /* 针对 2 条内容优化的 7 秒循环动画 */
-    animation: announcement-scroll 7s infinite;
+    animation: announcement-scroll 7s infinite; /* 别忘了加上动画引用 */
+}
+
+/* 针对只有 1 条内容的情况取消动画 */
+.announcement-slider a:first-child:nth-last-child(1) {
+    animation: none !important;
 }
 
 @keyframes announcement-scroll {
     0%, 45% { transform: translateY(0); }
     50%, 95% { transform: translateY(-40px); }
     100% { transform: translateY(0); }
-}
-
-.announcement-slider a:first-child:nth-last-child(1) {
-    animation: none !important;
 }
 
 /* 增强关闭按钮的感应范围 */
@@ -100,9 +103,9 @@ header, .header, .nav-container, .navbar {
     -webkit-tap-highlight-color: transparent; /* 去除手机端点击阴影 */
 }
 
-/* 确保文字滚动区域不会盖住按钮 */
-.announcement-content {
-    margin-right: 20px; /* 为右侧按钮留出固定空间 */
+/* 如果公告栏被隐藏了，修正 body 间距 */
+body.no-announcement {
+    padding-top: 0 !important;
 }
 
 /* ==========================================================================

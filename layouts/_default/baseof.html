@@ -28,6 +28,15 @@
       <button id="close-announcement" class="announcement-close">&times;</button>
     </div>
 
+    <script>
+    // 在页面渲染前判断，防止视觉闪烁
+    if (sessionStorage.getItem('hideAnnouncement') !== 'true') {
+        document.getElementById('announcement-bar').style.display = 'flex';
+    } else {
+        document.body.classList.add('no-announcement');
+    }
+    </script>
+
     {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
     <main>
       {{ block "main" . }}{{ end }}
