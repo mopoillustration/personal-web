@@ -40,3 +40,32 @@
         }
     });
 })();
+
+/* 公告栏逻辑：重新打开网页即出现 */
+(function() {
+    document.addEventListener('DOMContentLoaded', function() {
+        const bar = document.getElementById('announcement-bar');
+        const closeBtn = document.getElementById('close-announcement');
+        const header = document.querySelector('header'); // 确保选择器正确
+        const menuBtn = document.querySelector('.icon-menu'); // 确保选择器正确
+
+        function hideBar() {
+            if (bar) bar.style.display = 'none';
+            document.body.style.paddingTop = '0';
+            // 恢复 Header 和菜单的位置
+            if (header) header.style.top = '0';
+            if (menuBtn) menuBtn.style.top = ''; // 恢复 CSS 原本的设置
+        }
+
+        if (bar && closeBtn) {
+            if (sessionStorage.getItem('hideAnnouncement') === 'true') {
+                hideBar();
+            }
+
+            closeBtn.addEventListener('click', function() {
+                hideBar();
+                sessionStorage.setItem('hideAnnouncement', 'true');
+            });
+        }
+    });
+})();

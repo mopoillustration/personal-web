@@ -16,6 +16,8 @@ defaultContentLanguage = "en" # 默认显示英文
   description = "Example site for hugo-theme-gallery"
   title = "My Gallery"
   copyright = "© 2026 Mopo. All Rights Reserved."
+  disableGoogleFonts = true
+
   [params.author]
     email = "user@example.com"
     name = "Mopo"
@@ -23,7 +25,6 @@ defaultContentLanguage = "en" # 默认显示英文
     instagram = "https://www.instagram.com/mopo_illustration?igsh=cGU2Zm51bW5yYmls&utm_source=qr"
     email = "mailto:mopoillustration@gmail.com"
     # behance = "https://www.behance.net/你的账号" # 临时添加的
-
 
   [params.gallery]
     #boxSpacing = 10

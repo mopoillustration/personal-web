@@ -1,0 +1,37 @@
+<!doctype html>
+{{- $theme := .Params.theme | default .Site.Params.defaultTheme }}
+<html class="{{- if (eq $theme "light") -}}light{{- else if (eq $theme "dark") }}dark{{ end }}" lang="{{- site.LanguageCode | default "en" -}}">
+  {{ partial "head.html" . }}
+  <body>
+    <div id="announcement-bar" class="announcement-bar">
+      <div class="announcement-content">
+        <span class="announcement-tag">NEW</span>
+        <div class="announcement-slider">
+          {{ $allRegular := where .Site.RegularPages "Section" "ne" "about" }}
+          {{ $thirtyDaysAgo := now.AddDate 0 0 -30 }}
+          {{/* 优先找30天内的，没找到就从全站找 */}}
+          {{ $filtered := where $allRegular "Lastmod" "ge" $thirtyDaysAgo }}
+          {{ if lt (len $filtered) 1 }}
+            {{ $filtered = $allRegular }}
+          {{ end }}
+
+          {{/* 严格限制只循环输出 2 个元素 */}}
+          {{ range first 2 $filtered.ByLastmod.Reverse }}
+              {{ $sectionPage := $.Site.GetPage "section" .Section }}
+              {{ $sectionName := $sectionPage.Title | default (.Section | humanize) }}
+              <a href="{{ .RelPermalink }}" class="announcement-item">
+                  Latest: {{ $sectionName }} / {{ .Title }} ({{ .Lastmod.Format "Jan 02" }})
+              </a>
+          {{ end }}
+        </div>
+      </div>
+      <button id="close-announcement" class="announcement-close">&times;</button>
+    </div>
+
+    {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
+    <main>
+      {{ block "main" . }}{{ end }}
+    </main>
+    {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
+  </body>
+</html>
