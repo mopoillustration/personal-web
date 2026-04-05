@@ -66,6 +66,7 @@ header, .header, .nav-container, .navbar {
 }
 
 .announcement-item {
+    font-size: 0.8rem; /* 原来可能是 0.85rem，调小到 0.75rem 会更精致 */
     white-space: nowrap; /* 核心：强制文字单行显示，防止截图中的换行问题 */
     display: block;
     line-height: 40px;
