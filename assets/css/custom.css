@@ -81,14 +81,28 @@ header, .header, .nav-container, .navbar {
     animation: none !important;
 }
 
+/* 增强关闭按钮的感应范围 */
 .announcement-close {
     position: absolute;
-    right: 10px;
+    right: 0;
+    top: 0;
+    width: 40px;      /* 增加点击宽度 */
+    height: 40px;     /* 增加点击高度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: none;
-    color: #fff;
+    color: #fff !important;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    z-index: 10002;   /* 确保在所有内容的最上层 */
+    -webkit-tap-highlight-color: transparent; /* 去除手机端点击阴影 */
+}
+
+/* 确保文字滚动区域不会盖住按钮 */
+.announcement-content {
+    margin-right: 20px; /* 为右侧按钮留出固定空间 */
 }
 
 /* ==========================================================================

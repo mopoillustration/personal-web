@@ -41,47 +41,55 @@
     });
 })();
 
-/* 公告栏逻辑：兼容 PC 与 移动端触摸 */
+/* 公告栏逻辑：极致灵敏版 */
 (function() {
-    // 使用一个统一的隐藏函数
     function setupAnnouncement() {
         const bar = document.getElementById('announcement-bar');
         const closeBtn = document.getElementById('close-announcement');
-        const header = document.querySelector('header, .header, .navbar'); 
-        const menuBtn = document.querySelector('.icon-menu, .menu-toggle');
-
+        
         if (!bar || !closeBtn) return;
 
+        // 统一隐藏逻辑
         function hideBar() {
-            bar.style.display = 'none';
+            // 1. 立即从视觉上隐藏，不做任何等待
+            bar.style.cssText = "display: none !important;";
             document.body.style.paddingTop = '0';
+
+            // 2. 尝试恢复导航栏位置（增加严格检查，防止报错）
+            const header = document.querySelector('header, .header, .navbar');
+            const menuBtn = document.querySelector('.icon-menu, .menu-toggle');
+            
             if (header) header.style.top = '0';
-            if (menuBtn) menuBtn.style.top = ''; 
+            if (menuBtn) menuBtn.style.top = '';
+
+            // 3. 最后写入存储
             sessionStorage.setItem('hideAnnouncement', 'true');
         }
 
-        // 检查初始状态
+        // 初始检查
         if (sessionStorage.getItem('hideAnnouncement') === 'true') {
             hideBar();
         }
 
-        // 核心修复：同时监听点击和触摸事件
-        const closeActions = ['click', 'touchstart'];
-        
-        closeActions.forEach(eventType => {
-            closeBtn.addEventListener(eventType, function(e) {
-                // 防止某些浏览器同时触发两个事件
-                e.preventDefault(); 
+        // 绑定关闭事件
+        const handleClose = function(e) {
+            // 阻止冒泡和默认行为，确保点击只作用于关闭按钮
+            if (e) {
+                e.preventDefault();
                 e.stopPropagation();
-                hideBar();
-            }, { passive: false });
-        });
+            }
+            hideBar();
+        };
+
+        // 同时绑定 PC 和 移动端事件
+        closeBtn.addEventListener('click', handleClose);
+        closeBtn.addEventListener('touchstart', handleClose, { passive: false });
     }
 
-    // 确保在页面加载完成后运行
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupAnnouncement);
-    } else {
+    // 确保 DOM 加载后立即执行
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
         setupAnnouncement();
+    } else {
+        document.addEventListener('DOMContentLoaded', setupAnnouncement);
     }
 })();
