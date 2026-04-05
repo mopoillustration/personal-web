@@ -72,6 +72,8 @@ header, .header, .nav-container, .navbar {
     line-height: 40px;
     height: 40px;
     animation: announcement-scroll 7s infinite; /* 别忘了加上动画引用 */
+    text-overflow: ellipsis; /* 当文字过长时，显示省略号 */
+    padding-right: 10px;    /* 为省略号留出一点呼吸空间 */
 }
 
 /* 针对只有 1 条内容的情况取消动画 */

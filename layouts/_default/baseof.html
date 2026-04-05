@@ -20,7 +20,7 @@
               {{ $sectionPage := $.Site.GetPage "section" .Section }}
               {{ $sectionName := $sectionPage.Title | default (.Section | humanize) }}
               <a href="{{ .RelPermalink }}" class="announcement-item">
-                  Latest: {{ $sectionName }} / {{ .Title }} ({{ .Lastmod.Format "Jan 02" }})
+                  Latest ({{ .Lastmod.Format "Jan 02" }}): {{ $sectionName }} / {{ .Title }}
               </a>
           {{ end }}
         </div>
