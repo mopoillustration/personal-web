@@ -62,18 +62,25 @@ header, .header, .nav-container, .navbar {
 .announcement-slider {
     height: 40px;
     overflow: hidden;
-    flex-grow: 1; /* 让滚动区域占满剩余空间 */
+    flex-grow: 1;
+    /* 确保容器不会被内部的长文字强制撑宽 */
+    min-width: 0; 
 }
 
 .announcement-item {
-    font-size: 0.8rem; /* 原来可能是 0.85rem，调小到 0.75rem 会更精致 */
-    white-space: nowrap; /* 核心：强制文字单行显示，防止截图中的换行问题 */
+    font-size: 0.8rem;
+    white-space: nowrap;
     display: block;
     line-height: 40px;
     height: 40px;
-    animation: announcement-scroll 7s infinite; /* 别忘了加上动画引用 */
-    text-overflow: ellipsis; /* 当文字过长时，显示省略号 */
-    padding-right: 10px;    /* 为省略号留出一点呼吸空间 */
+    /* 核心修复：必须加上这一行 */
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    
+    /* 配合 Flex 布局的稳定性 */
+    min-width: 0; 
+    padding-right: 15px; /* 给右侧留出足够空间放置省略号 */
+    animation: announcement-scroll 7s infinite;
 }
 
 /* 针对只有 1 条内容的情况取消动画 */
