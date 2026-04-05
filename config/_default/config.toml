@@ -10,13 +10,14 @@ defaultContentLanguage = "en" # 默认显示英文
     title = "Mopo Illustration"
     [languages.en.params]
       description = "Illustration portfolio of Mopo"
-	  
+    
 [params]
   defaultTheme = "hell"
   description = "Example site for hugo-theme-gallery"
   title = "My Gallery"
   copyright = "© 2026 Mopo. All Rights Reserved."
   disableGoogleFonts = true
+  favicon = "favicon.png"
 
   [params.author]
     email = "user@example.com"
