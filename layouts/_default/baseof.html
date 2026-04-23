@@ -17,11 +17,18 @@
 
           {{/* 严格限制只循环输出 2 个元素 */}}
           {{ range first 2 $filtered.ByLastmod.Reverse }}
-              {{ $sectionPage := $.Site.GetPage "section" .Section }}
-              {{ $sectionName := $sectionPage.Title | default (.Section | humanize) }}
-              <a href="{{ .RelPermalink }}" class="announcement-item">
-                  Latest ({{ .Lastmod.Format "Jan 02" }}): {{ $sectionName }} / {{ .Title }}
-              </a>
+            {{ $sectionPage := $.Site.GetPage "section" .Section }}
+            {{ $sectionName := $sectionPage.Title | default (.Section | humanize) }}
+      
+            <a href="{{ .RelPermalink }}" class="announcement-item">
+              Latest ({{ .Lastmod.Format "Jan 02" }}): 
+              {{/* 逻辑：如果是顶级页面（如 Editorial），只显示自己；如果有父级且不是首页，显示“父级/自己” */}}
+              {{ if or (eq .Title $sectionName) (eq $sectionName "Hi! I'm Mopo.") }}
+                {{ .Title }}
+              {{ else }}
+                {{ $sectionName }} / {{ .Title }}
+              {{ end }}
+            </a>
           {{ end }}
         </div>
       </div>
