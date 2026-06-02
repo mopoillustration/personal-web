@@ -5,7 +5,14 @@
       <img class="lazyload" width="{{ .thumbnail.Width }}" height="{{ .thumbnail.Height }}" data-src="{{ .thumbnail.RelPermalink }}" alt="{{ .page.Title }}" />
     </figure>
     <div>
-      <h2 style="font-weight: 700;">{{ .page.Title }}</h2>
+      <h2 style="font-weight: 700; margin-bottom: 0.2rem;">{{ .page.Title }}</h2>
+      
+      {{ if .page.Params.subtitle }}
+        <p class="gallery-subtitle" style="font-size: 0.85rem; color: #666; margin: 0 0 0.2rem 0; font-weight: 400;">
+          {{ .page.Params.subtitle }}
+        </p>
+      {{ end }}
+
       <p>
         {{ if eq .page.Section "behind-the-work" }}
           {{ .page.Date.Format "Jan 02, 2006" }}

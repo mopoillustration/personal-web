@@ -1,5 +1,6 @@
 ---
 title: "Cozy Time"
+subtitle: "Series · Collage-style moments of everyday warmth."
 weight: 30
 description: "Cozy Time is a collage-style illustration project capturing the warmth and comfort of everyday life."
 date: 2026-04-28

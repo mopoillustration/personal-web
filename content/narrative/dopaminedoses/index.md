@@ -1,5 +1,6 @@
 ---
 title: Dopamine Doses
+subtitle: Book · Small illustrated tips for feeling happier.
 weight: 50
 date: 2026-01-31
 description: "This book is about happiness. It brings together 18 tips to help you feel happier."
