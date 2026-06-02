@@ -25,6 +25,11 @@ My work focuses on **editorial illustration** and **picture book storytelling**,
 
 ---
 
+### Awards
+* **WIA 2026 (Longlisted)** | *Self-Talk as Night Falls*
+
+---
+
 ### Education
 * **2024** | MA, HfK Bremen
 * **2021** | BA, Dalian Polytechnic University

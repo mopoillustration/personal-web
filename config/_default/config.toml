@@ -25,7 +25,7 @@ defaultContentLanguage = "en" # 默认显示英文
   [params.socialIcons]
     instagram = "https://www.instagram.com/mopo_illustration?igsh=cGU2Zm51bW5yYmls&utm_source=qr"
     email = "mailto:mopoillustration@gmail.com"
-    # behance = "https://www.behance.net/你的账号" # 临时添加的
+    behance = "https://www.behance.net/illustrmopo" # 临时添加的
 
   [params.gallery]
     #boxSpacing = 10
