@@ -546,6 +546,7 @@ body > menu#menu.hidden li {
     }
 }
 
+
 /* ==========================================================================
    12. Navigation Trigger: Map Button
    ========================================================================== */
@@ -589,7 +590,7 @@ body > menu#menu.hidden li {
     color: #fff;
 }
 
-.mopo-map-label {
+#menu-toggle.mopo-map-toggle .mopo-map-label {
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
@@ -600,7 +601,7 @@ body > menu#menu.hidden li {
     display: inline-block;
 }
 
-/* 箭头外层：负责轻微跳动 */
+/* 箭头外层：负责轻微提示动画 */
 .mopo-map-arrow-wrap {
     display: inline-flex;
     align-items: center;
@@ -609,11 +610,20 @@ body > menu#menu.hidden li {
     width: 0.62rem;
     height: 0.62rem;
 
-    animation: mopo-map-arrow-hint 1.05s ease 1s 2;
     will-change: transform;
 }
 
-/* 箭头本体：不用字体，而是用边框画出来 */
+/* 默认：菜单关闭时，向下提示 */
+#menu-toggle.mopo-map-toggle[aria-expanded="false"] .mopo-map-arrow-wrap {
+    animation: mopo-map-arrow-down-hint 1.05s ease 1s 2;
+}
+
+/* 菜单打开时，向上提示 */
+#menu-toggle.mopo-map-toggle[aria-expanded="true"] .mopo-map-arrow-wrap {
+    animation: mopo-map-arrow-up-hint 1.05s ease 0s 2;
+}
+
+/* 箭头本体：用边框画出来 */
 .mopo-map-arrow {
     display: block;
 
@@ -624,12 +634,23 @@ body > menu#menu.hidden li {
     border-bottom: 2px solid currentColor;
     border-radius: 1px;
 
+    transition: transform 0.22s ease, margin 0.22s ease;
+}
+
+/* 菜单关闭：箭头向下 */
+#menu-toggle.mopo-map-toggle[aria-expanded="false"] .mopo-map-arrow {
     transform: rotate(45deg);
     margin-top: -0.16rem;
 }
 
-/* 轻微向下提示：只跳两次 */
-@keyframes mopo-map-arrow-hint {
+/* 菜单打开：箭头向上 */
+#menu-toggle.mopo-map-toggle[aria-expanded="true"] .mopo-map-arrow {
+    transform: rotate(225deg);
+    margin-top: 0.16rem;
+}
+
+/* 向下提示：只跳两次 */
+@keyframes mopo-map-arrow-down-hint {
     0%, 100% {
         transform: translateY(0);
     }
@@ -643,16 +664,28 @@ body > menu#menu.hidden li {
     }
 }
 
-#menu-toggle.mopo-map-toggle:hover .mopo-map-arrow-wrap {
+/* 向上提示：只跳两次 */
+@keyframes mopo-map-arrow-up-hint {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    38% {
+        transform: translateY(-3px);
+    }
+
+    70% {
+        transform: translateY(0);
+    }
+}
+
+/* hover 时，方向也跟随当前状态 */
+#menu-toggle.mopo-map-toggle[aria-expanded="false"]:hover .mopo-map-arrow-wrap {
     transform: translateY(2px);
 }
 
-.mopo-map-close {
-    display: inline-block;
-    font-size: 1rem;
-    font-weight: 700;
-    line-height: 1;
-    padding: 0 0.12rem;
+#menu-toggle.mopo-map-toggle[aria-expanded="true"]:hover .mopo-map-arrow-wrap {
+    transform: translateY(-2px);
 }
 
 /* 移动端稍微缩小 */
@@ -662,7 +695,7 @@ body > menu#menu.hidden li {
         font-size: 0.78rem;
     }
 
-    .mopo-map-label {
+    #menu-toggle.mopo-map-toggle .mopo-map-label {
         gap: 0.32rem;
     }
 
@@ -711,6 +744,7 @@ html.dark #menu-toggle.mopo-map-toggle:hover {
     }
 
     #menu-toggle.mopo-map-toggle,
+    .mopo-map-arrow,
     .mopo-map-arrow-wrap {
         transition: none !important;
     }
