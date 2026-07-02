@@ -445,3 +445,103 @@ html.dark .about-content-wrapper blockquote { border-color: #eee; color: #aaa; }
 html.dark .about-content-wrapper hr { border-color: #333; }
 html.dark .footer-legal-links, html.dark .footer-link { color: #666 !important; }
 html.dark .footer-link:hover { color: #fff !important; border-bottom-color: #fff !important; }
+
+/* ==========================================================================
+   11. 导航栏窗帘式展开动画
+   ========================================================================== */
+
+/* 
+   你的模板通过 #menu.hidden 控制菜单开关。
+   原本 .hidden 是 display: none，所以没有动画。
+   这里仅针对 #menu 覆盖 hidden，不影响网站其他 hidden 元素。
+*/
+
+body > menu#menu {
+    display: block !important;
+
+    width: 100%;
+    max-width: 768px;
+
+    margin: 0 auto 5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    overflow: hidden;
+    text-align: center;
+
+    max-height: 560px;
+    opacity: 1;
+    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
+
+    transition:
+        max-height 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.22s ease,
+        transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+        clip-path 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+        margin-bottom 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 关闭状态：不再 display:none，而是像窗帘一样收起来 */
+body > menu#menu.hidden {
+    display: block !important;
+
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(-14px);
+    clip-path: inset(0 0 100% 0);
+
+    margin-bottom: 0;
+    pointer-events: none;
+}
+
+/* 菜单每一行文字的初始状态 */
+body > menu#menu a,
+body > menu#menu li {
+    opacity: 1;
+    transform: translateY(0);
+
+    transition:
+        opacity 0.24s ease,
+        transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 关闭时，每一行轻微上移并消失 */
+body > menu#menu.hidden a,
+body > menu#menu.hidden li {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/* 打开时一行一行出现：兼容 a 直接排列的结构 */
+body > menu#menu:not(.hidden) a:nth-of-type(1) { transition-delay: 0.03s; }
+body > menu#menu:not(.hidden) a:nth-of-type(2) { transition-delay: 0.07s; }
+body > menu#menu:not(.hidden) a:nth-of-type(3) { transition-delay: 0.11s; }
+body > menu#menu:not(.hidden) a:nth-of-type(4) { transition-delay: 0.15s; }
+body > menu#menu:not(.hidden) a:nth-of-type(5) { transition-delay: 0.19s; }
+body > menu#menu:not(.hidden) a:nth-of-type(6) { transition-delay: 0.23s; }
+body > menu#menu:not(.hidden) a:nth-of-type(7) { transition-delay: 0.27s; }
+
+/* 如果菜单是 ul > li 结构，这一组会生效 */
+body > menu#menu:not(.hidden) li:nth-child(1) { transition-delay: 0.03s; }
+body > menu#menu:not(.hidden) li:nth-child(2) { transition-delay: 0.07s; }
+body > menu#menu:not(.hidden) li:nth-child(3) { transition-delay: 0.11s; }
+body > menu#menu:not(.hidden) li:nth-child(4) { transition-delay: 0.15s; }
+body > menu#menu:not(.hidden) li:nth-child(5) { transition-delay: 0.19s; }
+body > menu#menu:not(.hidden) li:nth-child(6) { transition-delay: 0.23s; }
+body > menu#menu:not(.hidden) li:nth-child(7) { transition-delay: 0.27s; }
+
+/* 关闭时不要延迟，立刻收回，避免拖泥带水 */
+body > menu#menu.hidden a,
+body > menu#menu.hidden li {
+    transition-delay: 0s !important;
+}
+
+/* 尊重系统“减少动态效果”的设置 */
+@media (prefers-reduced-motion: reduce) {
+    body > menu#menu,
+    body > menu#menu a,
+    body > menu#menu li {
+        transition: none !important;
+    }
+}
