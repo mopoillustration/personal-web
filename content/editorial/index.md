@@ -14,7 +14,6 @@ resources:
   - src: graphics/95.jpg
   - src: graphics/96.jpg
   - src: graphics/97.jpg
-  - src: graphics/97-b.jpg
   - src: graphics/98.jpg
   - src: graphics/99.jpg
 ---
