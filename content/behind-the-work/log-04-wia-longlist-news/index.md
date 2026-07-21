@@ -19,5 +19,5 @@ Thanks for reading and for your support.
 Have a luminous day!
 
 <a href="https://worldillustrationawards.com/projects/mopo-self-talk-as-night-falls"><u><em>View on official Website</em></u></a>
-
+/
 <a href="https://www.instagram.com/p/DZHcMGhHKew/?igsh=MW1sdHN1dDhnZTMycQ=="><u><em>View on Instagram</em></u></a>

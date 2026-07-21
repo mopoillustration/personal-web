@@ -20,13 +20,13 @@ My work focuses on **editorial illustration** and **picture book storytelling**,
 ---
 
 ### My Projects
-* **Ongoing** | *A Better Day*, *Oh! My Teeth*, *Jumping Dopamine 2026*
+* **Ongoing** | *A Better Day*, *Oh! My Teeth*, *Jumping Dopamine 2026*, *Outside the Window*, *Beyond the Window*
 * **Completed** | *Self-Talk as Night Falls*, *Jumping Dopamine*, *Dopamine Doses*, *Cozy Time*
 
 ---
 
 ### Awards
-* **WIA 2026 (Longlisted)** | *Self-Talk as Night Falls*
+* **WIA 2026 (Longlisted)** | [Self-Talk as Night Falls](https://worldillustrationawards.com/projects/mopo-self-talk-as-night-falls)
 
 ---
 
