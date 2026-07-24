@@ -25,8 +25,9 @@ My work focuses on **editorial illustration** and **picture book storytelling**,
 
 ---
 
-### Awards
-* **WIA 2026 (Longlisted)** | [Self-Talk as Night Falls](https://worldillustrationawards.com/projects/mopo-self-talk-as-night-falls)
+### Awards & Experience
+* **2026** | AOI Mentorship, [Mentee](https://theaoi.com/news/announcing-aoi-mentees-2026)
+* **2026** | WIA Longlisted, [Self-Talk as Night Falls](https://worldillustrationawards.com/projects/mopo-self-talk-as-night-falls)
 
 ---
 
