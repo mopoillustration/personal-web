@@ -1,3 +1,7 @@
+# 本地项目说明、开发决策与可能包含私人信息的文档
+/AGENTS.md
+/docs/
+
 # 忽略 Hugo 自动生成的文件夹
 public/
 resources/
