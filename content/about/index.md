@@ -21,8 +21,7 @@ My work focuses on **editorial illustration** and **picture book storytelling**,
 
 ### My Projects
 * **Ongoing** | *A Better Day*, *Oh! My Teeth*, *Jumping Dopamine 2026*, *Outside the Window*, *Beyond the Window*
-* **Completed** | *Self-Talk as Night Falls*, *Jumping Dopamine*, *Dopamine Doses*, *Cozy Time*
-
+* **Completed** | [*Self-Talk as Night Falls*]({{< relref "/narrative/self-talk" >}}), [*Jumping Dopamine*]({{< relref "/narrative/jumping-dopamine" >}}), [*Dopamine Doses*]({{< relref "/narrative/dopaminedoses" >}}), [*Cozy Time*]({{< relref "/narrative/cozy-time" >}})
 ---
 
 ### Awards & Experience
