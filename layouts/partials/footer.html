@@ -3,12 +3,14 @@
     {{ partial "social-icons.html" . }}
     
     <p class="copyright-text">{{ .Site.Params.copyright }}</p>
-    
+
+    {{ if .IsHome }}
     <div class="footer-legal-links">
       <a href="{{ "/impressum" | relURL }}" class="footer-link">Impressum</a>
       <span class="separator">|</span>
       <a href="{{ "/datenschutz" | relURL }}" class="footer-link">Datenschutzerklärung</a>
     </div>
+    {{ end }}
   </div>
 </footer>
 

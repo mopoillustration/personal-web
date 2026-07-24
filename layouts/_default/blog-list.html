@@ -24,7 +24,7 @@
     </nav>
 
     <div class="blog-list">
-        {{ $paginator := .Paginate $articles 5 }}
+        {{ $paginator := .Paginate $articles 10 }}
         {{ range $paginator.Pages }}
         <a href="{{ .RelPermalink }}" class="blog-entry-block">
             <div class="blog-info">

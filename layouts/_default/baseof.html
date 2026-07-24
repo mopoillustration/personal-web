@@ -48,6 +48,6 @@
     <main>
       {{ block "main" . }}{{ end }}
     </main>
-    {{ block "footer" . }}{{ partialCached "footer.html" . }}{{ end }}
+    {{ block "footer" . }}{{ partialCached "footer.html" . .IsHome }}{{ end }}
   </body>
 </html>
