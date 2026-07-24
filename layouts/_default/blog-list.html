@@ -1,12 +1,30 @@
 {{ define "main" }}
+{{ $sectionPage := site.GetPage "/behind-the-work" }}
+{{ $filterCategory := .Params.filter_category | default "all" }}
+{{ $articles := where site.RegularPages "Section" "behind-the-work" }}
+{{ if ne $filterCategory "all" }}
+    {{ $articles = where $articles "Params.category" $filterCategory }}
+{{ end }}
+{{ $articles = $articles.ByDate.Reverse }}
+{{ $categoryLabel := cond (eq $filterCategory "news") "News" (cond (eq $filterCategory "note") "Notes" "All") }}
+
 <div class="behind-the-work-container">
     <header style="text-align: center; margin-bottom: 3rem;">
-        <h1 class="responsive-title" style="font-weight: 800; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ .Title }}</h1>
-        <p class="section-description" style="color: #666;">{{ .Description }}</p>
+        <h1 class="responsive-title" style="font-weight: 800; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ $sectionPage.Title }}</h1>
+        <p class="section-description" style="color: #666;">{{ $sectionPage.Description }}</p>
     </header>
 
+    <nav class="blog-category-filter" aria-label="Filter articles by category">
+        <span class="blog-category-label">Category</span>
+        <div class="blog-category-options">
+            <a href="{{ $sectionPage.RelPermalink }}" class="blog-category-button{{ if eq $filterCategory "all" }} is-active{{ end }}"{{ if eq $filterCategory "all" }} aria-current="page"{{ end }}>All</a>
+            <a href="{{ "behind-the-work/news/" | relURL }}" class="blog-category-button{{ if eq $filterCategory "news" }} is-active{{ end }}"{{ if eq $filterCategory "news" }} aria-current="page"{{ end }}>News</a>
+            <a href="{{ "behind-the-work/notes/" | relURL }}" class="blog-category-button{{ if eq $filterCategory "note" }} is-active{{ end }}"{{ if eq $filterCategory "note" }} aria-current="page"{{ end }}>Notes</a>
+        </div>
+    </nav>
+
     <div class="blog-list">
-        {{ $paginator := .Paginate .Pages 5 }}
+        {{ $paginator := .Paginate $articles 5 }}
         {{ range $paginator.Pages }}
         <a href="{{ .RelPermalink }}" class="blog-entry-block">
             <div class="blog-info">
@@ -20,10 +38,10 @@
             {{ if or $hasCover $hasResource }}
             <div class="blog-thumbnail">
                 {{ if $hasCover }}
-                    <img src="{{ .Params.cover | relURL }}" alt="{{ .Title }}">
+                    <img src="{{ .Params.cover | relURL }}" alt="{{ .Title }}" loading="lazy" decoding="async">
                 {{ else }}
                     {{ $firstImage := index ($hasResource) 0 }}
-                    <img src="{{ $firstImage.RelPermalink }}" alt="{{ .Title }}">
+                    <img src="{{ $firstImage.RelPermalink }}" alt="{{ .Title }}" loading="lazy" decoding="async">
                 {{ end }}
             </div>
             {{ end }}
@@ -31,14 +49,16 @@
         {{ end }}
     </div>
 
+    <p class="blog-filter-status">{{ $categoryLabel }}: {{ len $articles }} {{ if eq (len $articles) 1 }}article{{ else }}articles{{ end }}</p>
+
     {{ if gt $paginator.TotalPages 1 }}
-    <nav class="pagination">
+    <nav class="pagination" aria-label="Article pages">
         {{ if $paginator.HasPrev }}
-            <a href="{{ $paginator.Prev.URL }}" class="page-link">Prev</a>
+        <a href="{{ $paginator.Prev.URL }}" class="page-link">Prev</a>
         {{ end }}
         <span class="page-number">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
         {{ if $paginator.HasNext }}
-            <a href="{{ $paginator.Next.URL }}" class="page-link">Next</a>
+        <a href="{{ $paginator.Next.URL }}" class="page-link">Next</a>
         {{ end }}
     </nav>
     {{ end }}

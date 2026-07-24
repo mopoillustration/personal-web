@@ -233,7 +233,67 @@ body.no-announcement {
 .behind-the-work-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 2rem 20px;
+    /* Keep the globally raised footer from covering the list pagination. */
+    padding: 2rem 20px 7rem;
+}
+
+.blog-category-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    margin: -1rem auto 2rem;
+}
+
+.blog-category-label {
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.blog-category-options {
+    display: inline-flex;
+    gap: 0.2rem;
+    padding: 0.25rem;
+    border-radius: 999px;
+    background: #f0f0f0;
+}
+
+.blog-category-button {
+    display: inline-block;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.4rem 0.85rem;
+    background: transparent;
+    color: #444;
+    font: inherit;
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.blog-category-button:hover {
+    color: #000;
+}
+
+.blog-category-button.is-active {
+    background: #111;
+    color: #fff;
+}
+
+.blog-category-button:focus-visible,
+.pagination .page-link:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+.blog-filter-status {
+    min-height: 1.2rem;
+    margin: 0.4rem 0 0;
+    color: #777;
+    font-size: 0.8rem;
+    text-align: center;
 }
 
 .blog-entry-block {
@@ -319,6 +379,10 @@ body.no-announcement {
 }
 
 @media (max-width: 767px) {
+    .blog-category-filter {
+        flex-wrap: wrap;
+        margin-top: -1.25rem;
+    }
     .blog-entry-block { padding: 1rem; max-width: 95%; }
     .blog-title { font-size: 1rem; }
     .blog-thumbnail { width: 60px; height: 60px; margin-left: 15px; }
@@ -419,6 +483,11 @@ body.no-announcement {
     .blog-entry-block:hover { background: #252525; }
     .blog-title { color: #fff; }
     .page-link { color: #fff; border-color: #fff; }
+    .blog-category-label, .blog-filter-status { color: #aaa; }
+    .blog-category-options { background: #1d1d1d; }
+    .blog-category-button { color: #ccc; }
+    .blog-category-button:hover { color: #fff; }
+    .blog-category-button.is-active { background: #eee; color: #111; }
     
     /* 组件修饰 */
     .swiper-pagination-bullet { background: #666 !important; }
@@ -439,6 +508,11 @@ html.dark .blog-entry-block { background: #1d1d1d !important; }
 html.dark .blog-entry-block:hover { background: #252525; }
 html.dark .blog-title { color: #fff; }
 html.dark .page-link { color: #fff; border-color: #fff; }
+html.dark .blog-category-label, html.dark .blog-filter-status { color: #aaa; }
+html.dark .blog-category-options { background: #1d1d1d; }
+html.dark .blog-category-button { color: #ccc; }
+html.dark .blog-category-button:hover { color: #fff; }
+html.dark .blog-category-button.is-active { background: #eee; color: #111; }
 html.dark .swiper-pagination-bullet { background: #666 !important; }
 html.dark .swiper-pagination-bullet-active { background: #fff !important; }
 html.dark .about-content-wrapper blockquote { border-color: #eee; color: #aaa; }

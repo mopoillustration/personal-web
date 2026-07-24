@@ -1,6 +1,7 @@
 ---
 title: The Concept Behind Self-Talk as Night Falls
 date: 2026-02-15
+category: note
 resources:
   - src: 1-1.jpg
     params:

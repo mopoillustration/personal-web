@@ -1,6 +1,7 @@
 ---
 title: The Introduction of Jumping Dopamine
 date: 2026-02-02
+category: note
 resources:
   - src: 1-1.jpg
     params:

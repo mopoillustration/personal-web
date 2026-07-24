@@ -1,6 +1,7 @@
 ---
 title: NEWS | Self-Talk as Night Falls Longlisted for the World Illustration Awards
 date: 2026-06-03
+category: news
 resources:
   - src: 1-1.jpg
     params:

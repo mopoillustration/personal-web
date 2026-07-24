@@ -1,6 +1,7 @@
 ---
 title: "Month Four of Freelance Life: On Anxiety, Persistence, and the Quiet Season"
 date: 2026-04-01
+category: note
 ---
 
 <p style="font-style: italic; color: #888; font-size: 0.95rem; margin-bottom: 2rem;">

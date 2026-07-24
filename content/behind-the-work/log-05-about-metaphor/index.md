@@ -1,6 +1,7 @@
 ---
 title: Two Editorial Illustrations Built Around Visual Metaphor
 date: 2026-07-07
+category: note
 resources:
   - src: 1-1.jpg
     params:

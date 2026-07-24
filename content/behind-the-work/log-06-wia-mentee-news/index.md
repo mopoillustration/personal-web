@@ -1,6 +1,7 @@
 ---
 title: NEWS | Hello, AOI Mentorship!
 date: 2026-07-23
+category: news
 resources:
   - src: 1-1.jpg
     params:
