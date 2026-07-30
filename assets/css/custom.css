@@ -1,29 +1,11 @@
 /* ==========================================================================
-   1. 布局基础与全局修正 (公告栏占位)
-   ========================================================================== */
-body {
-    padding-top: 40px !important; 
-    transition: padding-top 0.3s ease;
-}
-
-header, .header, .nav-container, .navbar {
-    top: 40px !important;
-    transition: top 0.3s ease;
-}
-
-.icon-menu, .menu-toggle, .mobile-menu-button {
-    top: calc(40px + 1rem) !important;
-}
-
-/* ==========================================================================
-   2. 顶部公告栏 (Announcement Bar) 核心样式
+   1. 顶部公告栏 (Announcement Bar) 核心样式
    ========================================================================== */
 .announcement-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
+    position: relative;
+    flex: 0 0 auto;
     width: 100%;
-    height: 40px !important;
+    height: 40px;
     background: #000;
     color: #fff;
     z-index: 10001;
@@ -33,6 +15,22 @@ header, .header, .nav-container, .navbar {
     padding: 0 40px 0 20px;
     box-sizing: border-box;
     overflow: hidden;
+    transform-origin: top;
+    transition:
+        height 260ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 180ms ease,
+        transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.announcement-bar.is-closing {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+}
+
+html.announcement-dismissed .announcement-bar {
+    display: none;
 }
 
 .announcement-content {
@@ -102,12 +100,14 @@ header, .header, .nav-container, .navbar {
     -webkit-tap-highlight-color: transparent;
 }
 
-body.no-announcement {
-    padding-top: 0 !important;
+@media (prefers-reduced-motion: reduce) {
+    .announcement-bar {
+        transition: none;
+    }
 }
 
 /* ==========================================================================
-   3. 首页 (Home) 标题区域：压缩间距 (保持原样)
+   2. 首页 (Home) 标题区域：压缩间距 (保持原样)
    ========================================================================== */
 .home-custom-header {
     text-align: center;
@@ -139,7 +139,7 @@ body.no-announcement {
 }
 
 /* ==========================================================================
-   4. 首页大图：智能高度控制与交互 (保持原样)
+   3. 首页大图：智能高度控制与交互 (保持原样)
    ========================================================================== */
 .home-hero-image img {
     max-width: 100%;
@@ -165,7 +165,7 @@ body.no-announcement {
 #hero-image-trigger:hover img { opacity: 0.9; }
 
 /* ==========================================================================
-   5. 底部区域 (Footer) 极致压缩版 (修正语法)
+   4. 底部区域 (Footer) 极致压缩版 (修正语法)
    ========================================================================== */
 .footer {
     text-align: center;
@@ -265,7 +265,7 @@ body.no-announcement {
 }
 
 /* ==========================================================================
-   6. 内页通用样式 (正文、图片、Swiper) (保持原样)
+   5. 内页通用样式 (正文、图片、Swiper) (保持原样)
    ========================================================================== */
 .post-content img {
     max-width: 60%;
@@ -314,7 +314,7 @@ body.no-announcement {
 }
 
 /* ==========================================================================
-   7. Behind the Work 博客展示页 (融合新旧设置)
+   6. Behind the Work 博客展示页 (融合新旧设置)
    ========================================================================== */
 .behind-the-work-container {
     max-width: 800px;
@@ -475,7 +475,7 @@ body.no-announcement {
 }
 
 /* ==========================================================================
-   8. About Me 页面排版优化 (保持原样)
+   7. About Me 页面排版优化 (保持原样)
    ========================================================================== */
 .about-content-wrapper {
     max-width: 650px;
@@ -522,7 +522,7 @@ body.no-announcement {
 }
 
 /* ==========================================================================
-   9. 全移动端适配补丁 (包含手机与 iPad) (保持原样)
+   8. 全移动端适配补丁 (包含手机与 iPad) (保持原样)
    ========================================================================== */
 @media (max-width: 1024px) {
     .responsive-blog-container {
@@ -550,7 +550,7 @@ body.no-announcement {
 }
 
 /* ==========================================================================
-   10. 核心修复：黑夜模式全局综合适配 (整合版)
+   9. 核心修复：黑夜模式全局综合适配 (整合版)
    ========================================================================== */
 
 /* 方案 A: 适配系统自动深色模式 */
@@ -615,7 +615,7 @@ html.dark .email-contact-action:hover { border-color: #eee; }
 html.dark .email-contact-status { color: #aaa; }
 
 /* ==========================================================================
-   11. 导航栏窗帘式展开动画
+   10. 导航栏窗帘式展开动画
    ========================================================================== */
 
 /* 
@@ -716,7 +716,7 @@ body > menu#menu.hidden li {
 
 
 /* ==========================================================================
-   12. Navigation Trigger: Map Button
+   11. Navigation Trigger: Map Button
    ========================================================================== */
 
 #menu-toggle.mopo-map-toggle {

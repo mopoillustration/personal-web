@@ -28,6 +28,9 @@
   {{ partial "opengraph.html" . }}
   {{ $css := resources.Get "/css/main.scss" | toCSS | minify | fingerprint }}
   <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+  {{/* 同步读取会话关闭状态，确保通知栏不会在首屏先显示再隐藏。 */}}
+  {{ $announcementJS := resources.Get "js/announcement.js" | minify | fingerprint }}
+  <script src="{{ $announcementJS.RelPermalink }}"></script>
   {{ $params := dict
     "closeTitle" (i18n "closeTitle")
     "zoomTitle" (i18n "zoomTitle")
