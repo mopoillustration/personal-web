@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   {{ end }}
   {{ $js := resources.Get "js/custom-gallery.js" | minify | fingerprint }}
-  <script src="{{ $js.RelPermalink }}" async></script>
+  <script src="{{ $js.RelPermalink }}" defer></script>
   {{ $emailContactJS := resources.Get "js/email-contact.js" | minify | fingerprint }}
   <script src="{{ $emailContactJS.RelPermalink }}" defer></script>
   <link rel="canonical" href="{{ .Permalink }}" />

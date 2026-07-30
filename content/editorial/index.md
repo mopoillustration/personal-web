@@ -6,6 +6,8 @@ weight: 3
 private: True
 
 menus: main
+announcement:
+  resource: graphics/89.jpg
 resources:
   - src: graphics/89.jpg
   - src: graphics/90.jpg

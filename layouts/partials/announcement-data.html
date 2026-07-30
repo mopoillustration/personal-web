@@ -1,0 +1,93 @@
+{{- $page := . -}}
+{{- $category := $page.Params.category | default "" | lower -}}
+{{- $announcementType := "update" -}}
+
+{{- if eq $category "news" -}}
+  {{- $announcementType = "news" -}}
+{{- else if eq $category "note" -}}
+  {{- $announcementType = "note" -}}
+{{- else if eq $page.Section "narrative" -}}
+  {{- $announcementType = "work" -}}
+{{- else if or
+  (in (slice "editorial" "daily artwork" "selected works") $page.Section)
+  (in (slice "/editorial/" "/daily-artwork/" "/selected-works/") $page.RelPermalink)
+-}}
+  {{- $announcementType = "work" -}}
+{{- end -}}
+
+{{- with $page.Params.announcement -}}
+  {{- with .type -}}
+    {{- $announcementType = lower . -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $announcementLabel := "UPDATE" -}}
+{{- if eq $announcementType "work" -}}
+  {{- $announcementLabel = "NEW WORK" -}}
+{{- else if eq $announcementType "project" -}}
+  {{- $announcementLabel = "NEW PROJECT" -}}
+{{- else if eq $announcementType "note" -}}
+  {{- $announcementLabel = "NOTE" -}}
+{{- else if eq $announcementType "news" -}}
+  {{- $announcementLabel = "NEWS" -}}
+{{- end -}}
+
+{{- $announcementText := $page.Title -}}
+{{- if eq $announcementType "work" -}}
+  {{- $announcementText = printf "Added to %s" $page.Title -}}
+{{- else if eq $announcementType "project" -}}
+  {{- $announcementText = $page.Title -}}
+{{- else if eq $announcementType "news" -}}
+  {{- $announcementText = replaceRE `(?i)^news\s*\|\s*` "" $page.Title -}}
+{{- end -}}
+
+{{- with $page.Params.announcement -}}
+  {{- with .text -}}
+    {{- $announcementText = . | plainify -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $announcementHref := $page.RelPermalink -}}
+{{- $announcementTarget := "" -}}
+{{- $announcementResource := false -}}
+{{- $announcementResourceName := "" -}}
+{{- $sourcePath := $page.RelPermalink -}}
+{{- with $page.File -}}
+  {{- $sourcePath = .Path -}}
+{{- end -}}
+
+{{- with $page.Params.announcement -}}
+  {{- with .resource -}}
+    {{- $announcementResourceName = strings.TrimSpace (printf "%v" .) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $announcementResourceName -}}
+  {{- if ne $announcementType "work" -}}
+    {{- errorf "announcement.resource %q in %s is only valid for a NEW WORK announcement; resolved type is %q" $announcementResourceName $sourcePath $announcementType -}}
+  {{- else -}}
+    {{- $matchedResource := $page.Resources.Get $announcementResourceName -}}
+    {{- if not $matchedResource -}}
+      {{- errorf "announcement.resource %q in %s does not match a resource in this page bundle" $announcementResourceName $sourcePath -}}
+    {{- else if ne $matchedResource.Name $announcementResourceName -}}
+      {{- errorf "announcement.resource %q in %s must exactly match the resource name; it resolved to %q" $announcementResourceName $sourcePath $matchedResource.Name -}}
+    {{- else if ne $matchedResource.ResourceType "image" -}}
+      {{- errorf "announcement.resource %q in %s must point to an image resource, not %q" $announcementResourceName $sourcePath $matchedResource.ResourceType -}}
+    {{- else if eq $matchedResource.Params.hidden true -}}
+      {{- errorf "announcement.resource %q in %s points to a hidden image and cannot be opened from the public gallery" $announcementResourceName $sourcePath -}}
+    {{- else -}}
+      {{- $announcementResource = $matchedResource -}}
+      {{- $announcementTarget = $matchedResource.Name | urlize -}}
+      {{- $announcementHref = printf "%s#%s" $page.RelPermalink $announcementTarget -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- return (dict
+  "type" $announcementType
+  "label" $announcementLabel
+  "text" $announcementText
+  "href" $announcementHref
+  "target" $announcementTarget
+  "resource" $announcementResource
+) -}}

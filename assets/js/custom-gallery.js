@@ -2,41 +2,68 @@
  * 增强版：修复手机端滑动返回退出页面的 Bug
  */
 (function() {
-    let isInternalClose = false;
+    const galleryHistoryStateKey = "mopoGalleryEntry";
+
+    function isUnmodifiedPrimaryClick(e) {
+        return !e.defaultPrevented
+            && e.button === 0
+            && !e.metaKey
+            && !e.ctrlKey
+            && !e.shiftKey
+            && !e.altKey;
+    }
+
+    // 同页通知深链不会触发主题的初始 hash 检查，因此直接打开对应 Gallery item。
+    document.addEventListener('click', function(e) {
+        if (!isUnmodifiedPrimaryClick(e)) return;
+
+        const announcementLink = e.target.closest('.announcement-item[data-announcement-target]');
+
+        if (!announcementLink) return;
+
+        const destination = new URL(announcementLink.href, window.location.href);
+        if (destination.origin !== window.location.origin || destination.pathname !== window.location.pathname) {
+            return;
+        }
+
+        const gallery = document.getElementById('gallery');
+        if (!gallery || gallery.style.visibility === 'hidden') return;
+
+        const target = announcementLink.dataset.announcementTarget;
+        const galleryItems = gallery.querySelectorAll('.gallery-item[data-pswp-target]');
+        const targetItem = Array.from(galleryItems).find(function(item) {
+            return item.dataset.pswpTarget === target;
+        });
+
+        if (!targetItem) return;
+
+        e.preventDefault();
+        targetItem.click();
+    });
 
     // 1. 监听灯箱开启
     document.addEventListener('click', function(e) {
-        // 匹配你的图片或画廊点击目标
-        const isGalleryClick = e.target.closest('.album-grid img, .gallery-item, [data-gallery], .swiper-slide img');
+        if (!isUnmodifiedPrimaryClick(e)) return;
+
+        const isGalleryClick = e.target.closest('#gallery .gallery-item');
         
-        if (isGalleryClick) {
-            // 立即改变 URL Hash，这在手机端是非常强的“历史记录点”
-            window.location.hash = "view-image";
+        if (isGalleryClick && !history.state?.[galleryHistoryStateKey]) {
+            // 建立返回历史点，但不在 PhotoSwipe 打开期间额外触发 hashchange。
+            const currentState = history.state && typeof history.state === "object"
+                ? history.state
+                : {};
+            const galleryState = Object.assign({}, currentState);
+            galleryState[galleryHistoryStateKey] = true;
+            history.pushState(galleryState, document.title, "#view-image");
         }
     }, true);
 
-    // 2. 核心拦截：监听 Hash 变化（涵盖了滑动返回和后退键）
-    window.addEventListener('hashchange', function() {
+    // 2. 核心拦截：历史遍历时关闭仍在显示的灯箱。
+    window.addEventListener('popstate', function() {
         const closeBtn = document.querySelector('.pswp__button--close, .lg-close, .modal-close, .close-button');
         
-        // 如果 Hash 消失了（说明用户按了返回），且灯箱还开着
-        if (window.location.hash !== "#view-image") {
-            if (closeBtn && (closeBtn.offsetWidth > 0 || closeBtn.offsetHeight > 0)) {
-                isInternalClose = true;
-                closeBtn.click(); // 模拟点击关闭按钮
-            }
-        }
-    });
-
-    // 3. 处理用户手动点击“X”关闭的情况
-    document.addEventListener('click', function(e) {
-        const closeBtn = document.querySelector('.pswp__button--close, .lg-close, .modal-close, .close-button');
-        if (closeBtn && closeBtn.contains(e.target)) {
-            // 如果用户手动关了，我们需要把 Hash 清掉，否则下次返回会出问题
-            if (window.location.hash === "#view-image") {
-                isInternalClose = true;
-                history.back();
-            }
+        if (closeBtn && (closeBtn.offsetWidth > 0 || closeBtn.offsetHeight > 0)) {
+            closeBtn.click();
         }
     });
 })();
