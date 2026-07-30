@@ -14,20 +14,63 @@
     {{ if gt (len $announcementItems) 0 }}
     <div id="announcement-bar" class="announcement-bar">
       <div class="announcement-content">
-        <span class="announcement-tag">NEW</span>
         <div class="announcement-slider">
           {{ range $announcementItems }}
-            {{ $sectionPage := $.Site.GetPage "section" .Section }}
-            {{ $sectionName := $sectionPage.Title | default (.Section | humanize) }}
-      
-            <a href="{{ .RelPermalink }}" class="announcement-item">
-              Latest ({{ .Lastmod.Format "Jan 02" }}): 
-              {{/* 逻辑：如果是顶级页面（如 Editorial），只显示自己；如果有父级且不是首页，显示“父级/自己” */}}
-              {{ if or (eq .Title $sectionName) (eq $sectionName "Hi! I'm Mopo.") }}
-                {{ .Title }}
-              {{ else }}
-                {{ $sectionName }} / {{ .Title }}
+            {{ $category := .Params.category | default "" | lower }}
+            {{ $announcementType := "update" }}
+
+            {{ if eq $category "news" }}
+              {{ $announcementType = "news" }}
+            {{ else if eq $category "note" }}
+              {{ $announcementType = "note" }}
+            {{ else if eq .Section "narrative" }}
+              {{ $announcementType = "work" }}
+            {{ else if or
+              (in (slice "editorial" "daily artwork" "selected works") .Section)
+              (in (slice "/editorial/" "/daily-artwork/" "/selected-works/") .RelPermalink)
+            }}
+              {{ $announcementType = "work" }}
+            {{ end }}
+
+            {{ with .Params.announcement }}
+              {{ with .type }}
+                {{ $announcementType = lower . }}
               {{ end }}
+            {{ end }}
+
+            {{ $announcementLabel := "UPDATE" }}
+            {{ if eq $announcementType "work" }}
+              {{ $announcementLabel = "NEW WORK" }}
+            {{ else if eq $announcementType "project" }}
+              {{ $announcementLabel = "NEW PROJECT" }}
+            {{ else if eq $announcementType "note" }}
+              {{ $announcementLabel = "NOTE" }}
+            {{ else if eq $announcementType "news" }}
+              {{ $announcementLabel = "NEWS" }}
+            {{ end }}
+
+            {{ $announcementText := .Title }}
+            {{ if eq $announcementType "work" }}
+              {{ $announcementText = printf "Added to %s" .Title }}
+            {{ else if eq $announcementType "project" }}
+              {{ $announcementText = .Title }}
+            {{ else if eq $announcementType "news" }}
+              {{ $announcementText = replaceRE `(?i)^news\s*\|\s*` "" .Title }}
+            {{ end }}
+
+            {{ with .Params.announcement }}
+              {{ with .text }}
+                {{ $announcementText = . | plainify }}
+              {{ end }}
+            {{ end }}
+
+            <a href="{{ .RelPermalink }}" class="announcement-item">
+              <span class="announcement-date">{{ .Lastmod.Format "Jan. 2" }}</span>
+              <span class="announcement-separator" aria-hidden="true"> · </span>
+              <span class="announcement-type">{{ $announcementLabel }}</span>
+              <span class="announcement-separator" aria-hidden="true"> · </span>
+              <span class="announcement-message">{{ $announcementText }}</span>
+              <span class="announcement-arrow" aria-hidden="true"> →</span>
             </a>
           {{ end }}
         </div>
