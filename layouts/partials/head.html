@@ -7,6 +7,8 @@
   {{ end }}
   {{ $js := resources.Get "js/custom-gallery.js" | minify | fingerprint }}
   <script src="{{ $js.RelPermalink }}" async></script>
+  {{ $emailContactJS := resources.Get "js/email-contact.js" | minify | fingerprint }}
+  <script src="{{ $emailContactJS.RelPermalink }}" defer></script>
   <link rel="canonical" href="{{ .Permalink }}" />
   <link rel="icon" type="image/svg+xml" href="{{ "images/favicon.svg" | relURL }}" />
   <link rel="icon" type="image/png" href="{{ "images/favicon.png" | relURL }}" />

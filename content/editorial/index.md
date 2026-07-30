@@ -1,12 +1,13 @@
 ---
 title: Editorial Illustration
 description: Editorial illustrations made for articles on topics including lifestyle, psychology, relationships, work, and technology.
-date: 2026-07-20T19:00:00+08:00  # 添加或更新这个时间为今天
+date: 2026-07-30T19:00:00+08:00  # 添加或更新这个时间为今天
 weight: 3
 private: True
 
 menus: main
 resources:
+  - src: graphics/89.jpg
   - src: graphics/90.jpg
   - src: graphics/91.jpg
   - src: graphics/92.jpg

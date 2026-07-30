@@ -178,6 +178,92 @@ body.no-announcement {
     margin-bottom: 0;
 }
 
+.email-contact {
+    position: relative;
+    display: inline-flex;
+}
+
+.email-contact-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    cursor: pointer;
+    list-style: none;
+}
+
+.email-contact-trigger::-webkit-details-marker {
+    display: none;
+}
+
+.email-contact-trigger:focus-visible,
+.email-contact-action:focus-visible,
+.email-contact-address:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
+.email-contact-popover {
+    position: absolute;
+    z-index: 20;
+    bottom: calc(100% + 0.75rem);
+    left: 50%;
+    width: calc(100vw - 2rem);
+    max-width: 290px;
+    padding: 0.9rem;
+    transform: translateX(-50%);
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+    color: #111;
+    text-align: left;
+}
+
+.email-contact-address {
+    display: block;
+    color: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+    text-decoration: none;
+}
+
+.email-contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.email-contact-action {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0.35rem 0.65rem;
+    border: 1px solid #bbb;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 0.75rem;
+    line-height: 1;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.email-contact-action:hover {
+    border-color: #111;
+}
+
+.email-contact-status {
+    display: block;
+    min-height: 1rem;
+    margin-top: 0.45rem;
+    color: #666;
+    font-size: 0.7rem;
+}
+
 /* ==========================================================================
    6. 内页通用样式 (正文、图片、Swiper) (保持原样)
    ========================================================================== */
@@ -496,6 +582,10 @@ body.no-announcement {
     .about-content-wrapper hr { border-color: #333; }
     .footer-legal-links, .footer-link { color: #666 !important; }
     .footer-link:hover { color: #fff !important; border-bottom-color: #fff !important; }
+    .email-contact-popover { border-color: #444; background: #1d1d1d; color: #eee; }
+    .email-contact-action { border-color: #666; }
+    .email-contact-action:hover { border-color: #eee; }
+    .email-contact-status { color: #aaa; }
 }
 
 /* 方案 B: 适配网页 html.dark 类名手动切换 (逻辑与上方完全一致) */
@@ -519,6 +609,10 @@ html.dark .about-content-wrapper blockquote { border-color: #eee; color: #aaa; }
 html.dark .about-content-wrapper hr { border-color: #333; }
 html.dark .footer-legal-links, html.dark .footer-link { color: #666 !important; }
 html.dark .footer-link:hover { color: #fff !important; border-bottom-color: #fff !important; }
+html.dark .email-contact-popover { border-color: #444; background: #1d1d1d; color: #eee; }
+html.dark .email-contact-action { border-color: #666; }
+html.dark .email-contact-action:hover { border-color: #eee; }
+html.dark .email-contact-status { color: #aaa; }
 
 /* ==========================================================================
    11. 导航栏窗帘式展开动画
