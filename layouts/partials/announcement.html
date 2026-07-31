@@ -14,9 +14,9 @@
         {{ $announcement := partial "announcement-data.html" . }}
         <a href="{{ $announcement.href }}" class="announcement-item"{{ with $announcement.target }} data-announcement-target="{{ . }}"{{ end }}>
           <span class="announcement-date">{{ .Lastmod.Format "Jan. 2" }}</span>
-          <span class="announcement-separator" aria-hidden="true"> · </span>
+          <span class="announcement-separator" aria-hidden="true">|</span>
           <span class="announcement-type">{{ $announcement.label }}</span>
-          <span class="announcement-separator" aria-hidden="true"> · </span>
+          <span class="announcement-separator" aria-hidden="true">|</span>
           <span class="announcement-message">{{ $announcement.text }}</span>
           <span class="announcement-arrow" aria-hidden="true"> →</span>
         </a>

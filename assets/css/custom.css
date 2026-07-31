@@ -2,17 +2,22 @@
    1. 顶部公告栏 (Announcement Bar) 核心样式
    ========================================================================== */
 .announcement-bar {
+    --announcement-height: 40px;
+    --announcement-background: #000;
+    --announcement-foreground: #fff;
+    --announcement-close-hover-background: rgba(255, 255, 255, 0.12);
+
     position: relative;
     flex: 0 0 auto;
     width: 100%;
-    height: 40px;
-    background: #000;
-    color: #fff;
+    height: var(--announcement-height);
+    background: var(--announcement-background);
+    color: var(--announcement-foreground);
     z-index: 10001;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 40px 0 20px;
+    padding: 0;
     box-sizing: border-box;
     overflow: hidden;
     transform-origin: top;
@@ -37,39 +42,82 @@ html.announcement-dismissed .announcement-bar {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
+    width: 100%;
+    max-width: 1120px;
+    min-width: 0;
     overflow: hidden;
-    margin-right: 20px;
-}
-
-.announcement-tag {
-    background: #fff;
-    color: #000;
-    padding: 2px 6px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    margin-right: 12px;
-    border-radius: 2px;
-    flex-shrink: 0;
+    margin: 0 auto;
+    padding: 0 44px;
+    box-sizing: border-box;
 }
 
 .announcement-slider {
-    height: 40px;
+    height: var(--announcement-height);
+    width: 100%;
+    flex: 1 1 auto;
     overflow: hidden;
-    flex-grow: 1;
-    min-width: 0; 
+    min-width: 0;
 }
 
 .announcement-item {
-    font-size: 0.8rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: var(--announcement-height);
+    min-width: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: inherit;
+    font-size: 0.78rem;
+    font-weight: 450;
+    line-height: 1;
+    text-decoration: none;
     white-space: nowrap;
-    display: block;
-    line-height: 40px;
-    height: 40px;
-    overflow: hidden; 
-    text-overflow: ellipsis;
-    min-width: 0; 
-    padding-right: 15px;
+    overflow: hidden;
     animation: announcement-scroll 7s infinite;
+}
+
+.announcement-date,
+.announcement-separator,
+.announcement-type,
+.announcement-arrow {
+    flex-shrink: 0;
+}
+
+.announcement-date {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+}
+
+.announcement-separator {
+    color: currentColor;
+    opacity: 0.48;
+    margin: 0 0.7rem;
+}
+
+.announcement-type {
+    color: inherit;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.065em;
+    line-height: 1;
+}
+
+.announcement-message {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.announcement-arrow {
+    margin-left: 0.45rem;
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform 180ms ease;
 }
 
 .announcement-slider a:first-child:nth-last-child(1) {
@@ -78,31 +126,104 @@ html.announcement-dismissed .announcement-bar {
 
 @keyframes announcement-scroll {
     0%, 45% { transform: translateY(0); }
-    50%, 95% { transform: translateY(-40px); }
+    50%, 95% { transform: translateY(calc(-1 * var(--announcement-height))); }
     100% { transform: translateY(0); }
+}
+
+.announcement-item:hover .announcement-arrow,
+.announcement-item:focus-visible .announcement-arrow {
+    transform: translateX(3px);
+}
+
+.announcement-item:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -2px;
+    border-radius: 2px;
 }
 
 .announcement-close {
     position: absolute;
     right: 0;
     top: 0;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: var(--announcement-height);
     display: flex;
     align-items: center;
     justify-content: center;
     background: none;
     border: none;
-    color: #fff !important;
+    color: var(--announcement-foreground) !important;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 300;
+    line-height: 1;
     z-index: 10002;
     -webkit-tap-highlight-color: transparent;
+    transition: background-color 180ms ease, color 180ms ease;
+}
+
+.announcement-close:hover {
+    background: var(--announcement-close-hover-background);
+}
+
+.announcement-close:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -5px;
+    border-radius: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .announcement-bar {
+    .announcement-bar,
+    .announcement-arrow,
+    .announcement-close {
         transition: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .announcement-bar {
+        --announcement-height: 44px;
+    }
+
+    .announcement-content {
+        padding: 0 44px;
+    }
+
+    .announcement-item {
+        display: flex;
+        justify-content: center;
+        padding: 0;
+        font-size: 0.72rem;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .announcement-separator {
+        margin: 0 0.45rem;
+    }
+
+    .announcement-type {
+        font-size: 0.62rem;
+        letter-spacing: 0.05em;
+    }
+
+    .announcement-message {
+        display: inline;
+        margin: 0;
+        padding: 0;
+        font-size: 0.72rem;
+        line-height: 1;
+    }
+
+    .announcement-arrow {
+        position: static;
+        margin-left: 0.35rem;
+        font-size: 0.9rem;
+    }
+
+    .announcement-close {
+        width: 44px;
+        font-size: 1.25rem;
     }
 }
 
@@ -577,9 +698,8 @@ html.announcement-dismissed .announcement-bar {
 /* 方案 A: 适配系统自动深色模式 */
 @media (prefers-color-scheme: dark) {
     /* 公告栏 */
-    .announcement-bar { background: #ffffff !important; color: #000000 !important; border-bottom: 1px solid #eeeeee; }
+    .announcement-bar { --announcement-background: #ffffff; --announcement-foreground: #000000; --announcement-close-hover-background: rgba(0, 0, 0, 0.08); background: var(--announcement-background) !important; color: var(--announcement-foreground) !important; border-bottom: 1px solid #eeeeee; }
     .announcement-item { color: #000000 !important; }
-    .announcement-tag { background: #000000 !important; color: #ffffff !important; }
     .announcement-close { color: #000000 !important; }
     
     /* 首页、文章、导航文字 */
@@ -610,9 +730,8 @@ html.announcement-dismissed .announcement-bar {
 }
 
 /* 方案 B: 适配网页 html.dark 类名手动切换 (逻辑与上方完全一致) */
-html.dark .announcement-bar { background: #ffffff !important; color: #000000 !important; border-bottom: 1px solid #eeeeee; }
+html.dark .announcement-bar { --announcement-background: #ffffff; --announcement-foreground: #000000; --announcement-close-hover-background: rgba(0, 0, 0, 0.08); background: var(--announcement-background) !important; color: var(--announcement-foreground) !important; border-bottom: 1px solid #eeeeee; }
 html.dark .announcement-item { color: #000000 !important; }
-html.dark .announcement-tag { background: #000000 !important; color: #ffffff !important; }
 html.dark .announcement-close { color: #000000 !important; }
 html.dark .title-line-1, html.dark .title-line-2, html.dark .title-line-3, html.dark .responsive-title, html.dark .post-content, html.dark .post-content p, html.dark .about-content-wrapper, html.dark .about-content-wrapper h1, html.dark .navbar-brand, html.dark .nav-link, html.dark .navbar-menu-btn { color: #eeeeee !important; }
 html.dark .blog-entry-block { background: #1d1d1d !important; }
