@@ -10,10 +10,10 @@
 <div id="announcement-bar" class="announcement-bar">
   <div class="announcement-content">
     <div class="announcement-slider">
-      {{ range $announcementItems }}
-        {{ $announcement := partial "announcement-data.html" . }}
-        <a href="{{ $announcement.href }}" class="announcement-item"{{ with $announcement.target }} data-announcement-target="{{ . }}"{{ end }}>
-          <span class="announcement-date">{{ .Lastmod.Format "Jan. 2" }}</span>
+      {{ range $index, $item := $announcementItems }}
+        {{ $announcement := partial "announcement-data.html" $item }}
+        <a href="{{ $announcement.href }}" class="announcement-item{{ if eq $index 0 }} is-active{{ end }}"{{ with $announcement.target }} data-announcement-target="{{ . }}"{{ end }}{{ if gt $index 0 }} aria-hidden="true" tabindex="-1"{{ end }}>
+          <span class="announcement-date">{{ $item.Lastmod.Format "Jan. 2" }}</span>
           <span class="announcement-separator" aria-hidden="true">|</span>
           <span class="announcement-type">{{ $announcement.label }}</span>
           <span class="announcement-separator" aria-hidden="true">|</span>

@@ -52,6 +52,7 @@ html.announcement-dismissed .announcement-bar {
 }
 
 .announcement-slider {
+    position: relative;
     height: var(--announcement-height);
     width: 100%;
     flex: 1 1 auto;
@@ -76,7 +77,32 @@ html.announcement-dismissed .announcement-bar {
     text-decoration: none;
     white-space: nowrap;
     overflow: hidden;
-    animation: announcement-scroll 7s infinite;
+}
+
+.announcement-slider.is-rotating .announcement-item {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(5px);
+    pointer-events: none;
+    transition:
+        opacity 250ms ease,
+        transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.announcement-slider.is-rotating .announcement-item.is-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.announcement-slider.is-rotating .announcement-item.is-active:not(.is-leaving):not([aria-hidden="true"]) {
+    pointer-events: auto;
+}
+
+.announcement-slider.is-rotating .announcement-item.is-leaving {
+    opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
 }
 
 .announcement-date,
@@ -118,16 +144,6 @@ html.announcement-dismissed .announcement-bar {
     font-size: 1rem;
     line-height: 1;
     transition: transform 180ms ease;
-}
-
-.announcement-slider a:first-child:nth-last-child(1) {
-    animation: none !important;
-}
-
-@keyframes announcement-scroll {
-    0%, 45% { transform: translateY(0); }
-    50%, 95% { transform: translateY(calc(-1 * var(--announcement-height))); }
-    100% { transform: translateY(0); }
 }
 
 .announcement-item:hover .announcement-arrow,
@@ -174,6 +190,7 @@ html.announcement-dismissed .announcement-bar {
 
 @media (prefers-reduced-motion: reduce) {
     .announcement-bar,
+    .announcement-slider.is-rotating .announcement-item,
     .announcement-arrow,
     .announcement-close {
         transition: none;
