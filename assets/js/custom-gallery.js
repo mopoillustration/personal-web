@@ -45,7 +45,9 @@
     document.addEventListener('click', function(e) {
         if (!isUnmodifiedPrimaryClick(e)) return;
 
-        const isGalleryClick = e.target.closest('#gallery .gallery-item');
+        const isGalleryClick = e.target.closest(
+            '#gallery .gallery-item, [data-mopo-lightbox-gallery] .gallery-item'
+        );
         
         if (isGalleryClick && !history.state?.[galleryHistoryStateKey]) {
             // 建立返回历史点，但不在 PhotoSwipe 打开期间额外触发 hashchange。

@@ -1,0 +1,39 @@
+<div class="home-v2" data-homepage-version="v2">
+  {{ partial "home/contact.html" . }}
+  {{ partial "home/navigation.html" . }}
+
+  <section class="home-v2__intro" data-home-v2-region="introduction" aria-labelledby="home-v2-intro-title">
+    <div class="home-v2__intro-copy">
+      <h1 id="home-v2-intro-title">{{ .Title }}</h1>
+      {{ with .Params.subtitle }}
+        <p class="home-v2__intro-subtitle"><em>{{ . }}</em></p>
+      {{ end }}
+      {{ with .Description }}
+        <p class="home-v2__intro-description">{{ . }}</p>
+      {{ end }}
+    </div>
+
+    <div class="home-v2__intro-media">
+      <img class="home-v2__intro-strip home-v2__intro-strip--statement" src="/images/hello.png" width="1500" height="140" alt="" aria-hidden="true" decoding="async">
+
+      <svg class="home-v2__intro-strip home-v2__intro-strip--collage" viewBox="0 0 1500 140" width="1500" height="140" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        {{ with .Params.subtitle }}
+          <text class="home-v2__placeholder-subtitle" x="750" y="60" text-anchor="middle">{{ . }}</text>
+        {{ end }}
+        {{ with .Description }}
+          <text class="home-v2__placeholder-description" x="750" y="92" text-anchor="middle">{{ . }}</text>
+        {{ end }}
+      </svg>
+    </div>
+  </section>
+
+  <section class="home-v2__works" data-home-v2-region="selected-works">
+    <div class="home-v2__works-heading">
+      <h2 id="home-v2-works-title">Selected Works</h2>
+      <p class="home-v2__works-hint" aria-hidden="true">Swipe to explore ↓</p>
+    </div>
+    <div class="home-v2__works-content" data-home-v2-selected-works role="region" aria-labelledby="home-v2-works-title" tabindex="0">
+      {{ partial "home/selected-works.html" . }}
+    </div>
+  </section>
+</div>

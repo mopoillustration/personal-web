@@ -3,7 +3,8 @@ import PhotoSwipe from "./photoswipe/photoswipe.esm.js";
 import PhotoSwipeDynamicCaption from "./photoswipe/photoswipe-dynamic-caption-plugin.esm.min.js";
 import * as params from "@params";
 
-const gallery = document.getElementById("gallery");
+const gallery = document.getElementById("gallery")
+  || document.querySelector("[data-mopo-lightbox-gallery]");
 const galleryHistoryStateKey = "mopoGalleryEntry";
 
 if (gallery) {

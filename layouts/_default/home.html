@@ -1,76 +1,29 @@
+{{ define "header" }}
+  {{ partial "header.html" . }}
+{{ end }}
+
+{{ define "footer" }}
+  {{ $homepageVersion := .Site.Params.homepageVersion | default "legacy" | lower }}
+  {{ partialCached "footer.html" . .IsHome }}
+  {{ if eq $homepageVersion "v2" }}
+    {{ partial "home/responsive-version.html" . }}
+    {{ $worksLayoutJS := resources.Get "js/home-v2-works-layout.js" | minify | fingerprint }}
+    <script src="{{ $worksLayoutJS.RelPermalink }}" defer></script>
+  {{ end }}
+{{ end }}
+
 {{ define "main" }}
-  <header class="home-custom-header">
-    <h1 class="title-line-1">{{ .Title }}</h1>
-    
-    {{ with .Params.subtitle }}
-    <h2 class="title-line-2">{{ . }}</h2>
-    {{ end }}
-    
-    <p class="title-line-3">{{ .Description }}</p>
-    
-    <div class="home-hero-image" id="hero-image-trigger">
-        <img src="{{ "images/homepage-hero.jpg" | absURL }}" alt="Mopo Illustration Hero">
-    </div>
-  </header>
-
-  {{ partial "categories.html" }}
-  
-  <section class="galleries">
-    {{ range where .Pages "Params.private" "ne" true }}
-      {{ partial "album-card.html" . }}
-    {{ end }}
-  </section>
-
-  <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const trigger = document.getElementById('hero-image-trigger');
-      const menuBtn = document.querySelector('.icon-menu')?.closest('a, button, .menu-toggle') || document.querySelector('.icon-menu');
-      let autoOpenTimer; // 自动弹出的定时器变量
-
-      if (menuBtn) {
-          // --- 1. 核心改动：首次打开网站，4秒后自动弹出导航栏 ---
-          // 使用 sessionStorage（会话存储），确保用户只有在“今天第一次打开标签页”时才会触发自动弹出
-          // 刷新页面、或者从子页面点击“Home”返回时，绝对不会再次弹出，体验非常克制且优雅
-          if (!sessionStorage.getItem('nav_auto_triggered')) {
-              autoOpenTimer = setTimeout(() => {
-                  const isMenuOpen = document.body.classList.contains('menu-open') || 
-                                     document.documentElement.classList.contains('menu-open') ||
-                                     document.body.classList.contains('is-menu-active');
-                  
-                  // 4 秒时间到，如果用户在这期间没有主动打开过菜单，则执行自动弹出
-                  if (!isMenuOpen && !sessionStorage.getItem('nav_auto_triggered')) {
-                      menuBtn.click();
-                      sessionStorage.setItem('nav_auto_triggered', 'true'); // 立刻上锁，防止重复触发
-                  }
-              }, 2000); // 4000 毫秒 = 4 秒（你可以根据测试体感，自由修改为 3000 或 5000）
-          }
-
-          // --- 2. 安全防打断机制 ---
-          // 如果用户是个急性子，进站 4 秒内自己主动去点了右上角的菜单，立刻清除定时器并上锁
-          // 这样可以绝对避免“用户刚手动打开/关闭了菜单，定时器时间到了又自作聪明弹出来一次”的尴尬体验
-          menuBtn.addEventListener('click', () => {
-              clearTimeout(autoOpenTimer);
-              sessionStorage.setItem('nav_auto_triggered', 'true');
-          });
-      }
-
-      if (trigger && menuBtn) {
-          // --- 3. 统一交互：点击图片依然作为手动开启的桥梁 ---
-          trigger.addEventListener('click', (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              clearTimeout(autoOpenTimer); // 用户主动点图，也立刻清除自动定时器
-
-              const isMenuOpen = document.body.classList.contains('menu-open') || 
-                                 document.documentElement.classList.contains('menu-open') ||
-                                 document.body.classList.contains('is-menu-active');
-
-              if (!isMenuOpen) {
-                  menuBtn.click();
-                  sessionStorage.setItem('nav_auto_triggered', 'true'); // 点过图了，也标记为已触发展示
-              }
-          });
-      }
-  });
-  </script>
+  {{ $homepageVersion := .Site.Params.homepageVersion | default "legacy" | lower }}
+  {{ if eq $homepageVersion "legacy" }}
+    {{ partial "home/legacy.html" . }}
+  {{ else if eq $homepageVersion "v2" }}
+    <span data-home-legacy-start hidden></span>
+    {{ partial "home/legacy.html" . }}
+    <span data-home-legacy-end hidden></span>
+    <template id="home-v2-template">
+      {{ partial "home/v2.html" . }}
+    </template>
+  {{ else }}
+    {{ errorf "unsupported params.homepageVersion %q; expected legacy or v2" $homepageVersion }}
+  {{ end }}
 {{ end }}

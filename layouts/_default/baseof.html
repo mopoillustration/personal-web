@@ -1,8 +1,10 @@
 <!doctype html>
 {{- $theme := .Params.theme | default .Site.Params.defaultTheme }}
+{{- $homepageVersion := .Site.Params.homepageVersion | default "legacy" | lower }}
+{{- $isV2Home := and .IsHome (eq $homepageVersion "v2") }}
 <html class="{{- if (eq $theme "light") -}}light{{- else if (eq $theme "dark") }}dark{{ end }}" lang="{{- site.LanguageCode | default "en" -}}">
   {{ partial "head.html" . }}
-  <body>
+  <body{{ if $isV2Home }} class="home-v2-configured"{{ end }}>
     {{ partial "announcement.html" . }}
 
     {{ block "header" . }}{{ partial "header.html" . }}{{ end }}

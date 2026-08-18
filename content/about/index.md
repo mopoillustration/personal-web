@@ -10,8 +10,7 @@ weight: 6
     <img src="/images/me.jpg" alt="Mopo's Portrait">
 </div>
 
-# Hi, I'm Mopo.
-
+<h1 class="about-handwritten-intro"><img src="/images/hello.png" width="1500" height="140" alt="Hi, I'm Mopo."></h1>
 
 I'm a Chinese freelance illustrator based in Germany.
 

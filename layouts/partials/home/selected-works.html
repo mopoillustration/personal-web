@@ -1,0 +1,224 @@
+{{ $selectedWorksPage := site.GetPage "/selected works" }}
+{{ if not $selectedWorksPage }}
+  {{ errorf "v2 homepage could not find the Selected Works page" }}
+{{ end }}
+
+{{ $images := slice }}
+{{ range $image := where ($selectedWorksPage.Resources.ByType "image") "Params.hidden" "ne" true }}
+  {{ if strings.HasPrefix $image.Name "graphics/" }}
+    {{ $title := "" }}
+    {{ with $image.Exif }}
+      {{ with .Tags.ImageDescription }}
+        {{ $title = . }}
+      {{ end }}
+    {{ end }}
+    {{ if ne $image.Title $image.Name }}
+      {{ $title = $image.Title }}
+    {{ end }}
+
+    {{ $small := $image.Filter (slice images.AutoOrient (images.Process "fit 600x900")) }}
+    {{ $large := $image.Filter (slice images.AutoOrient (images.Process "fit 900x1600")) }}
+    {{ $full := $image.Filter (slice images.AutoOrient (images.Process "fit 1600x1600")) }}
+    {{ $layoutKind := "extra-tall" }}
+    {{ if gt $full.Width $full.Height }}
+      {{ $layoutKind = "landscape" }}
+    {{ else if gt (mul $full.Width 2) $full.Height }}
+      {{ $layoutKind = "portrait" }}
+    {{ end }}
+
+    {{ $images = $images | append (dict
+      "Name" $image.Name
+      "Title" $title
+      "image" $image
+      "Small" $small
+      "Large" $large
+      "Full" $full
+      "Color" (index $small.Colors 0 | default "transparent")
+      "LayoutKind" $layoutKind
+      )
+    }}
+  {{ end }}
+{{ end }}
+{{ $images = sort $images "Name" "asc" }}
+
+{{ if eq (len $images) 0 }}
+  {{ errorf "v2 homepage requires at least one visible image in content/selected works/graphics/" }}
+{{ end }}
+
+{{ $trackOverrides := dict }}
+{{ with $selectedWorksPage.Params.homepage_track_overrides }}
+  {{ if not (reflect.IsMap .) }}
+    {{ errorf "Selected Works homepage_track_overrides must be a YAML map of exact graphics/... resource names to landscape, portrait, or extra-tall" }}
+  {{ else }}
+    {{ $trackOverrides = . }}
+  {{ end }}
+{{ end }}
+
+{{ $validTrackKinds := slice "landscape" "portrait" "extra-tall" }}
+{{ range $overrideName, $overrideKind := $trackOverrides }}
+  {{ if ne (printf "%T" $overrideName) "string" }}
+    {{ errorf "Selected Works homepage_track_overrides resource name must be a string" }}
+  {{ else if ne (printf "%T" $overrideKind) "string" }}
+    {{ errorf "Selected Works homepage_track_overrides value for %q must be a string" $overrideName }}
+  {{ else if not (in $validTrackKinds $overrideKind) }}
+    {{ errorf "Selected Works homepage_track_overrides value for %q must be landscape, portrait, or extra-tall" $overrideName }}
+  {{ else if ne (len (where $images "Name" "eq" $overrideName)) 1 }}
+    {{ errorf "Selected Works homepage_track_overrides references unavailable image %q; use an exact visible graphics/... resource name" $overrideName }}
+  {{ end }}
+{{ end }}
+
+{{ $classifiedImages := slice }}
+{{ range $item := $images }}
+  {{ $layoutKind := $item.LayoutKind }}
+  {{ if isset $trackOverrides $item.Name }}
+    {{ $layoutKind = index $trackOverrides $item.Name }}
+  {{ end }}
+  {{ $classifiedImages = $classifiedImages | append (merge $item (dict "LayoutKind" $layoutKind)) }}
+{{ end }}
+
+{{ $featuredNames := slice }}
+{{ with $selectedWorksPage.Params.homepage_featured }}
+  {{ if not (reflect.IsSlice .) }}
+    {{ errorf "Selected Works homepage_featured must be a YAML list of exact graphics/... resource names" }}
+  {{ else }}
+    {{ $featuredNames = . }}
+  {{ end }}
+{{ end }}
+
+{{ $featuredImages := slice }}
+{{ $seenFeatured := slice }}
+{{ range $position, $featuredName := $featuredNames }}
+  {{ if ne (printf "%T" $featuredName) "string" }}
+    {{ errorf "Selected Works homepage_featured item %d must be a string" (add $position 1) }}
+  {{ else if in $seenFeatured $featuredName }}
+    {{ errorf "Selected Works homepage_featured contains duplicate resource %q" $featuredName }}
+  {{ else }}
+    {{ $matches := where $classifiedImages "Name" "eq" $featuredName }}
+    {{ if ne (len $matches) 1 }}
+      {{ errorf "Selected Works homepage_featured item %d references unavailable image %q; use an exact visible graphics/... resource name" (add $position 1) $featuredName }}
+    {{ else }}
+      {{ $featuredImages = $featuredImages | append (index $matches 0) }}
+      {{ $seenFeatured = $seenFeatured | append $featuredName }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{/*
+  Each fixed track keeps featured works in homepage_featured order first, then
+  all remaining works in Name asc order. This produces a stable visual, Tab,
+  and PhotoSwipe sequence without moving or duplicating any image resources.
+*/}}
+{{ $landscapeFeatured := slice }}
+{{ $portraitFeatured := slice }}
+{{ $extraTallFeatured := slice }}
+{{ range $item := $featuredImages }}
+  {{ if eq $item.LayoutKind "landscape" }}
+    {{ $landscapeFeatured = $landscapeFeatured | append $item }}
+  {{ else if eq $item.LayoutKind "portrait" }}
+    {{ $portraitFeatured = $portraitFeatured | append $item }}
+  {{ else }}
+    {{ $extraTallFeatured = $extraTallFeatured | append $item }}
+  {{ end }}
+{{ end }}
+
+{{ $landscapeAutomatic := slice }}
+{{ $portraitAutomatic := slice }}
+{{ $extraTallAutomatic := slice }}
+{{ range $item := $classifiedImages }}
+  {{ if not (in $seenFeatured $item.Name) }}
+    {{ if eq $item.LayoutKind "landscape" }}
+      {{ $landscapeAutomatic = $landscapeAutomatic | append $item }}
+    {{ else if eq $item.LayoutKind "portrait" }}
+      {{ $portraitAutomatic = $portraitAutomatic | append $item }}
+    {{ else }}
+      {{ $extraTallAutomatic = $extraTallAutomatic | append $item }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ $landscapeItems := $landscapeFeatured }}
+{{ range $landscapeAutomatic }}
+  {{ $landscapeItems = $landscapeItems | append . }}
+{{ end }}
+{{ $portraitItems := $portraitFeatured }}
+{{ range $portraitAutomatic }}
+  {{ $portraitItems = $portraitItems | append . }}
+{{ end }}
+{{ $extraTallItems := $extraTallFeatured }}
+{{ range $extraTallAutomatic }}
+  {{ $extraTallItems = $extraTallItems | append . }}
+{{ end }}
+
+{{ $tracks := slice
+  (dict "Kind" "landscape" "Label" "Landscape illustrations" "Items" $landscapeItems)
+  (dict "Kind" "portrait" "Label" "Portrait illustrations" "Items" $portraitItems)
+  (dict "Kind" "extra-tall" "Label" "Extra-tall illustrations" "Items" $extraTallItems)
+}}
+
+<div class="home-v2__works-grid" data-mopo-lightbox-gallery role="group" aria-label="Selected Works">
+  {{ $displayPosition := 0 }}
+  {{ range $track := $tracks }}
+    <ul class="home-v2__works-track home-v2__works-track--{{ $track.Kind }}" aria-label="{{ $track.Label }}" role="list">
+      {{ range $item := $track.Items }}
+        {{ $displayPosition = add $displayPosition 1 }}
+    {{ $image := $item.image }}
+    {{ $small := $item.Small }}
+    {{ $large := $item.Large }}
+    {{ $full := $item.Full }}
+    {{ $alt := "" }}
+    {{ with $image.Params.alt }}
+      {{ $alt = . }}
+    {{ end }}
+    {{ if and (not $alt) (ne $image.Title $image.Name) }}
+      {{ $alt = $image.Title }}
+    {{ end }}
+    {{ if not $alt }}
+      {{ $alt = printf "Selected illustration by Mopo, %d of %d" $displayPosition (len $images) }}
+    {{ end }}
+    {{ $srcset := printf "%s %dw, %s %dw" $small.RelPermalink $small.Width $large.RelPermalink $large.Width }}
+    {{ if gt $full.Width $large.Width }}
+      {{ $srcset = printf "%s, %s %dw" $srcset $full.RelPermalink $full.Width }}
+    {{ end }}
+    {{ $sizes := "(min-width: 768px) 20vw, 100vw" }}
+    {{ if eq $item.LayoutKind "landscape" }}
+      {{ $sizes = "(min-width: 768px) 48vw, 100vw" }}
+    {{ else if eq $item.LayoutKind "portrait" }}
+      {{ $sizes = "(min-width: 768px) 28vw, 100vw" }}
+    {{ end }}
+    <li class="home-v2__work-item">
+      <a
+        id="{{ $image.Name | urlize }}"
+        class="home-v2__work-link gallery-item"
+        href="{{ $full.RelPermalink }}"
+        data-pswp-src="{{ $full.RelPermalink }}"
+        data-pswp-width="{{ $full.Width }}"
+        data-pswp-height="{{ $full.Height }}"
+        data-pswp-target="{{ $image.Name | urlize }}"
+        title="{{ $item.Title }}"
+        itemscope
+        itemtype="https://schema.org/ImageObject">
+        <figure class="home-v2__work-figure" style="background-color: {{ $item.Color }}">
+          <img
+            class="home-v2__work-image"
+            src="{{ $small.RelPermalink }}"
+            srcset="{{ $srcset }}"
+            sizes="{{ $sizes }}"
+            width="{{ $large.Width }}"
+            height="{{ $large.Height }}"
+            loading="lazy"
+            decoding="async"
+            alt="{{ $alt }}">
+        </figure>
+        <meta itemprop="contentUrl" content="{{ $full.RelPermalink }}">
+        <span class="pswp-caption-content hidden">{{ $item.Title }}</span>
+        {{ with site.Params.Author }}
+          <span itemprop="creator" itemtype="https://schema.org/Person" itemscope>
+            <meta itemprop="name" content="{{ site.Params.Author.name }}">
+          </span>
+        {{ end }}
+      </a>
+    </li>
+      {{ end }}
+    </ul>
+  {{ end }}
+</div>
