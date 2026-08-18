@@ -46,7 +46,8 @@
         if (!isUnmodifiedPrimaryClick(e)) return;
 
         const isGalleryClick = e.target.closest(
-            '#gallery .gallery-item, [data-mopo-lightbox-gallery] .gallery-item'
+            '#gallery .gallery-item[data-pswp-src][data-pswp-target], '
+            + '[data-mopo-lightbox-gallery] .home-v2__work-link.gallery-item[data-pswp-src][data-pswp-target]'
         );
         
         if (isGalleryClick && !history.state?.[galleryHistoryStateKey]) {

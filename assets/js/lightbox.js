@@ -6,13 +6,16 @@ import * as params from "@params";
 const gallery = document.getElementById("gallery")
   || document.querySelector("[data-mopo-lightbox-gallery]");
 const galleryHistoryStateKey = "mopoGalleryEntry";
+const galleryItemSelector = gallery?.matches("[data-mopo-lightbox-gallery]")
+  ? ".home-v2__work-link.gallery-item[data-pswp-src][data-pswp-target]"
+  : ".gallery-item";
 
 if (gallery) {
   let removeGalleryHistoryOnDestroy = false;
 
   const lightbox = new PhotoSwipeLightbox({
     gallery,
-    children: ".gallery-item",
+    children: galleryItemSelector,
     showHideAnimationType: "zoom",
     bgOpacity: 1,
     pswpModule: PhotoSwipe,
@@ -84,7 +87,7 @@ if (gallery) {
 
   if (window.location.hash.substring(1).length > 1) {
     const target = window.location.hash.substring(1);
-    const items = gallery.querySelectorAll("a");
+    const items = gallery.querySelectorAll(galleryItemSelector);
     for (let i = 0; i < items.length; i++) {
       if (items[i].dataset["pswpTarget"] === target) {
         lightbox.loadAndOpen(i, { gallery });

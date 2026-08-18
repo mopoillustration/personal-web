@@ -471,6 +471,32 @@ section.social-icons .social-icon {
     vertical-align: middle;
 }
 
+/* Keep the three footer icons on one optical baseline, including email's details trigger. */
+section.social-icons {
+    align-items: center;
+}
+
+section.social-icons > a,
+section.social-icons > .email-contact {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    line-height: 1;
+}
+
+section.social-icons .email-contact-trigger {
+    width: 100%;
+    height: 100%;
+    line-height: 1;
+}
+
+section.social-icons .social-icon {
+    display: block;
+    flex: 0 0 18px;
+}
+
 .home-v2 .home-v2__contact-link > span {
     min-width: 0;
     overflow-wrap: anywhere;
