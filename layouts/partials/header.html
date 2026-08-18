@@ -10,7 +10,7 @@
       {{ .Site.Title }}
     </a>
   {{ end }}
-  {{ if site.Menus.main }}
+  {{ if and .IsHome site.Menus.main }}
     <ul>
       <li>
         <button class="btn mopo-map-toggle" id="menu-toggle" aria-expanded="false" type="button" title="Map" aria-label="Toggle navigation map">

@@ -67,7 +67,6 @@ hgroup > h1,
 hgroup > h2,
 .card > div > h2,
 .responsive-title,
-.blog-title,
 .home-v2 .home-v2__works-heading > h2 {
     font-family: var(--font-mopo-cm);
     font-style: normal !important;
@@ -174,7 +173,7 @@ html.announcement-dismissed .announcement-bar {
     padding: 0;
     box-sizing: border-box;
     color: inherit;
-    font-size: 0.78rem;
+    font-size: 0.936rem;
     font-weight: 450;
     line-height: 1;
     text-decoration: none;
@@ -203,7 +202,7 @@ html.announcement-dismissed .announcement-bar {
 
 .announcement-type {
     color: inherit;
-    font-size: 0.68rem;
+    font-size: 0.816rem;
     font-weight: 700;
     letter-spacing: 0.065em;
     line-height: 1;
@@ -219,7 +218,7 @@ html.announcement-dismissed .announcement-bar {
 
 .announcement-arrow {
     margin-left: 0.45rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     line-height: 1;
     transition: transform 180ms ease;
 }
@@ -297,7 +296,7 @@ html.announcement-dismissed .announcement-bar {
         display: flex;
         justify-content: center;
         padding: 0;
-        font-size: 0.72rem;
+        font-size: 0.864rem;
         line-height: 1;
         white-space: nowrap;
     }
@@ -307,7 +306,7 @@ html.announcement-dismissed .announcement-bar {
     }
 
     .announcement-type {
-        font-size: 0.62rem;
+        font-size: 0.744rem;
         letter-spacing: 0.05em;
     }
 
@@ -315,14 +314,14 @@ html.announcement-dismissed .announcement-bar {
         display: inline;
         margin: 0;
         padding: 0;
-        font-size: 0.72rem;
+        font-size: 0.864rem;
         line-height: 1;
     }
 
     .announcement-arrow {
         position: static;
         margin-left: 0.35rem;
-        font-size: 0.9rem;
+        font-size: 1.08rem;
     }
 
     .announcement-close {
@@ -763,6 +762,10 @@ html.announcement-dismissed .announcement-bar {
         max-height: 100%;
         object-fit: contain;
     }
+
+    .home-v2 .home-v2__intro-strip--statement {
+        transform: translateY(1rem);
+    }
 }
 
 @media screen and (min-width: 768px) and (max-height: 800px) {
@@ -1101,12 +1104,13 @@ html.announcement-dismissed .announcement-bar {
     transform: translateX(5px);
 }
 
-/* 恢复旧版字体设定 */
 .blog-title {
     margin: 0 0 0.3rem 0;
     font-size: 1.2rem;
     color: #111;
-    font-weight: 700;
+    font-family: var(--font-mopo-af);
+    font-style: normal;
+    font-weight: 600;
     /* 核心修改：确保标题能自由伸展以占满空间 */
     flex: 1; 
     min-width: 0;
@@ -1189,12 +1193,18 @@ html.announcement-dismissed .announcement-bar {
 
 .about-content-wrapper .about-handwritten-intro {
     line-height: 0;
+    margin: 0 0 1.5rem;
 }
 
 .about-content-wrapper .about-handwritten-intro img {
     display: block;
     width: 100%;
     height: auto;
+    margin: 0;
+}
+
+.about-content-wrapper .about-handwritten-intro + p {
+    margin-top: 0;
 }
 
 .about-content-wrapper blockquote {
@@ -1747,8 +1757,14 @@ nav.categories > ul li > a {
     font-size: 0.89375rem;
 }
 
-.home-v2 .home-v2__placeholder-description {
-    font-size: 20.8px;
+.home-v2 .home-v2__intro-strip--collage .home-v2__placeholder-subtitle {
+    font-size: 30px;
+    font-weight: 700 !important;
+}
+
+.home-v2 .home-v2__intro-strip--collage .home-v2__placeholder-description {
+    font-size: 27.04px;
+    font-style: italic;
 }
 
 @media screen and (min-width: 768px) {
