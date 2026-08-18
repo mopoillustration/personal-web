@@ -6,8 +6,8 @@
 
    CM: navigation, announcement, and page/album titles.
    AF: descriptions, subtitles, and normal reading text.
-   The shared handwritten "Hi, I'm Mopo" test image is intentionally not
-   replaced by a web font; final page-specific artwork remains to be supplied.
+   The handwritten "Hi, I'm Mopo" artwork remains an image rather than a web
+   font and may use page- and color-scheme-specific assets.
    ========================================================================== */
 @font-face {
     font-family: "Mopo Cutive Mono";
@@ -52,6 +52,31 @@
 :root {
     --font-mopo-cm: "Mopo Cutive Mono", "Cutive Mono", ui-monospace, monospace;
     --font-mopo-af: "Mopo Afacad", Afacad, Arial, sans-serif;
+}
+
+/* Phase 5 daytime palette. Explicit .light continues to override a dark OS. */
+@media (prefers-color-scheme: light) {
+    :root:not(.dark) {
+        --mopo-icon-email: #FF8400;
+        --mopo-icon-instagram: #96DCFF;
+        --mopo-icon-behance: #B996FF;
+        --mopo-nav-narrative-hover: #E31414;
+        --mopo-nav-editorial-hover: #1599E6;
+        --mopo-nav-daily-hover: #DEC000;
+        --mopo-nav-news-hover: #FF6B95;
+        --mopo-nav-about-hover: #6AC206;
+    }
+}
+
+html.light {
+    --mopo-icon-email: #FF8400;
+    --mopo-icon-instagram: #96DCFF;
+    --mopo-icon-behance: #B996FF;
+    --mopo-nav-narrative-hover: #E31414;
+    --mopo-nav-editorial-hover: #1599E6;
+    --mopo-nav-daily-hover: #DEC000;
+    --mopo-nav-news-hover: #FF6B95;
+    --mopo-nav-about-hover: #6AC206;
 }
 
 html {
@@ -106,9 +131,9 @@ hgroup > p,
 
 .announcement-bar {
     --announcement-height: 40px;
-    --announcement-background: #000;
-    --announcement-foreground: #fff;
-    --announcement-close-hover-background: rgba(255, 255, 255, 0.12);
+    --announcement-background: var(--announcement-session-background, #96E3C0);
+    --announcement-foreground: #000000;
+    --announcement-close-hover-background: rgba(0, 0, 0, 0.08);
 
     position: relative;
     flex: 0 0 auto;
@@ -424,6 +449,28 @@ html.announcement-dismissed .announcement-bar {
     flex: 0 0 auto;
 }
 
+.home-v2 .home-v2__contact-icon--email,
+.social-icon--email {
+    color: var(--mopo-icon-email, currentColor);
+}
+
+.home-v2 .home-v2__contact-icon--instagram,
+.social-icon--instagram {
+    color: var(--mopo-icon-instagram, currentColor);
+}
+
+.home-v2 .home-v2__contact-icon--behance,
+.social-icon--behance {
+    color: var(--mopo-icon-behance, currentColor);
+}
+
+section.social-icons .social-icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+}
+
 .home-v2 .home-v2__contact-link > span {
     min-width: 0;
     overflow-wrap: anywhere;
@@ -437,6 +484,35 @@ html.announcement-dismissed .announcement-bar {
     color: inherit;
     line-height: 1.25;
     text-decoration: none;
+}
+
+.home-v2 .home-v2__navigation-link {
+    transition: color 140ms ease;
+}
+
+.home-v2 .home-v2__navigation-link--narrative:hover,
+.home-v2 .home-v2__navigation-link--narrative:focus-visible {
+    color: var(--mopo-nav-narrative-hover, inherit);
+}
+
+.home-v2 .home-v2__navigation-link--editorial:hover,
+.home-v2 .home-v2__navigation-link--editorial:focus-visible {
+    color: var(--mopo-nav-editorial-hover, inherit);
+}
+
+.home-v2 .home-v2__navigation-link--daily:hover,
+.home-v2 .home-v2__navigation-link--daily:focus-visible {
+    color: var(--mopo-nav-daily-hover, inherit);
+}
+
+.home-v2 .home-v2__navigation-link--news:hover,
+.home-v2 .home-v2__navigation-link--news:focus-visible {
+    color: var(--mopo-nav-news-hover, inherit);
+}
+
+.home-v2 .home-v2__navigation-link--about:hover,
+.home-v2 .home-v2__navigation-link--about:focus-visible {
+    color: var(--mopo-nav-about-hover, inherit);
 }
 
 .home-v2 > .home-v2__navigation {
@@ -706,16 +782,6 @@ html.announcement-dismissed .announcement-bar {
         box-sizing: border-box;
         min-height: 0;
         padding: clamp(1rem, 1.5vw, 2rem);
-    }
-
-    .home-v2 > .home-v2__contact,
-    .home-v2 > .home-v2__navigation {
-        border-right: 1px solid var(--surface-2);
-    }
-
-    .home-v2 > .home-v2__contact,
-    .home-v2 > .home-v2__intro {
-        border-bottom: 1px solid var(--surface-2);
     }
 
     .home-v2 > .home-v2__intro {
@@ -1106,7 +1172,7 @@ html.announcement-dismissed .announcement-bar {
 
 .blog-title {
     margin: 0 0 0.3rem 0;
-    font-size: 1.2rem;
+    font-size: 1.44rem;
     color: #111;
     font-family: var(--font-mopo-af);
     font-style: normal;
@@ -1171,7 +1237,7 @@ html.announcement-dismissed .announcement-bar {
         margin-top: -1.25rem;
     }
     .blog-entry-block { padding: 1rem; max-width: 95%; }
-    .blog-title { font-size: 1rem; }
+    .blog-title { font-size: 1.2rem; }
     .blog-thumbnail { width: 60px; height: 60px; margin-left: 15px; }
 }
 

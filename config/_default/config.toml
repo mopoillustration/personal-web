@@ -18,7 +18,7 @@ defaultContentLanguage = "en" # 默认显示英文
   copyright = "© 2026 Mopo. All Rights Reserved."
   disableGoogleFonts = true
   favicon = "images/favicon.png"
-  homepageVersion = "legacy" # Keep the accepted homepage active until v2 is fully approved.
+  homepageVersion = "v2" # Desktop V2 is the production homepage; legacy remains the mobile and script-failure fallback.
 
   [params.author]
     email = "user@example.com"

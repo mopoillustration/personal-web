@@ -6,6 +6,13 @@
   "News & Notes"
   "About Me"
 }}
+{{ $navigationClasses := dict
+  "Narrative Illustration" "narrative"
+  "Editorial Illustration" "editorial"
+  "Daily Art" "daily"
+  "News & Notes" "news"
+  "About Me" "about"
+}}
 
 <div class="home-v2__navigation" data-home-v2-region="navigation">
   <nav class="home-v2__primary-navigation" aria-label="Primary navigation">
@@ -15,7 +22,7 @@
         {{ if eq (len $matches) 1 }}
           {{ with index $matches 0 }}
             <li>
-              <a href="{{ .URL }}"{{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }} aria-current="page"{{ end }}>{{ .Name }}</a>
+              <a class="home-v2__navigation-link home-v2__navigation-link--{{ index $navigationClasses $name }}" href="{{ .URL }}"{{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }} aria-current="page"{{ end }}>{{ .Name }}</a>
             </li>
           {{ end }}
         {{ else }}

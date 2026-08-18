@@ -10,7 +10,7 @@ weight: 6
     <img src="/images/me.jpg" alt="Mopo's Portrait">
 </div>
 
-<h1 class="about-handwritten-intro"><img src="/images/hello_left.png" width="1500" height="140" alt="Hi, I'm Mopo."></h1>
+<h1 class="about-handwritten-intro"><picture><source media="(prefers-color-scheme: dark)" srcset="/images/hello_left_night.png"><img src="/images/hello_left_day.png" width="1500" height="140" alt="Hi, I'm Mopo."></picture></h1>
 
 I'm a Chinese freelance illustrator based in Germany.
 
@@ -23,10 +23,12 @@ My work focuses on **editorial illustration** and **picture book storytelling**,
 * **Completed** | [*Self-Talk as Night Falls*]({{< relref "/narrative/self-talk" >}}), [*Jumping Dopamine*]({{< relref "/narrative/jumping-dopamine" >}}), [*Dopamine Doses*]({{< relref "/narrative/dopaminedoses" >}}), [*Cozy Time*]({{< relref "/narrative/cozy-time" >}})
 ---
 
-### Awards & Experience
+### Awards & Recognition
+* **2026** | Featured in **Creative Boom**
+* **2026** | Featured in **BRILLO Magazine**
 * **2026** | WIA Shortlisted, [Self-Talk as Night Falls](https://worldillustrationawards.com/projects/mopo-self-talk-as-night-falls)
-* **2026** | AOI Mentorship, [Mentee](https://theaoi.com/news/announcing-aoi-mentees-2026)
 * **2026** | WIA Longlisted, [Self-Talk as Night Falls](https://worldillustrationawards.com/projects/mopo-self-talk-as-night-falls)
+* **2026** | AOI Mentorship, [Mentee](https://theaoi.com/news/announcing-aoi-mentees-2026)
 
 ---
 

@@ -1,16 +1,97 @@
 (function () {
-    const storageKey = 'hideAnnouncement';
+    const dismissalStorageKey = 'hideAnnouncement';
+    const colorSessionStorageKey = 'mopoAnnouncementColor';
+    const colorOrderStorageKey = 'mopoAnnouncementColorOrder';
+    const colorIndexStorageKey = 'mopoAnnouncementColorIndex';
+    const announcementColors = [
+        '#96E3C0',
+        '#FFD2C4',
+        '#C4DAFF',
+        '#FFCFF0',
+        '#DAC7FF'
+    ];
     const root = document.documentElement;
     let dismissed = false;
 
     try {
-        dismissed = sessionStorage.getItem(storageKey) === 'true';
+        dismissed = sessionStorage.getItem(dismissalStorageKey) === 'true';
     } catch (error) {
         // Storage can be unavailable in privacy-restricted browser contexts.
     }
 
     if (dismissed) {
         root.classList.add('announcement-dismissed');
+    }
+
+    function isValidColor(color) {
+        return announcementColors.includes(color);
+    }
+
+    function isValidColorOrder(order) {
+        return Array.isArray(order)
+            && order.length === announcementColors.length
+            && announcementColors.every(function (color) {
+                return order.includes(color);
+            });
+    }
+
+    function shuffleColors() {
+        const order = announcementColors.slice();
+
+        for (let index = order.length - 1; index > 0; index -= 1) {
+            let randomIndex;
+
+            if (window.crypto && window.crypto.getRandomValues) {
+                const randomValue = new Uint32Array(1);
+                window.crypto.getRandomValues(randomValue);
+                randomIndex = randomValue[0] % (index + 1);
+            } else {
+                randomIndex = Math.floor(Math.random() * (index + 1));
+            }
+
+            const current = order[index];
+            order[index] = order[randomIndex];
+            order[randomIndex] = current;
+        }
+
+        return order;
+    }
+
+    function getAnnouncementColor() {
+        try {
+            const sessionColor = sessionStorage.getItem(colorSessionStorageKey);
+
+            if (isValidColor(sessionColor)) {
+                return sessionColor;
+            }
+
+            let colorOrder;
+
+            try {
+                colorOrder = JSON.parse(localStorage.getItem(colorOrderStorageKey));
+            } catch (error) {
+                colorOrder = null;
+            }
+
+            if (!isValidColorOrder(colorOrder)) {
+                colorOrder = shuffleColors();
+                localStorage.setItem(colorOrderStorageKey, JSON.stringify(colorOrder));
+                localStorage.setItem(colorIndexStorageKey, '0');
+            }
+
+            const storedIndex = Number.parseInt(localStorage.getItem(colorIndexStorageKey), 10);
+            const colorIndex = Number.isInteger(storedIndex)
+                ? ((storedIndex % colorOrder.length) + colorOrder.length) % colorOrder.length
+                : 0;
+            const color = colorOrder[colorIndex];
+
+            localStorage.setItem(colorIndexStorageKey, String((colorIndex + 1) % colorOrder.length));
+            sessionStorage.setItem(colorSessionStorageKey, color);
+            return color;
+        } catch (error) {
+            // Keep the first palette color when storage is unavailable.
+            return announcementColors[0];
+        }
     }
 
     function setupAnnouncement() {
@@ -23,6 +104,8 @@
             bar.hidden = true;
             return;
         }
+
+        bar.style.setProperty('--announcement-session-background', getAnnouncementColor());
 
         closeButton.addEventListener('click', function () {
             let finished = false;
@@ -47,7 +130,7 @@
             closeButton.disabled = true;
 
             try {
-                sessionStorage.setItem(storageKey, 'true');
+                sessionStorage.setItem(dismissalStorageKey, 'true');
             } catch (error) {
                 // The current page can still close even when storage is unavailable.
             }

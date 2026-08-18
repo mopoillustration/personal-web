@@ -5,6 +5,33 @@
   var legacyStart = document.querySelector('[data-home-legacy-start]');
   var legacyEnd = document.querySelector('[data-home-legacy-end]');
   var initialV2 = v2Query.matches;
+  var handwrittenSessionKey = 'mopoHomeHandwrittenVariant';
+  var handwrittenIndexKey = 'mopoHomeHandwrittenNextIndex';
+  var handwrittenVariantCount = 7;
+
+  function getHandwrittenVariant() {
+    try {
+      var sessionVariant = Number.parseInt(sessionStorage.getItem(handwrittenSessionKey), 10);
+      if (sessionVariant >= 1 && sessionVariant <= handwrittenVariantCount) {
+        return sessionVariant;
+      }
+
+      var storedIndex = Number.parseInt(localStorage.getItem(handwrittenIndexKey), 10);
+      var variant = storedIndex >= 1 && storedIndex <= handwrittenVariantCount ? storedIndex : 1;
+      var nextVariant = variant === handwrittenVariantCount ? 1 : variant + 1;
+
+      sessionStorage.setItem(handwrittenSessionKey, String(variant));
+      localStorage.setItem(handwrittenIndexKey, String(nextVariant));
+      return variant;
+    } catch (error) {
+      return 1;
+    }
+  }
+
+  function setHandwrittenSource(image, variant, darkMode) {
+    if (!image) return;
+    image.src = '/images/hello_' + variant + (darkMode ? '_night' : '') + '.png';
+  }
 
   function removeLegacyRange() {
     if (!legacyStart || !legacyEnd) return;
@@ -25,6 +52,10 @@
 
   if (v2Template && initialV2) {
     var v2Content = v2Template.content.cloneNode(true);
+    var handwrittenImage = v2Content.querySelector('[data-home-handwritten-intro]');
+    var handwrittenVariant = getHandwrittenVariant();
+    var darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setHandwrittenSource(handwrittenImage, handwrittenVariant, darkModeQuery.matches);
     v2Template.parentNode.insertBefore(v2Content, v2Template);
     v2Template.remove();
     removeLegacyRange();
@@ -38,6 +69,16 @@
 
     document.body.classList.add('home-v2-active');
     document.body.dataset.homepageVariant = 'v2';
+
+    function updateHandwrittenColorScheme(event) {
+      setHandwrittenSource(handwrittenImage, handwrittenVariant, event.matches);
+    }
+
+    if (typeof darkModeQuery.addEventListener === 'function') {
+      darkModeQuery.addEventListener('change', updateHandwrittenColorScheme);
+    } else {
+      darkModeQuery.addListener(updateHandwrittenColorScheme);
+    }
   } else {
     if (v2Template) v2Template.remove();
     removeLegacyMarkers();
