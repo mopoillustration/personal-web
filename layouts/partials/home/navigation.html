@@ -1,43 +1,4 @@
-{{ $page := . }}
-{{ $navigationNames := slice
-  "Narrative Illustration"
-  "Editorial Illustration"
-  "Daily Art"
-  "News & Notes"
-  "About Me"
-}}
-{{ $navigationClasses := dict
-  "Narrative Illustration" "narrative"
-  "Editorial Illustration" "editorial"
-  "Daily Art" "daily"
-  "News & Notes" "news"
-  "About Me" "about"
-}}
-
 <div class="home-v2__navigation" data-home-v2-region="navigation">
-  <nav class="home-v2__primary-navigation" aria-label="Primary navigation">
-    <ul class="home-v2__navigation-list" role="list">
-      {{ range $name := $navigationNames }}
-        {{ $matches := where $page.Site.Menus.main "Name" $name }}
-        {{ if eq (len $matches) 1 }}
-          {{ with index $matches 0 }}
-            <li>
-              <a class="home-v2__navigation-link home-v2__navigation-link--{{ index $navigationClasses $name }}" href="{{ .URL }}"{{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }} aria-current="page"{{ end }}>{{ .Name }}</a>
-            </li>
-          {{ end }}
-        {{ else }}
-          {{ errorf "v2 homepage expected exactly one main menu entry named %q, found %d" $name (len $matches) }}
-        {{ end }}
-      {{ end }}
-    </ul>
-  </nav>
-
-  <div class="home-v2__sidebar-meta">
-    <p class="home-v2__copyright">{{ .Site.Params.copyright }}</p>
-    <nav class="home-v2__legal-navigation" aria-label="Legal">
-      <a class="home-v2__legal-link" href="{{ "/impressum" | relURL }}">Impressum</a>
-      <span class="home-v2__legal-separator" aria-hidden="true">|</span>
-      <a class="home-v2__legal-link" href="{{ "/datenschutz" | relURL }}">Datenschutzerklärung</a>
-    </nav>
-  </div>
+  {{ partial "home/primary-navigation.html" (dict "Page" . "Compact" false) }}
+  {{ partial "home/sidebar-meta.html" . }}
 </div>

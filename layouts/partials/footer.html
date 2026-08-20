@@ -2,7 +2,7 @@
   <div class="footer-content">
     {{ partial "social-icons.html" . }}
     
-    <p class="copyright-text">{{ .Site.Params.copyright }}</p>
+    {{ partial "copyright.html" (dict "Page" . "Class" "copyright-text") }}
 
     {{ if .IsHome }}
     <div class="footer-legal-links">

@@ -9,10 +9,7 @@
 {{ $categoryLabel := cond (eq $filterCategory "news") "News" (cond (eq $filterCategory "note") "Notes" "All") }}
 
 <div class="behind-the-work-container">
-    <header style="text-align: center; margin-bottom: 3rem;">
-        <h1 class="responsive-title" style="font-weight: 800; font-size: 2.5rem; margin-bottom: 0.5rem;">{{ $sectionPage.Title }}</h1>
-        <p class="section-description" style="color: #666;">{{ $sectionPage.Description }}</p>
-    </header>
+    {{ partial "title.html" $sectionPage }}
 
     <nav class="blog-category-filter" aria-label="Filter articles by category">
         <span class="blog-category-label">Category</span>

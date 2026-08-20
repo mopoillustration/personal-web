@@ -1,0 +1,40 @@
+{{ $page := .Page }}
+{{ $compact := .Compact | default false }}
+{{ $navigationNames := slice
+  "Narrative Illustration"
+  "Editorial Illustration"
+  "Daily Art"
+  "News & Notes"
+  "About Me"
+}}
+{{ $navigationClasses := dict
+  "Narrative Illustration" "narrative"
+  "Editorial Illustration" "editorial"
+  "Daily Art" "daily"
+  "News & Notes" "news"
+  "About Me" "about"
+}}
+{{ $compactLabels := dict
+  "Narrative Illustration" "Narrative"
+  "Editorial Illustration" "Editorial"
+  "Daily Art" "Daily Art"
+  "News & Notes" "News & Notes"
+  "About Me" "About"
+}}
+
+<nav class="home-v2__primary-navigation" aria-label="Primary navigation">
+  <ul class="home-v2__navigation-list" role="list">
+    {{ range $name := $navigationNames }}
+      {{ $matches := where $page.Site.Menus.main "Name" $name }}
+      {{ if eq (len $matches) 1 }}
+        {{ with index $matches 0 }}
+          <li>
+            <a class="home-v2__navigation-link home-v2__navigation-link--{{ index $navigationClasses $name }}" href="{{ .URL }}"{{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }} aria-current="page"{{ end }}>{{ if $compact }}{{ index $compactLabels $name }}{{ else }}{{ .Name }}{{ end }}</a>
+          </li>
+        {{ end }}
+      {{ else }}
+        {{ errorf "v2 homepage expected exactly one main menu entry named %q, found %d" $name (len $matches) }}
+      {{ end }}
+    {{ end }}
+  </ul>
+</nav>

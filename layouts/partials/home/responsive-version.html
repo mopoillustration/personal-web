@@ -1,10 +1,12 @@
 <script>
 (function() {
-  var v2Query = window.matchMedia('(min-width: 768px)');
-  var v2Template = document.getElementById('home-v2-template');
+  var desktopQuery = window.matchMedia('(min-width: 768px) and (min-height: 600px) and (orientation: landscape)');
+  var desktopTemplate = document.getElementById('home-v2-template');
+  var mobileTemplate = document.getElementById('home-mobile-template');
   var legacyStart = document.querySelector('[data-home-legacy-start]');
   var legacyEnd = document.querySelector('[data-home-legacy-end]');
-  var initialV2 = v2Query.matches;
+  var initialDesktop = desktopQuery.matches;
+  var activeTemplate = initialDesktop ? desktopTemplate : mobileTemplate;
   var handwrittenSessionKey = 'mopoHomeHandwrittenVariant';
   var handwrittenIndexKey = 'mopoHomeHandwrittenNextIndex';
   var handwrittenVariantCount = 7;
@@ -50,14 +52,15 @@
     if (legacyEnd) legacyEnd.remove();
   }
 
-  if (v2Template && initialV2) {
-    var v2Content = v2Template.content.cloneNode(true);
-    var handwrittenImage = v2Content.querySelector('[data-home-handwritten-intro]');
+  if (activeTemplate) {
+    var homepageContent = activeTemplate.content.cloneNode(true);
+    var handwrittenImage = homepageContent.querySelector('[data-home-handwritten-intro]');
     var handwrittenVariant = getHandwrittenVariant();
     var darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
     setHandwrittenSource(handwrittenImage, handwrittenVariant, darkModeQuery.matches);
-    v2Template.parentNode.insertBefore(v2Content, v2Template);
-    v2Template.remove();
+    activeTemplate.parentNode.insertBefore(homepageContent, activeTemplate);
+    if (desktopTemplate) desktopTemplate.remove();
+    if (mobileTemplate) mobileTemplate.remove();
     removeLegacyRange();
 
     var legacyHeader = document.querySelector('body > header');
@@ -68,7 +71,8 @@
     if (legacyFooter) legacyFooter.remove();
 
     document.body.classList.add('home-v2-active');
-    document.body.dataset.homepageVariant = 'v2';
+    document.body.classList.toggle('home-mobile-active', !initialDesktop);
+    document.body.dataset.homepageVariant = initialDesktop ? 'v2' : 'mobile-v2';
 
     function updateHandwrittenColorScheme(event) {
       setHandwrittenSource(handwrittenImage, handwrittenVariant, event.matches);
@@ -80,20 +84,22 @@
       darkModeQuery.addListener(updateHandwrittenColorScheme);
     }
   } else {
-    if (v2Template) v2Template.remove();
+    if (desktopTemplate) desktopTemplate.remove();
+    if (mobileTemplate) mobileTemplate.remove();
     removeLegacyMarkers();
     document.body.classList.remove('home-v2-active');
+    document.body.classList.remove('home-mobile-active');
     document.body.dataset.homepageVariant = 'legacy';
   }
 
   function reloadForVariantChange(event) {
-    if (event.matches !== initialV2) window.location.reload();
+    if (event.matches !== initialDesktop) window.location.reload();
   }
 
-  if (typeof v2Query.addEventListener === 'function') {
-    v2Query.addEventListener('change', reloadForVariantChange);
+  if (typeof desktopQuery.addEventListener === 'function') {
+    desktopQuery.addEventListener('change', reloadForVariantChange);
   } else {
-    v2Query.addListener(reloadForVariantChange);
+    desktopQuery.addListener(reloadForVariantChange);
   }
 })();
 </script>

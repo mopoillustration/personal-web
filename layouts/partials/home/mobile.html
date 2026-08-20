@@ -1,0 +1,26 @@
+<div class="home-mobile" data-homepage-version="v2-mobile">
+  <section class="home-mobile__intro" aria-labelledby="home-mobile-intro-title">
+    <h1 id="home-mobile-intro-title" class="home-mobile__intro-title">{{ .Title }}</h1>
+    <img class="home-mobile__intro-strip" data-home-handwritten-intro data-pswp-ignore src="/images/hello_1.png" width="1500" height="140" alt="" aria-hidden="true" decoding="async">
+    {{ with .Params.subtitle }}
+      <p class="home-mobile__intro-subtitle">{{ . }}</p>
+    {{ end }}
+    {{ with .Description }}
+      <p class="home-mobile__intro-description">{{ . }}</p>
+    {{ end }}
+  </section>
+
+  <div class="home-mobile__navigation">
+    {{ partial "home/primary-navigation.html" (dict "Page" . "Compact" true) }}
+  </div>
+
+  <section class="home-mobile__works" aria-label="Selected Works">
+    <div class="home-mobile__works-content" data-home-mobile-selected-works role="region" aria-label="Selected Works">
+      {{ partial "home/selected-works.html" . }}
+    </div>
+  </section>
+
+  {{ partial "home/contact.html" . }}
+
+  {{ partial "home/sidebar-meta.html" . }}
+</div>

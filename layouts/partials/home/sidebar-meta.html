@@ -1,0 +1,8 @@
+<div class="home-v2__sidebar-meta">
+  {{ partial "copyright.html" (dict "Page" . "Class" "home-v2__copyright") }}
+  <nav class="home-v2__legal-navigation" aria-label="Legal">
+    <a class="home-v2__legal-link" href="{{ "/impressum" | relURL }}">Impressum</a>
+    <span class="home-v2__legal-separator" aria-hidden="true">|</span>
+    <a class="home-v2__legal-link" href="{{ "/datenschutz" | relURL }}">Datenschutzerklärung</a>
+  </nav>
+</div>

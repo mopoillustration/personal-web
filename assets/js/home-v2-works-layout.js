@@ -6,6 +6,8 @@
     if (!gallery || !worksContent) return;
 
     const home = gallery.closest('.home-v2');
+    if (!home) return;
+
     const worksSection = gallery.closest('.home-v2__works');
     const desktopQuery = window.matchMedia('(min-width: 1024px)');
     let scrollabilityFrame = 0;

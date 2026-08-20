@@ -23,6 +23,9 @@
     <template id="home-v2-template">
       {{ partial "home/v2.html" . }}
     </template>
+    <template id="home-mobile-template">
+      {{ partial "home/mobile.html" . }}
+    </template>
   {{ else }}
     {{ errorf "unsupported params.homepageVersion %q; expected legacy or v2" $homepageVersion }}
   {{ end }}

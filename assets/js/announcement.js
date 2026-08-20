@@ -11,6 +11,9 @@
         '#DAC7FF'
     ];
     const root = document.documentElement;
+    const systemDarkModeQuery = window.matchMedia
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : null;
     let dismissed = false;
 
     try {
@@ -94,6 +97,23 @@
         }
     }
 
+    function usesDarkMode() {
+        if (root.classList.contains('dark')) {
+            return true;
+        }
+
+        return !root.classList.contains('light') && Boolean(systemDarkModeQuery && systemDarkModeQuery.matches);
+    }
+
+    function applyAnnouncementColor(bar) {
+        if (usesDarkMode()) {
+            bar.style.removeProperty('--announcement-session-background');
+            return;
+        }
+
+        bar.style.setProperty('--announcement-session-background', getAnnouncementColor());
+    }
+
     function setupAnnouncement() {
         const bar = document.getElementById('announcement-bar');
         const closeButton = document.getElementById('close-announcement');
@@ -105,7 +125,13 @@
             return;
         }
 
-        bar.style.setProperty('--announcement-session-background', getAnnouncementColor());
+        applyAnnouncementColor(bar);
+
+        if (systemDarkModeQuery && systemDarkModeQuery.addEventListener) {
+            systemDarkModeQuery.addEventListener('change', function () {
+                applyAnnouncementColor(bar);
+            });
+        }
 
         closeButton.addEventListener('click', function () {
             let finished = false;
