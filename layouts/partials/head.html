@@ -2,9 +2,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ with .Title }}{{ . }} -{{ end }} {{ .Site.Title }}</title>
-  {{ if .Params.seo_noindex }}
-  <meta name="robots" content="noindex, nofollow">
-  {{ end }}
   {{ $js := resources.Get "js/custom-gallery.js" | minify | fingerprint }}
   <script src="{{ $js.RelPermalink }}" defer></script>
   {{ $emailContactJS := resources.Get "js/email-contact.js" | minify | fingerprint }}
@@ -17,7 +14,9 @@
   {{ if .Params.keywords }}
     <meta name="keywords" content="{{ delimit .Params.keywords `, ` }}" />
   {{ end }}
-  {{ if .Params.private }}
+  {{ if .Params.seo_noindex }}
+    <meta name="robots" content="noindex, follow" />
+  {{ else if .Params.private }}
     <meta name="robots" content="noindex, nofollow" />
   {{ else }}
     <meta name="robots" content="index, follow" />

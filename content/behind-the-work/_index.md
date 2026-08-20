@@ -4,5 +4,4 @@ description: A space for updates, thoughts and reflections on my creative proces
 menus: main
 weight: 5
 layout: "blog-list"
-private: True
 ---

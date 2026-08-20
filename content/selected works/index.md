@@ -2,8 +2,6 @@
 title: Selected Works
 description: A curated selection of illustrations and projects across editorial, storytelling, and picture book work.
 weight: 1
-private: True
-
 menus: main
 
 # Ordered v2 homepage priority list. Keep [] when no image is featured.

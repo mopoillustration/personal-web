@@ -874,7 +874,8 @@ html.light .home-mobile .home-v2__navigation-link--about { color: var(--mopo-nav
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: clamp(1rem, 8vw, 2rem);
+        /* Match the visible icon rhythm used by section.social-icons in the inner-page footer. */
+        gap: 1.5rem;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -884,10 +885,19 @@ html.light .home-mobile .home-v2__navigation-link--about { color: var(--mopo-nav
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 44px;
-        min-height: 44px;
+        position: relative;
+        width: 18px;
+        height: 18px;
+        min-height: 18px;
         color: inherit;
         text-decoration: none;
+    }
+
+    /* Keep a 44px touch target without letting invisible hit-area padding alter the visual spacing. */
+    .home-mobile .home-v2__contact-link::after {
+        position: absolute;
+        inset: -13px;
+        content: "";
     }
 
     .home-mobile .home-v2__contact-link > span {
@@ -960,7 +970,8 @@ html.light .home-mobile .home-v2__navigation-link--about { color: var(--mopo-nav
     }
 
     .home-mobile .home-v2__sidebar-meta {
-        padding-top: 1.75rem;
+        /* Align the icon-to-copyright/legal rhythm with the inner-page footer. */
+        padding-top: 1.25rem;
         color: var(--text-2);
         line-height: 1.45;
         text-align: center;

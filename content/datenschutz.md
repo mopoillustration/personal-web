@@ -2,6 +2,7 @@
 title: "Datenschutzerklärung"
 layout: "about-layout"
 seo_noindex: true
+private: true
 ---
 
 <div class="legal-content-wrapper">

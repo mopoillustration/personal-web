@@ -2,6 +2,7 @@
 title: "Impressum"
 layout: "about-layout"  # 复用我们之前创建的干净模板
 seo_noindex: true
+private: true
 ---
 
 <div class="legal-content-wrapper">
