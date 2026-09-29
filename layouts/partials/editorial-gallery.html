@@ -1,0 +1,106 @@
+{{/*
+  Editorial has a dedicated grid so its card metadata and filters do not
+  change the shared justified Gallery implementation used by other sections.
+*/}}
+{{- $filterCategories := slice "All" "Society" "Health" "Lifestyle" "Nature" "Travel" "Technology" "Business" "Culture" "Psychology" -}}
+{{- $allowedCategoryKeys := slice "society" "health" "lifestyle" "nature" "travel" "technology" "business" "culture" "psychology" -}}
+{{- $announcement := partial "announcement-data.html" . -}}
+{{- $newResourceName := "" -}}
+{{- if ge .Lastmod (now.AddDate 0 0 -30) -}}
+  {{- with $announcement.resource -}}
+    {{- $newResourceName = .Name -}}
+  {{- end -}}
+{{- end -}}
+{{- $images := where (.Resources.ByType "image") "Params.hidden" "ne" true -}}
+{{- $publishResources := default true .Params.build.publishResources -}}
+
+<section class="editorial-gallery" data-editorial-lightbox-gallery aria-label="Editorial illustrations">
+  <nav class="editorial-filters" aria-label="Filter editorial illustrations by theme">
+    {{- range $filterCategories }}
+      {{- $filterKey := lower . -}}
+      <button
+        class="editorial-filter"
+        type="button"
+        data-editorial-filter="{{ $filterKey }}"
+        aria-pressed="{{ if eq $filterKey "all" }}true{{ else }}false{{ end }}"
+      >{{ . }}</button>
+    {{- end }}
+  </nav>
+
+  <p class="editorial-filter-status" data-editorial-filter-status aria-live="polite"></p>
+
+  <div class="editorial-gallery__grid" data-editorial-grid>
+    {{- range sort $images "Name" "asc" }}
+      {{- $image := . -}}
+      {{- $metadata := $image.Params.editorial -}}
+      {{- with $metadata.categories }}
+      {{- $title := strings.TrimSpace $image.Title -}}
+      {{- if or (eq $title "") (eq $title $image.Name) }}
+        {{- errorf "Editorial image %q needs a resource title in %s" $image.Name $.File.Path -}}
+      {{- end -}}
+      {{- $categoryKeys := slice -}}
+      {{- range $category := $metadata.categories }}
+        {{- $categoryKey := lower (strings.TrimSpace $category) -}}
+        {{- if not (in $allowedCategoryKeys $categoryKey) }}
+          {{- errorf "Editorial image %q has unsupported category %q in %s" $image.Name $category $.File.Path -}}
+        {{- end -}}
+        {{- if not (in $categoryKeys $categoryKey) }}
+          {{- $categoryKeys = $categoryKeys | append $categoryKey -}}
+        {{- end -}}
+      {{- end -}}
+      {{- if or (eq (len $categoryKeys) 0) (gt (len $categoryKeys) 3) }}
+        {{- errorf "Editorial image %q needs one to three unique categories in %s" $image.Name $.File.Path -}}
+      {{- end -}}
+      {{- $sourceParts := slice -}}
+      {{- with $metadata.type }}
+        {{- $sourceParts = $sourceParts | append (strings.TrimSpace .) -}}
+      {{- end -}}
+      {{- with $metadata.publication }}
+        {{- $sourceParts = $sourceParts | append (strings.TrimSpace .) -}}
+      {{- end -}}
+      {{- $thumbnail := $image.Filter (slice images.AutoOrient (images.Process "fit 600x600")) -}}
+      {{- $full := $image.Filter (slice images.AutoOrient (images.Process "fit 1600x1600")) -}}
+      {{- $color := index $thumbnail.Colors 0 | default "transparent" -}}
+      <a
+        id="{{ $image.Name | urlize }}"
+        class="editorial-card gallery-item"
+        href="{{ if $publishResources }}{{ $image.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}"
+        data-editorial-categories="{{ delimit $categoryKeys " " }}"
+        data-pswp-src="{{ $full.RelPermalink }}"
+        data-pswp-width="{{ $full.Width }}"
+        data-pswp-height="{{ $full.Height }}"
+        data-pswp-target="{{ $image.Name | urlize }}"
+        title="{{ $title }}"
+        itemscope
+        itemtype="https://schema.org/ImageObject"
+      >
+        <figure class="editorial-card__figure" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
+          <img
+            class="lazyload"
+            width="{{ $thumbnail.Width }}"
+            height="{{ $thumbnail.Height }}"
+            data-src="{{ $thumbnail.RelPermalink }}"
+            alt="{{ $title }}"
+            itemprop="contentUrl"
+          />
+        </figure>
+        <span class="editorial-card__copy">
+          <span class="editorial-card__title" itemprop="name">{{ $title }}</span>
+          {{- with $sourceParts }}
+            <span class="editorial-card__source">{{ delimit . " | " }}</span>
+          {{- end }}
+        </span>
+        {{- if eq $image.Name $newResourceName }}
+          <span class="gallery-new-badge">NEW</span>
+        {{- end }}
+        <meta itemprop="contentUrl" content="{{ if $publishResources }}{{ $image.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}" />
+        {{- with site.Params.Author }}
+          <span itemprop="creator" itemtype="https://schema.org/Person" itemscope>
+            <meta itemprop="name" content="{{ site.Params.Author.name }}" />
+          </span>
+        {{- end }}
+      </a>
+      {{- end }}
+    {{- end }}
+  </div>
+</section>

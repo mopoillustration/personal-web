@@ -44,5 +44,11 @@
   }}
   {{ $js := resources.Get "js/main.js" | js.Build (dict "minify" true "params" $params) | resources.Fingerprint }}
   <script src="{{ $js.RelPermalink }}" defer></script>
+  {{ if eq .Type "editorial" }}
+    {{ $editorialMasonryJS := resources.Get "js/editorial-masonry.js" | minify | fingerprint }}
+    <script src="{{ $editorialMasonryJS.RelPermalink }}" defer></script>
+    {{ $editorialFiltersJS := resources.Get "js/editorial-filters.js" | minify | fingerprint }}
+    <script src="{{ $editorialFiltersJS.RelPermalink }}" defer></script>
+  {{ end }}
   {{- partial "head-custom.html" . -}}
 </head>

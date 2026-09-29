@@ -2166,3 +2166,188 @@ nav.categories > ul li > a {
         font-size: 1.44rem !important;
     }
 }
+
+/* ===========================================================================
+   Editorial Illustration: metadata-led masonry columns and single filters.
+   This is intentionally scoped so Narrative, Daily Art, and other Gallery
+   pages keep their existing justified layout.
+   ========================================================================== */
+section.editorial-gallery {
+    max-width: 1440px;
+}
+
+.editorial-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 auto clamp(2.25rem, 4vw, 3.25rem);
+    width: 100%;
+}
+
+.editorial-filter {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.34rem 0.62rem;
+    background: transparent;
+    color: var(--text-1);
+    font-family: var(--font-mopo-af);
+    font-size: clamp(0.75rem, calc(0.67rem + 0.26vw), 0.9rem);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition:
+        background-color 160ms ease,
+        border-color 160ms ease,
+        color 160ms ease,
+        opacity 160ms ease;
+}
+
+.editorial-filter:hover,
+.editorial-filter[aria-pressed="true"] {
+    border-color: var(--text-1);
+    background: var(--text-1);
+    color: var(--surface-1);
+}
+
+.editorial-filter:focus-visible,
+.editorial-card:focus-visible {
+    outline: 2px solid var(--text-1);
+    outline-offset: 3px;
+}
+
+.editorial-filter-status {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    white-space: nowrap;
+}
+
+.editorial-gallery__grid {
+    --editorial-column-count: 1;
+
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--editorial-column-count), minmax(0, 1fr));
+    column-gap: clamp(1rem, 2vw, 1.5rem);
+    row-gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.editorial-card {
+    position: relative;
+    display: block;
+    min-width: 0;
+    color: var(--text-1);
+    text-decoration: none;
+}
+
+.editorial-card[hidden] {
+    display: none;
+}
+
+.editorial-gallery__grid.is-masonry-enhanced {
+    display: block;
+}
+
+.editorial-gallery__grid.is-masonry-enhanced .editorial-card {
+    position: absolute;
+    inset: 0 auto auto 0;
+    margin: 0;
+}
+
+.editorial-card__figure {
+    margin: 0;
+    overflow: hidden;
+}
+
+.editorial-card__figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: opacity 160ms ease;
+}
+
+.editorial-card:hover .editorial-card__figure img {
+    opacity: 0.92;
+}
+
+.editorial-card__copy {
+    display: grid;
+    gap: 0.35rem;
+    padding-top: 0.85rem;
+}
+
+.editorial-card__title {
+    display: block;
+    font-family: var(--font-mopo-af);
+    font-size: clamp(1.08rem, calc(0.98rem + 0.35vw), 1.3rem);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.18;
+}
+
+.editorial-card__source {
+    display: block;
+    color: var(--text-2);
+    font-family: var(--font-mopo-af);
+    font-size: clamp(0.93rem, calc(0.87rem + 0.2vw), 1.05rem);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+.editorial-card .gallery-new-badge {
+    top: 0.6rem;
+    right: 0.6rem;
+}
+
+@media screen and (min-width: 768px) and (orientation: landscape) {
+    .editorial-gallery__grid {
+        --editorial-column-count: 2;
+    }
+}
+
+@media screen and (min-width: 1180px) and (orientation: landscape) {
+    .editorial-gallery__grid {
+        --editorial-column-count: 3;
+    }
+}
+
+/* ===========================================================================
+   PhotoSwipe: white canvas in light mode; the approved black canvas remains
+   unchanged in dark mode. Explicit html theme classes override OS preference.
+   ========================================================================== */
+html.light .pswp {
+    --pswp-bg: #ffffff;
+    --pswp-placeholder-bg: #f1f1f1;
+    --pswp-preloader-color: rgba(17, 17, 17, 0.24);
+    --pswp-preloader-color-secondary: rgba(17, 17, 17, 0.9);
+    --pswp-icon-color: #111111;
+    --pswp-icon-color-secondary: rgba(255, 255, 255, 0.95);
+    --pswp-icon-stroke-color: rgba(255, 255, 255, 0.95);
+    --pswp-error-text-color: #111111;
+}
+
+.pswp__dynamic-caption {
+    display: none !important;
+}
+
+@media (prefers-color-scheme: light) {
+    html:not(.dark) .pswp {
+        --pswp-bg: #ffffff;
+        --pswp-placeholder-bg: #f1f1f1;
+        --pswp-preloader-color: rgba(17, 17, 17, 0.24);
+        --pswp-preloader-color-secondary: rgba(17, 17, 17, 0.9);
+        --pswp-icon-color: #111111;
+        --pswp-icon-color-secondary: rgba(255, 255, 255, 0.95);
+        --pswp-icon-stroke-color: rgba(255, 255, 255, 0.95);
+        --pswp-error-text-color: #111111;
+    }
+
+}

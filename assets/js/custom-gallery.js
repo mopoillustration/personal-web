@@ -26,7 +26,8 @@
             return;
         }
 
-        const gallery = document.getElementById('gallery');
+        const gallery = document.querySelector('[data-editorial-lightbox-gallery]')
+            || document.getElementById('gallery');
         if (!gallery || gallery.style.visibility === 'hidden') return;
 
         const target = announcementLink.dataset.announcementTarget;
@@ -47,6 +48,7 @@
 
         const isGalleryClick = e.target.closest(
             '#gallery .gallery-item[data-pswp-src][data-pswp-target], '
+            + '[data-editorial-lightbox-gallery] .editorial-card.gallery-item[data-pswp-src][data-pswp-target], '
             + '[data-mopo-lightbox-gallery] .home-v2__work-link.gallery-item[data-pswp-src][data-pswp-target]'
         );
         
