@@ -1,7 +1,7 @@
 ---
 title: Daily Art
 type: daily-art
-description: A collection of personal works and spontaneous illustrations drawn from daily observation and small moments of life.
+description: A collection of standalone illustrations exploring a variety of subjects, ideas, and creative inspirations.
 weight: 4
 menus: main
 ---
