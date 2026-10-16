@@ -52,5 +52,9 @@
     {{ $editorialFiltersJS := resources.Get "js/editorial-filters.js" | minify | fingerprint }}
     <script src="{{ $editorialFiltersJS.RelPermalink }}" defer></script>
   {{ end }}
+  {{ if eq .Type "about" }}
+    {{ $aboutBioToggleJS := resources.Get "js/about-bio-toggle.js" | minify | fingerprint }}
+    <script src="{{ $aboutBioToggleJS.RelPermalink }}" defer></script>
+  {{ end }}
   {{- partial "head-custom.html" . -}}
 </head>

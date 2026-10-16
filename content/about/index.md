@@ -2,6 +2,7 @@
 title: "About Me"
 menus: "main"
 weight: 6
+type: about
 ---
 
 <div class="about-content-wrapper">
@@ -12,9 +13,7 @@ weight: 6
 
 <h1 class="about-handwritten-intro"><picture><source media="(prefers-color-scheme: dark)" srcset="/images/hello_left_night.png"><img src="/images/hello_left_day.png" width="1500" height="140" alt="Hi, I'm Mopo."></picture></h1>
 
-I'm a Chinese freelance illustrator based in Germany.
-
-My work focuses on **editorial illustration** and **picture book storytelling**, with a strong interest in emotions, everyday experiences, and quiet visual narratives. I enjoy turning subtle feelings and ordinary moments into images that feel warm, reflective, and alive.
+{{< about-bio-toggle >}}
 
 ---
 
