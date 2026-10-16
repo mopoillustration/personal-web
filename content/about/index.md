@@ -23,7 +23,7 @@ type: about
 ---
 
 ### Awards & Recognition
-* **2026** | Interview | VoyageATL, [Artist Spotlight on Mopo](https://l.instagram.com/?u=https%3A%2F%2Fwww.hiddengeminterviews.com%2Fprofile%2Fmopo%3Futm_source%3Dig%26utm_medium%3Dsocial%26utm_content%3Dlink_in_bio%26fbclid%3DPAZXh0bgNhZW0CMTEAcGRvZgJzcnRjBmFwcF9pZA85MzY2MTk3NDMzOTI0NTkAAacClehR7_bRucwZ7JygvwJ0eL-MvY0_G6C26cnGUo41FHVNd8atblZvXtQ2Ng_aem_JZ3A9ziWwHUqQIFLcu2uCQ&e=AUA8sGakj3yGw2dBbgclA8GgRTgJaNGUIAi2Fo8tdlHs0CdOImEfhhdidaZ_yuISgZ2efTMhUgtE0aXkrCHCTQO1SW_8OMnQN0nNf0VAuuwbj2CRffpJEbgTICMkPhhoaEK5zH_6374MwMq-TkVQ0ns)
+* **2026** | Interview | VoyageATL, [Artist Spotlight on Mopo](https://www.hiddengeminterviews.com/profile/mopo)
 * **2026** | Feature | The AOI's Instagram
 * **2026** | Feature | **WIA2026 Shortlist Showcase**, Self-Talk as Night Falls
 * **2026** | Feature | [Creative Boom's Ten Under 10K](https://www.instagram.com/p/DcBasuSDBUR/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==)
