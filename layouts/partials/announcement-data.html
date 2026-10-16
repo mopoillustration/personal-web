@@ -1,4 +1,5 @@
-{{- $page := . -}}
+{{- $page := .page -}}
+{{- $entry := .entry -}}
 {{- $category := $page.Params.category | default "" | lower -}}
 {{- $announcementType := "update" -}}
 
@@ -15,7 +16,7 @@
   {{- $announcementType = "work" -}}
 {{- end -}}
 
-{{- with $page.Params.announcement -}}
+{{- with $entry -}}
   {{- with .type -}}
     {{- $announcementType = lower . -}}
   {{- end -}}
@@ -41,7 +42,7 @@
   {{- $announcementText = replaceRE `(?i)^news\s*\|\s*` "" $page.Title -}}
 {{- end -}}
 
-{{- with $page.Params.announcement -}}
+{{- with $entry -}}
   {{- with .text -}}
     {{- $announcementText = . | plainify -}}
   {{- end -}}
@@ -56,7 +57,7 @@
   {{- $sourcePath = .Path -}}
 {{- end -}}
 
-{{- with $page.Params.announcement -}}
+{{- with $entry -}}
   {{- with .resource -}}
     {{- $announcementResourceName = strings.TrimSpace (printf "%v" .) -}}
   {{- end -}}

@@ -2,18 +2,37 @@
 title: Editorial Illustration
 type: editorial
 # description: Editorial illustrations made for articles on topics including lifestyle, psychology, relationships, work, and technology.
-date: 2026-09-29T19:00:00+08:00  # 添加或更新这个时间为今天
+date: 2026-10-16T17:00:00+08:00
+lastmod: 2026-10-16T17:00:00+08:00
 weight: 3
 menus: main
 announcement:
-  resource: graphics/88.jpg
-  text: "Great Outdoors in Norway"
+  items:
+    - resource: graphics/87.jpg
+      text: "30 Plants a Week: How I Fared"
+    - resource: graphics/86.jpg
+      text: "Smart Glasses and Public Pushback"
 resources:
+  # Editorial categories must use 1–4 unique values from the approved theme list.
+  - src: graphics/86.jpg
+    title: "Smart glasses record people in public. The most online generation is pushing back."
+    params:
+      editorial:
+        categories: [Society, Technology]
+        type: "Speculative"
+        publication: "The Washington Post"
+  - src: graphics/87.jpg
+    title: "Experts say we need to eat 30 plants a week. This is how I fared."
+    params:
+      editorial:
+        categories: [Health, Lifestyle, Nature]
+        type: "Speculative"
+        publication: "The Guardian"
   - src: graphics/88.jpg
     title: "5 ways to embrace the great outdoors in Norway, from hiking to log cabin stays"
     params:
       editorial:
-        categories: [Travel, Lifestyle, Culture]
+        categories: [Travel, Lifestyle, Culture, Nature]
         type: "Speculative"
         publication: "National Geographic"
   - src: graphics/89.jpg

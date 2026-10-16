@@ -1,0 +1,23 @@
+{{/* Return every recent Gallery resource referenced by one page's announcement. */}}
+{{- $page := . -}}
+{{- $resourceNames := slice -}}
+{{- if ge $page.Lastmod (now.AddDate 0 0 -30) -}}
+  {{- $announcementConfig := $page.Params.announcement -}}
+  {{- with $announcementConfig.items -}}
+    {{- if gt (len .) 2 -}}
+      {{- errorf "announcement.items in %s may contain at most two entries" $page.File.Path -}}
+    {{- end -}}
+    {{- range $entry := . -}}
+      {{- $announcement := partial "announcement-data.html" (dict "page" $page "entry" $entry) -}}
+      {{- with $announcement.resource -}}
+        {{- $resourceNames = $resourceNames | append .Name -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $announcement := partial "announcement-data.html" (dict "page" $page "entry" $announcementConfig) -}}
+    {{- with $announcement.resource -}}
+      {{- $resourceNames = $resourceNames | append .Name -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $resourceNames -}}

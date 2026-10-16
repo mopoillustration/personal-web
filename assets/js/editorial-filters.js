@@ -42,7 +42,7 @@
         + " illustrations. " + context;
     }
 
-    gallery.dispatchEvent(new Event("editorial:filterchange"));
+    gallery.dispatchEvent(new Event("portfolio:masonry-reflow"));
   }
 
   buttons.forEach((button) => {

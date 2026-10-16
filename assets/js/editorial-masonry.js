@@ -1,11 +1,11 @@
 (() => {
   "use strict";
 
-  const grid = document.querySelector("[data-editorial-grid]");
-  const gallery = document.querySelector("[data-editorial-lightbox-gallery]");
+  const grid = document.querySelector("[data-portfolio-masonry-grid]");
+  const gallery = document.querySelector("[data-portfolio-masonry-gallery]");
   if (!grid || !gallery) return;
 
-  const cards = Array.from(grid.querySelectorAll(".editorial-card"));
+  const cards = Array.from(grid.querySelectorAll(".portfolio-masonry__card"));
   let frame = 0;
 
   function scheduleLayout() {
@@ -21,7 +21,7 @@
     const styles = window.getComputedStyle(grid);
     const columnCount = Math.max(
       1,
-      Number.parseInt(styles.getPropertyValue("--editorial-column-count"), 10) || 1
+      Number.parseInt(styles.getPropertyValue("--portfolio-masonry-column-count"), 10) || 1
     );
     const columnGap = Number.parseFloat(styles.columnGap) || 0;
     const rowGap = Number.parseFloat(styles.rowGap) || columnGap;
@@ -59,7 +59,7 @@
     grid.style.height = Math.max(...columnHeights) - rowGap + "px";
   }
 
-  gallery.addEventListener("editorial:filterchange", scheduleLayout);
+  gallery.addEventListener("portfolio:masonry-reflow", scheduleLayout);
   gallery.addEventListener("lazyloaded", scheduleLayout);
   window.addEventListener("resize", scheduleLayout);
   window.addEventListener("load", scheduleLayout);

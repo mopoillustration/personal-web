@@ -1,11 +1,5 @@
 {{/* Root override: keep the upstream Gallery/PhotoSwipe DOM contract while adding the announcement-driven NEW marker. */}}
-{{ $announcement := partial "announcement-data.html" . }}
-{{ $newResourceName := "" }}
-{{ if ge .Lastmod (now.AddDate 0 0 -30) }}
-  {{ with $announcement.resource }}
-    {{ $newResourceName = .Name }}
-  {{ end }}
-{{ end }}
+{{ $newResourceNames := partial "announcement-resource-names.html" . }}
 
 <section class="gallery">
   <div id="gallery" style="visibility: hidden; height: 1px; overflow: hidden">
@@ -47,7 +41,7 @@
         <figure style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }}">
           <img class="lazyload" width="{{ $thumbnail.Width }}" height="{{ $thumbnail.Height }}" data-src="{{ $thumbnail.RelPermalink }}" alt="{{ .Title }}" />
         </figure>
-        {{ if eq $image.Name $newResourceName }}
+        {{ if in $newResourceNames $image.Name }}
           <span class="gallery-new-badge">NEW</span>
         {{ end }}
         <meta itemprop="contentUrl" content="{{ if $publishResources }}{{ $image.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}" />

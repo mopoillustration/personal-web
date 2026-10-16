@@ -1,5 +1,5 @@
 ---
-title: NEWS | Self-Talk as Night Falls Shortlisted for the World Illustration Awards
+title: Self-Talk as Night Falls Shortlisted for the World Illustration Awards
 date: 2026-07-30
 category: news
 announcement:

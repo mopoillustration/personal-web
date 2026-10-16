@@ -4,17 +4,11 @@
 */}}
 {{- $filterCategories := slice "All" "Society" "Health" "Lifestyle" "Nature" "Travel" "Technology" "Business" "Culture" "Psychology" -}}
 {{- $allowedCategoryKeys := slice "society" "health" "lifestyle" "nature" "travel" "technology" "business" "culture" "psychology" -}}
-{{- $announcement := partial "announcement-data.html" . -}}
-{{- $newResourceName := "" -}}
-{{- if ge .Lastmod (now.AddDate 0 0 -30) -}}
-  {{- with $announcement.resource -}}
-    {{- $newResourceName = .Name -}}
-  {{- end -}}
-{{- end -}}
+{{- $newResourceNames := partial "announcement-resource-names.html" . -}}
 {{- $images := where (.Resources.ByType "image") "Params.hidden" "ne" true -}}
 {{- $publishResources := default true .Params.build.publishResources -}}
 
-<section class="editorial-gallery" data-editorial-lightbox-gallery aria-label="Editorial illustrations">
+<section class="editorial-gallery portfolio-masonry-gallery" data-editorial-lightbox-gallery data-portfolio-masonry-gallery aria-label="Editorial illustrations">
   <nav class="editorial-filters" aria-label="Filter editorial illustrations by theme">
     {{- range $filterCategories }}
       {{- $filterKey := lower . -}}
@@ -29,7 +23,7 @@
 
   <p class="editorial-filter-status" data-editorial-filter-status aria-live="polite"></p>
 
-  <div class="editorial-gallery__grid" data-editorial-grid>
+  <div class="editorial-gallery__grid portfolio-masonry__grid" data-editorial-grid data-portfolio-masonry-grid>
     {{- range sort $images "Name" "asc" }}
       {{- $image := . -}}
       {{- $metadata := $image.Params.editorial -}}
@@ -48,8 +42,8 @@
           {{- $categoryKeys = $categoryKeys | append $categoryKey -}}
         {{- end -}}
       {{- end -}}
-      {{- if or (eq (len $categoryKeys) 0) (gt (len $categoryKeys) 3) }}
-        {{- errorf "Editorial image %q needs one to three unique categories in %s" $image.Name $.File.Path -}}
+      {{- if or (eq (len $categoryKeys) 0) (gt (len $categoryKeys) 4) }}
+        {{- errorf "Editorial image %q needs one to four unique categories in %s" $image.Name $.File.Path -}}
       {{- end -}}
       {{- $sourceParts := slice -}}
       {{- with $metadata.type }}
@@ -63,7 +57,7 @@
       {{- $color := index $thumbnail.Colors 0 | default "transparent" -}}
       <a
         id="{{ $image.Name | urlize }}"
-        class="editorial-card gallery-item"
+        class="editorial-card portfolio-masonry__card gallery-item"
         href="{{ if $publishResources }}{{ $image.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}"
         data-editorial-categories="{{ delimit $categoryKeys " " }}"
         data-pswp-src="{{ $full.RelPermalink }}"
@@ -74,7 +68,7 @@
         itemscope
         itemtype="https://schema.org/ImageObject"
       >
-        <figure class="editorial-card__figure" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
+        <figure class="editorial-card__figure portfolio-masonry__figure" style="background-color: {{ $color }}; aspect-ratio: {{ $thumbnail.Width }} / {{ $thumbnail.Height }};">
           <img
             class="lazyload"
             width="{{ $thumbnail.Width }}"
@@ -90,7 +84,7 @@
             <span class="editorial-card__source">{{ delimit . " | " }}</span>
           {{- end }}
         </span>
-        {{- if eq $image.Name $newResourceName }}
+        {{- if in $newResourceNames $image.Name }}
           <span class="gallery-new-badge">NEW</span>
         {{- end }}
         <meta itemprop="contentUrl" content="{{ if $publishResources }}{{ $image.RelPermalink }}{{ else }}{{ $full.RelPermalink }}{{ end }}" />

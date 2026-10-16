@@ -2,12 +2,12 @@ import PhotoSwipeLightbox from "./photoswipe/photoswipe-lightbox.esm.js";
 import PhotoSwipe from "./photoswipe/photoswipe.esm.js";
 import * as params from "@params";
 
-const gallery = document.querySelector("[data-editorial-lightbox-gallery]")
+const gallery = document.querySelector("[data-portfolio-masonry-gallery]")
   || document.getElementById("gallery")
   || document.querySelector("[data-mopo-lightbox-gallery]");
 const galleryHistoryStateKey = "mopoGalleryEntry";
-const galleryItemSelector = gallery?.matches("[data-editorial-lightbox-gallery]")
-  ? ".editorial-card.gallery-item:not([hidden])"
+const galleryItemSelector = gallery?.matches("[data-portfolio-masonry-gallery]")
+  ? ".portfolio-masonry__card.gallery-item:not([hidden])"
   : gallery?.matches("[data-mopo-lightbox-gallery]")
   ? ".home-v2__work-link.gallery-item[data-pswp-src][data-pswp-target]"
   : ".gallery-item";

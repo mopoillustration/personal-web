@@ -2168,11 +2168,10 @@ nav.categories > ul li > a {
 }
 
 /* ===========================================================================
-   Editorial Illustration: metadata-led masonry columns and single filters.
-   This is intentionally scoped so Narrative, Daily Art, and other Gallery
-   pages keep their existing justified layout.
+   Portfolio Masonry: shared native layout for Editorial and Daily Art.
+   Editorial alone adds metadata and single-select filters.
    ========================================================================== */
-section.editorial-gallery {
+section.portfolio-masonry-gallery {
     max-width: 1440px;
 }
 
@@ -2212,7 +2211,7 @@ section.editorial-gallery {
 }
 
 .editorial-filter:focus-visible,
-.editorial-card:focus-visible {
+.portfolio-masonry__card:focus-visible {
     outline: 2px solid var(--text-1);
     outline-offset: 3px;
 }
@@ -2229,17 +2228,17 @@ section.editorial-gallery {
     white-space: nowrap;
 }
 
-.editorial-gallery__grid {
-    --editorial-column-count: 1;
+.portfolio-masonry__grid {
+    --portfolio-masonry-column-count: 1;
 
     position: relative;
     display: grid;
-    grid-template-columns: repeat(var(--editorial-column-count), minmax(0, 1fr));
+    grid-template-columns: repeat(var(--portfolio-masonry-column-count), minmax(0, 1fr));
     column-gap: clamp(1rem, 2vw, 1.5rem);
     row-gap: clamp(2.5rem, 5vw, 4rem);
 }
 
-.editorial-card {
+.portfolio-masonry__card {
     position: relative;
     display: block;
     min-width: 0;
@@ -2247,33 +2246,33 @@ section.editorial-gallery {
     text-decoration: none;
 }
 
-.editorial-card[hidden] {
+.portfolio-masonry__card[hidden] {
     display: none;
 }
 
-.editorial-gallery__grid.is-masonry-enhanced {
+.portfolio-masonry__grid.is-masonry-enhanced {
     display: block;
 }
 
-.editorial-gallery__grid.is-masonry-enhanced .editorial-card {
+.portfolio-masonry__grid.is-masonry-enhanced .portfolio-masonry__card {
     position: absolute;
     inset: 0 auto auto 0;
     margin: 0;
 }
 
-.editorial-card__figure {
+.portfolio-masonry__figure {
     margin: 0;
     overflow: hidden;
 }
 
-.editorial-card__figure img {
+.portfolio-masonry__figure img {
     display: block;
     width: 100%;
     height: auto;
     transition: opacity 160ms ease;
 }
 
-.editorial-card:hover .editorial-card__figure img {
+.portfolio-masonry__card:hover .portfolio-masonry__figure img {
     opacity: 0.92;
 }
 
@@ -2308,14 +2307,14 @@ section.editorial-gallery {
 }
 
 @media screen and (min-width: 768px) and (orientation: landscape) {
-    .editorial-gallery__grid {
-        --editorial-column-count: 2;
+    .portfolio-masonry__grid {
+        --portfolio-masonry-column-count: 2;
     }
 }
 
 @media screen and (min-width: 1180px) and (orientation: landscape) {
-    .editorial-gallery__grid {
-        --editorial-column-count: 3;
+    .portfolio-masonry__grid {
+        --portfolio-masonry-column-count: 3;
     }
 }
 

@@ -1,23 +1,26 @@
 {{ $page := .Page }}
 {{ $compact := .Compact | default false }}
 {{ $navigationNames := slice
-  "Narrative Illustration"
+  "Narrative Series"
   "Editorial Illustration"
   "Daily Art"
   "News & Notes"
   "About Me"
 }}
 {{ $navigationClasses := dict
-  "Narrative Illustration" "narrative"
+  "Narrative Series" "narrative"
   "Editorial Illustration" "editorial"
   "Daily Art" "daily"
   "News & Notes" "news"
   "About Me" "about"
 }}
+{{ $expandedLabels := dict
+  "Daily Art" "Individual Illustration"
+}}
 {{ $compactLabels := dict
-  "Narrative Illustration" "Narrative"
+  "Narrative Series" "Narrative"
   "Editorial Illustration" "Editorial"
-  "Daily Art" "Daily Art"
+  "Daily Art" "Individual"
   "News & Notes" "News & Notes"
   "About Me" "About"
 }}
@@ -29,7 +32,7 @@
       {{ if eq (len $matches) 1 }}
         {{ with index $matches 0 }}
           <li>
-            <a class="home-v2__navigation-link home-v2__navigation-link--{{ index $navigationClasses $name }}" href="{{ .URL }}"{{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }} aria-current="page"{{ end }}>{{ if $compact }}{{ index $compactLabels $name }}{{ else }}{{ .Name }}{{ end }}</a>
+            <a class="home-v2__navigation-link home-v2__navigation-link--{{ index $navigationClasses $name }}" href="{{ .URL }}"{{ if or ($page.IsMenuCurrent .Menu .) ($page.HasMenuCurrent .Menu .) }} aria-current="page"{{ end }}>{{ if $compact }}{{ index $compactLabels $name }}{{ else }}{{ index $expandedLabels $name | default .Name }}{{ end }}</a>
           </li>
         {{ end }}
       {{ else }}

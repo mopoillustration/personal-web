@@ -26,7 +26,7 @@
             return;
         }
 
-        const gallery = document.querySelector('[data-editorial-lightbox-gallery]')
+        const gallery = document.querySelector('[data-portfolio-masonry-gallery]')
             || document.getElementById('gallery');
         if (!gallery || gallery.style.visibility === 'hidden') return;
 
@@ -48,7 +48,7 @@
 
         const isGalleryClick = e.target.closest(
             '#gallery .gallery-item[data-pswp-src][data-pswp-target], '
-            + '[data-editorial-lightbox-gallery] .editorial-card.gallery-item[data-pswp-src][data-pswp-target], '
+            + '[data-portfolio-masonry-gallery] .portfolio-masonry__card.gallery-item[data-pswp-src][data-pswp-target], '
             + '[data-mopo-lightbox-gallery] .home-v2__work-link.gallery-item[data-pswp-src][data-pswp-target]'
         );
         

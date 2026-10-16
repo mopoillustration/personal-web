@@ -1,5 +1,5 @@
 ---
-title: "Narrative Illustration"
+title: "Narrative Series"
 sort_by: "weight"
 description: "A collection of narrative illustration projects centered on emotion, atmosphere, and everyday storytelling."
 menus: "main"

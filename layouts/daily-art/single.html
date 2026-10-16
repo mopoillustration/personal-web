@@ -1,0 +1,15 @@
+{{ define "main" }}
+  <hgroup class="gallery-heading--portfolio daily-art-heading">
+    <h1>Individual Illustration</h1>
+    {{ with .Params.Description }}
+      <p>{{ . | markdownify }}</p>
+    {{ end }}
+  </hgroup>
+  {{ partial "daily-art-masonry-gallery.html" . }}
+  {{ partial "related.html" . }}
+  {{ with .Content }}
+    <section class="prose">
+      {{ . }}
+    </section>
+  {{ end }}
+{{ end }}
