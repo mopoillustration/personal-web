@@ -23,19 +23,20 @@ type: about
 ---
 
 ### Awards & Recognition
+* **2026** | Directory Listing | [Creativehowl Illustrator Directory](https://creativehowl.com/work/mopo/)
 * **2026** | Interview | VoyageATL, [Artist Spotlight on Mopo](https://www.hiddengeminterviews.com/profile/mopo)
 * **2026** | Feature | The AOI's Instagram
 * **2026** | Feature | **WIA2026 Shortlist Showcase**, Self-Talk as Night Falls
 * **2026** | Feature | [Creative Boom's Ten Under 10K](https://www.instagram.com/p/DcBasuSDBUR/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==)
 * **2026** | Feature| [BRILLO Magazine](https://www.instagram.com/p/DcGdyo6N75g/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==)
 * **2026** | Award | World Illustration Awards, **Longlisted & Shortlisted**, [Self-Talk as Night Falls](https://worldillustrationawards.com/projects/mopo-self-talk-as-night-falls)
-* **2026** | Mentorship |The AOI, [Mentee](https://www.instagram.com/p/DbI0RUvjE3c/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==)
+* **2026** | Mentorship | The AOI, [Mentee](https://www.instagram.com/p/DbI0RUvjE3c/?utm_source=ig_web_copy_link&stkn=MzRlODBiNWFlZA==)
 
 ---
 
 ### Education
-* **2024** | MA, HfK Bremen
-* **2021** | BA, Dalian Polytechnic University
+* **2024** | MA, HfK Bremen, Germany
+* **2021** | BA, Dalian Polytechnic University, China
 
 ---
 
